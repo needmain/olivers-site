@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Takeaway Menu - Oliver's Fish & Chips</title>
+    <link rel="stylesheet" href="css/style.css?v=4">
+    <script src="js/nav.js"></script>
+    <style>
+        .menu-section { padding: 50px 0 35px; }
+        .menu-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .menu-page-title { color: #1f5c28; font-size: 2.8rem; font-weight: 800; margin-bottom: 6px; text-align: center; }
+        .menu-page-subtitle { color: #6b7280; text-align: center; margin-bottom: 30px; font-size: 0.9rem; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+        .menu-col { display: flex; flex-direction: column; gap: 16px; }
+        .menu-category { background: #ffffff; border: 2px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 0.3s ease; }
+        .menu-category:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-color: #d1d5db; }
+        .menu-category h3 { color: #1f5c28; font-size: 1.05rem; font-weight: 700; margin: 0 0 14px 0; padding-bottom: 8px; border-bottom: 3px solid #2d7d3a; display: inline-block; }
+        .menu-item { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; padding-bottom: 7px; border-bottom: 1px dotted #d1d5db; }
+        .menu-item:last-child { border-bottom: none; margin-bottom: 0; }
+        .menu-item-name { font-weight: 600; color: #1f2937; flex: 1; padding-right: 12px; font-size: 0.85rem; }
+        .menu-item-price { font-weight: 700; color: #2d7d3a; white-space: nowrap; font-size: 0.85rem; }
+        .menu-item-note { font-size: 0.75rem; color: #6b7280; font-style: italic; margin-top: 2px; }
+        .info-box { background: #f0fdf4; border-left: 5px solid #2d7d3a; border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 0.85rem; }
+        .info-box strong { color: #1f5c28; }
+        .menu-hero { background: var(--green); color: white; text-align: center; padding: 45px 20px 35px; margin-top: 60px; }
+        .menu-hero .menu-page-title { color: white; margin-bottom: 6px; }
+        .menu-hero .menu-page-subtitle { color: rgba(255,255,255,0.92); max-width: 700px; margin: 0 auto; }
+        @media (max-width: 640px) { .menu-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <a href="index.html" class="logo"><span class="logo-main">Oliver's</span><span class="logo-sub">Fish & Chips</span></a>
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="restaurant.html">Restaurant</a></li>
+                    <li><a href="takeaway.html">Takeaway</a></li>
+                    <li><a href="kids.html">Oliver's for Kids</a></li>
+                    <li><a href="catered-packages.html">Catered Packages</a></li>
+                    <li><a href="giftvouchers.html">Gift Vouchers</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="menu-section">
+        <div class="menu-hero">
+            <h1 class="menu-page-title">Takeaway Menu</h1>
+            <p class="menu-page-subtitle">Award-winning Fish &amp; Chips.</p>
+        </div>
+        <div class="menu-container">
+
+            <div class="menu-grid">
+
+                <div class="menu-col">
+
+                    <div class="menu-category">
+                        <h3>Fish</h3>
+                        <div class="menu-item"><div class="menu-item-name">Standard Cod</div><div class="menu-item-price">£6.35</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Large Cod</div><div class="menu-item-price">£8.40</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Standard Haddock</div><div class="menu-item-price">£6.65</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Large Haddock</div><div class="menu-item-price">£8.70</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Huss (Rock)</div><div class="menu-item-price">£7.45</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Standard Plaice</div><div class="menu-item-price">£6.35</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Large Plaice</div><div class="menu-item-price">£9.50</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Cod Roe</div><div class="menu-item-price">£2.75</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Wholetail Scampi</div><div class="menu-item-price">£7.80</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Homemade Fishcake</div><div class="menu-item-price">£3.00</div></div>
+                    </div>
+
+                    <div class="menu-category">
+                        <h3>Chips</h3>
+                        <div class="menu-item"><div class="menu-item-name">Regular Chips</div><div class="menu-item-price">£3.15</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Large Chips</div><div class="menu-item-price">£5.10</div></div>
+                    </div>
+
+                    <div class="menu-category">
+                        <h3>Meat</h3>
+                        <div class="menu-item"><div class="menu-item-name">Chicken & Mushroom Pie</div><div class="menu-item-price">£4.35</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Steak & Kidney Pie</div><div class="menu-item-price">£4.35</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Steak & Ale Pie</div><div class="menu-item-price">£4.35</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Beef & Onion Pie</div><div class="menu-item-price">£4.35</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Burger ¼ pounder</div><div class="menu-item-price">£4.50</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Cheeseburger ¼ pounder</div><div class="menu-item-price">£4.85</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Chicken Burger</div><div class="menu-item-price">£4.95</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Chicken Burger w/Cheese</div><div class="menu-item-price">£5.40</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Chicken Nuggets</div><div class="menu-item-price">£4.25</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Jumbo Sausage (plain/batt)</div><div class="menu-item-price">£3.40</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Saveloy</div><div class="menu-item-price">£3.40</div></div>
+                        <div class="menu-item"><div class="menu-item-name">¼ Chicken Leg</div><div class="menu-item-price">£5.25</div></div>
+                        <div class="menu-item"><div class="menu-item-name">¼ Chicken Breast</div><div class="menu-item-price">£5.85</div></div>
+                        <div class="menu-item"><div class="menu-item-name">½ Chicken</div><div class="menu-item-price">£10.50</div></div>
+                    </div>
+
+                    <div class="menu-category">
+                        <h3>Vegetarian</h3>
+                        <div class="menu-item"><div class="menu-item-name">Veggie Burger</div><div class="menu-item-price">£4.55</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Veggie Burger w/Cheese</div><div class="menu-item-price">£5.00</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Onion Rings</div><div class="menu-item-price">£2.95</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Homemade Halloumi Fries</div><div class="menu-item-price">£4.85</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Homemade Mozzarella Dippers</div><div class="menu-item-price">£4.75</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Garlic Breaded Mushrooms w/ garlic mayo dip</div><div class="menu-item-price">£4.25</div></div>
+                    </div>
+
+                </div>
+
+                <div class="menu-col">
+
+                    <div class="menu-category">
+                        <h3>Sides</h3>
+                        <div class="menu-item"><div class="menu-item-name">Homemade Mushy Peas</div><div class="menu-item-price">£2.45</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Curry Sauce</div><div class="menu-item-price">£2.45</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Heinz Baked Beans</div><div class="menu-item-price">£2.45</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Gravy</div><div class="menu-item-price">£2.30</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Cheese Sauce pot</div><div class="menu-item-price">£2.30</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Pea Fritter</div><div class="menu-item-price">£0.80</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Beanie (baked beans)</div><div class="menu-item-price">£2.95</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Bread Roll</div><div class="menu-item-price">£1.10</div></div>
+                    </div>
+
+                    <div class="menu-category">
+                        <h3>Pickles</h3>
+                        <div class="menu-item"><div class="menu-item-name">Gherkin</div><div class="menu-item-price">£0.95</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Pickled Egg</div><div class="menu-item-price">£1.25</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Pickled Onion</div><div class="menu-item-price">£0.70</div></div>
+                    </div>
+
+                    <div class="menu-category">
+                        <h3>Drinks</h3>
+                        <div class="menu-item"><div class="menu-item-name">Cans (Red Coke & Rio 20p extra)</div><div class="menu-item-price">£1.35</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Mineral Water 500ml</div><div class="menu-item-price">£1.35</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Fruit Shoot 200ml</div><div class="menu-item-price">£1.30</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Tea / Freshly Ground Coffee</div><div class="menu-item-price">Ask in-store</div></div>
+                    </div>
+
+                    <div class="menu-category">
+                        <h3>Desserts</h3>
+                        <div class="menu-item"><div class="menu-item-name">Banana Fritters (1)</div><div class="menu-item-price">£3.15</div></div>
+                        <div class="menu-item"><div class="menu-item-name">Pineapple Fritters (2)</div><div class="menu-item-price">£3.15</div></div>
+                        <div class="menu-item"><div class="menu-item-name">New Forest Ice Cream tub (vanilla, chocolate ripple, strawberry ripple)</div><div class="menu-item-price">£2.95</div></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <p style="text-align:center; margin: 18px 0 22px;">
+                <a href="takeaway-menu.html" class="menu-download-btn" title="Download or print the takeaway menu" target="_blank">
+                    <span aria-hidden="true">🖨️</span> <span class="menu-download-text">Download / Print Takeaway Menu</span>
+                </a>
+            </p>
+
+            <div class="info-box" style="margin-top:35px;">
+                <strong>Catch of the Day</strong> available daily with chips £13.35 — please ask about today's fresh fish specials. Subject to market availability.
+            </div>
+            <p class="menu-item-note" style="text-align:center; margin-top:16px;">Food Allergies &amp; Intolerances: full details on request.</p>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
+        </div>
+    </footer>
+</body>
+</html>

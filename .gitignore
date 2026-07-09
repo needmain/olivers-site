@@ -1,0 +1,31 @@
+# Windows system files
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# OneDrive sync temp files
+*.tmp
+~$*
+.~lock.*
+
+# Dev / mockup / preview pages (not part of the live site)
+font-cursive.html
+font-preview.html
+font-preview2.html
+stock-preview.html
+_restaurant-feature-designs.html
+_party-icon-mockup.html
+_party-icon-context.html
+
+# Deploy artifacts (separate folder outside the repo)
+C:\OLIVERS_WEB_deploy
+
+# Netlify local state
+.netlify/
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
