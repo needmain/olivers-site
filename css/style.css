@@ -646,17 +646,28 @@ body {
 }
 
 .footer-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 60px;
     margin-bottom: 40px;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        gap: 12px;
+    }
 }
 
 .footer-title {
     color: white;
     font-size: 1.05rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+}
+
+.footer-section p {
+    margin: 2px 0;
 }
 
 .footer-bottom {
@@ -755,5 +766,9 @@ body {
 
     .gallery-grid {
         grid-template-columns: 1fr;
+    }
+
+    .menu-hero {
+        padding: 55px 20px 30px;
     }
 }
