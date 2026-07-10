@@ -669,6 +669,11 @@ body {
     margin: 2px 0;
 }
 
+.footer-section a {
+    color: white;
+    text-decoration: underline;
+}
+
 .footer-bottom {
     border-top: 1px solid #374151;
     padding-top: 20px;
