@@ -772,3 +772,15 @@ body {
         padding: 55px 20px 30px;
     }
 }
+
+@media (max-width: 1024px) {
+    .hero {
+        height: auto;
+        min-height: 400px;
+        padding: 100px 20px 40px;
+    }
+
+    .hero-content {
+        padding-top: 0;
+    }
+}
