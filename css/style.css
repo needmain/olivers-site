@@ -520,7 +520,7 @@ body {
     background: var(--green);
     color: white;
     text-align: center;
-    padding: 80px 20px 60px;
+    padding: 45px 20px 35px;
     margin-top: 60px;
 }
 
@@ -787,7 +787,7 @@ body {
     }
 
     .menu-hero {
-        padding: 55px 20px 30px;
+        padding: 38px 20px 26px;
     }
 }
 
