@@ -302,22 +302,28 @@ body {
     color: white;
 }
 
-/* Page headers */
-.page-hero {
+/* Page / Menu headers — shared styling */
+.site-banner {
     background: var(--green);
     color: white;
     text-align: center;
-    padding: 80px 20px 60px;
+    padding: 30px 20px 25px;
     margin-top: 60px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-.page-hero .section-title {
+.site-banner .section-title {
     color: white;
     margin-bottom: 12px;
     font-size: 2.7rem;
 }
 
-.page-hero p {
+.site-banner p {
     max-width: 700px;
     margin: 0 auto;
     opacity: 0.92;
@@ -413,7 +419,6 @@ body {
 
 .menu-section {
     scroll-margin-top: 96px;
-    padding-top: 22px;
 }
 
 /* Awards banner - small and discreet */
@@ -515,17 +520,10 @@ body {
     font-family: 'Oswald', sans-serif;
 }
 
-/* Restaurant / Takeaway page headers */
-.menu-hero {
-    background: var(--green);
-    color: white;
-    text-align: center;
-    padding: 45px 20px 35px;
-    margin-top: 60px;
-}
+/* Restaurant / Takeaway page headers — now shared with .page-hero above */
 
 .menu-section {
-    padding: 20px 0 60px;
+    padding: 0 0 60px;
     background: var(--cream);
 }
 
@@ -786,8 +784,9 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .menu-hero {
-        padding: 38px 20px 26px;
+    .site-banner {
+        padding: 22px 20px 18px;
+        min-height: 150px;
     }
 }
 
