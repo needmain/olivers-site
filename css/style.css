@@ -335,19 +335,6 @@ body {
     background: white;
 }
 
-.notice-section {
-    background: #fff3cd;
-    border-top: 3px solid #e6a700;
-    border-bottom: 3px solid #e6a700;
-    padding: 18px 0;
-}
-
-.notice-text {
-    text-align: center;
-    margin: 0;
-    font-weight: 600;
-    color: #333;
-}
 
 .info-grid {
     display: grid;
