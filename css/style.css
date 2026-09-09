@@ -196,7 +196,7 @@ body {
 }
 
 .hero-logo-main {
-    font-size: clamp(4.2rem, 8.5vw, 6rem);
+    font-size: clamp(6rem, 12vw, 9rem);
     font-weight: 900;
     letter-spacing: -1px;
     line-height: 1;
