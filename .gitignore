@@ -29,3 +29,35 @@ C:\OLIVERS_WEB_deploy
 .idea/
 *.swp
 *.swo
+# Second shop mockup (preview only)
+_olivers-too-mockup.html
+_olivers-too-fish-o.html
+# Fish-O mockup images (preview only)
+images/_fish-o-hero.png
+images/_fish-o-nav.png
+# Preview-only scoped stylesheet (must NEVER reach production)
+css/_preview-scope.css
+# London Road "About Us" mockup (preview only)
+_about-london-v2.html
+# London Road "Restaurant" mockup (preview only)
+_restaurant-london-v2.html
+# London Road designed "Restaurant menu" mockup (preview only)
+_restaurant-menu-london-v2.html
+# Menu colour-option comparison board (preview only)
+_menu-colour-options.html
+# Printable restaurant menu (preview only; generated from the menu page)
+_restaurant-menu-print-london-v2.html
+# Its generator — re-run after editing the menu page (see the pages' comments)
+_build-print-menu.py
+# One-off migration script (logo size + option B colours); kept for reference only
+_apply-logo-and-colours.py
+# Follow-up migration (logo left + seam fix); reference only
+_apply-logo-left-and-seam.py
+# Nav-row logo restructure; reference only
+_apply-logo-on-navrow.py
+# Preview-only photo assets (lightened interior for the mockup)
+images/_preview-*
+# Preview hub — one link to every local mockup page
+_preview-index.html
+# Preview-only "back to hub" button script (loaded by mockup pages only)
+js/_preview-hub.js

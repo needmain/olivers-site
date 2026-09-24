@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu colour options — navy / green / gold (mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   Menu colour-option board.
+   Not a page of the site — a comparison sheet. Each option renders the SAME
+   menu slice, so only colour differs. All three drop the solid navy hero bar
+   (the menu now starts straight under the nav, as Poppies do).
+
+   Palette fixed across all options: navy #0B1B2B, brand green #2F8C4A,
+   green-dark #26713C, green-pale #D9EADB, gold #E0A96D.
+   Per-option differences are declared ONCE as custom properties on .opt-x and
+   consumed by the shared rules below, so nothing is duplicated.
+   ========================================================================== */
+:root {
+    --navy: #0B1B2B;
+    --green: #2F8C4A;
+    --green-dark: #26713C;
+    --green-pale: #D9EADB;
+    --gold: #E0A96D;
+    --ink: #46505C;
+    --mute: #8B95A1;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: #F4F6F8;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+}
+.board { max-width: 1180px; margin: 0 auto; padding: 34px 22px 70px; }
+.board > h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin: 0 0 6px;
+}
+.board > p { margin: 0 0 30px; font-size: 0.95rem; color: var(--mute); max-width: 78ch; }
+
+.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
+.panel { background: #fff; border: 1px solid rgba(11, 27, 43, 0.10); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(11, 27, 43, 0.07); }
+.panel > header { padding: 16px 20px 14px; border-bottom: 1px solid rgba(11, 27, 43, 0.08); background: #FBFCFD; }
+.panel > header b { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--navy); display: block; }
+.panel > header span { font-size: 0.82rem; color: var(--mute); display: block; margin-top: 3px; line-height: 1.5; }
+.slice { padding: 26px 24px 30px; }
+
+/* ---- shared menu styling; colours come from the per-option variables ---- */
+.eyebrow {
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.66rem;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--rule);
+    display: block; margin-bottom: 8px;
+}
+.slice h1 {
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.75rem;
+    color: var(--navy); margin: 0 0 6px;
+}
+.slice h1 + .hrule { width: 64px; height: 4px; border-radius: 2px; background: var(--rule); margin-bottom: 24px; }
+.slice h3 {
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.82rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--h3); margin: 0 0 12px; padding-top: 12px;
+    border-top: 3px solid var(--rule);
+}
+.slice h3.inline { display: inline-block; }
+.slice h4 {                                    /* sub-section heading = a divider */
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--h4); margin: 20px 0 10px; padding-top: 12px;
+    border-top: 1px solid var(--div);
+}
+.note { font-size: 0.82rem; color: var(--mute); margin: 0 0 12px; }
+.row { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 10px; padding: 6px 0; }
+.row.two { grid-template-columns: auto 1fr auto auto; }
+.nm { font-size: 0.95rem; color: var(--ink); }
+.dots { border-bottom: 2px dotted rgba(11, 27, 43, 0.22); transform: translateY(-3px); }
+.pr {
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--price); min-width: 54px; text-align: right; font-variant-numeric: tabular-nums;
+}
+.callout { margin-top: 26px; border-radius: 12px; padding: 16px 18px; background: var(--callout-bg); border: 1px solid var(--callout-line); }
+.callout h3 { border: 0; padding: 0; margin: 0 0 6px; color: var(--callout-h); }
+.callout p { margin: 0; font-size: 0.86rem; color: var(--ink); }
+.kids { margin-top: 16px; border-radius: 12px; padding: 16px 18px; background: var(--kids-bg); border: 1px solid var(--kids-line); }
+.kids h3 { border: 0; padding: 0; margin: 0 0 6px; color: var(--kids-h); }
+.kids p { margin: 0 0 6px; font-size: 0.86rem; color: var(--ink); }
+.kids p:last-child { margin-bottom: 0; }
+
+/* ---- the three options: variables only, no duplicated rules ---- */
+/* A — GREEN-LED: green does the structural work (rules, headings, dividers) */
+.opt-a {
+    --rule: var(--green);
+    --h3: var(--green); --h4: var(--green-dark);
+    --div: #BFDCC6;
+    --price: var(--navy);
+    --callout-bg: rgba(224, 169, 109, 0.13); --callout-line: rgba(224, 169, 109, 0.45);
+    --callout-h: #8A5A1E;
+    --kids-bg: #EAF5EC; --kids-line: #BFDCC6; --kids-h: var(--green-dark);
+}
+/* B — NAVY HEADINGS, GREEN RULES + GREEN DIVIDERS (closest to the brief) */
+.opt-b {
+    --rule: var(--green);
+    --h3: var(--navy); --h4: var(--navy);
+    --div: #BFDCC6;
+    --price: var(--navy);
+    --callout-bg: rgba(224, 169, 109, 0.13); --callout-line: rgba(224, 169, 109, 0.45);
+    --callout-h: #8A5A1E;
+    --kids-bg: #EAF5EC; --kids-line: #BFDCC6; --kids-h: var(--green-dark);
+}
+/* C — GOLD RULES, GREEN PRICES + deeper green kids block */
+.opt-c {
+    --rule: var(--gold);
+    --h3: var(--navy); --h4: var(--navy);
+    --div: rgba(224, 169, 109, 0.55);
+    --price: var(--green-dark);
+    --callout-bg: rgba(47, 140, 74, 0.10); --callout-line: rgba(47, 140, 74, 0.35);
+    --callout-h: var(--green-dark);
+    --kids-bg: var(--green-pale); --kids-line: #A9CDB3; --kids-h: #1E6234;
+}
+
+.footnote { margin-top: 30px; font-size: 0.85rem; color: var(--mute); }
+.footnote a { color: var(--green-dark); }
+</style>
+</head>
+<body>
+<div class="board">
+    <h1>Restaurant Menu — colour options</h1>
+    <p>Three ways to bring the Oliver's green into the menu. <strong>All three drop the solid navy hero bar</strong> — the heading now sits on white under the nav, as Poppies do.
+       Every panel below is the <em>same</em> menu slice; only colour differs. Brand green <strong>#2F8C4A</strong>, navy <strong>#0B1B2B</strong>, gold <strong>#E0A96D</strong>.</p>
+
+    <div class="panels">
+
+        <!-- ============ OPTION A ============ -->
+        <section class="panel opt opt-a">
+            <header><b>Option A — Green-led</b><span>Green does the structural work: eyebrow, heading rule, section rules, sub-section dividers and the kids block. Gold is kept for the Early Bird only.</span></header>
+            <div class="slice">
+                <span class="eyebrow">London Road</span>
+                <h1>Restaurant Menu</h1>
+                <div class="hrule"></div>
+                <h3>Starters</h3>
+                <p class="note">Please see the chalkboards for the Specials and Catch of the Day.</p>
+                <div class="row"><span class="nm">Soup of the Day</span><span class="dots"></span><span class="pr">5.35</span></div>
+                <div class="row"><span class="nm">Prawn Cocktail</span><span class="dots"></span><span class="pr">7.25</span></div>
+                <div class="row"><span class="nm">Whitebait</span><span class="dots"></span><span class="pr">7.25</span></div>
+                <h4>Chicken</h4>
+                <div class="row"><span class="nm">Leg</span><span class="dots"></span><span class="pr">12.35</span></div>
+                <div class="row"><span class="nm">Half</span><span class="dots"></span><span class="pr">15.95</span></div>
+                <div class="callout"><h3>Early Bird</h3><p>From 12pm until 6pm — Small Cod and chips <strong>10.25</strong>.</p></div>
+                <div class="kids"><h3>Oliver's for Kids</h3><p>Under 12's only. Main meal, drink &amp; dessert included.</p><p>Cod fillet <strong>7.25</strong> · Burger <strong>6.80</strong></p></div>
+            </div>
+        </section>
+
+        <!-- ============ OPTION B ============ -->
+        <section class="panel opt opt-b">
+            <header><b>Option B — Navy headings, green rules</b><span>Exactly your suggestion: sub-section dividers go green and the kids block goes faded green, while headings stay navy for contrast. The most restrained of the three.</span></header>
+            <div class="slice">
+                <span class="eyebrow">London Road</span>
+                <h1>Restaurant Menu</h1>
+                <div class="hrule"></div>
+                <h3>Starters</h3>
+                <p class="note">Please see the chalkboards for the Specials and Catch of the Day.</p>
+                <div class="row"><span class="nm">Soup of the Day</span><span class="dots"></span><span class="pr">5.35</span></div>
+                <div class="row"><span class="nm">Prawn Cocktail</span><span class="dots"></span><span class="pr">7.25</span></div>
+                <div class="row"><span class="nm">Whitebait</span><span class="dots"></span><span class="pr">7.25</span></div>
+                <h4>Chicken</h4>
+                <div class="row"><span class="nm">Leg</span><span class="dots"></span><span class="pr">12.35</span></div>
+                <div class="row"><span class="nm">Half</span><span class="dots"></span><span class="pr">15.95</span></div>
+                <div class="callout"><h3>Early Bird</h3><p>From 12pm until 6pm — Small Cod and chips <strong>10.25</strong>.</p></div>
+                <div class="kids"><h3>Oliver's for Kids</h3><p>Under 12's only. Main meal, drink &amp; dessert included.</p><p>Cod fillet <strong>7.25</strong> · Burger <strong>6.80</strong></p></div>
+            </div>
+        </section>
+
+        <!-- ============ OPTION C ============ -->
+        <section class="panel opt opt-c">
+            <header><b>Option C — Gold rules, green prices</b><span>The strongest green presence: prices in the brand green and a deeper green kids block, with gold carrying the rules. Warmest and the most distinctive.</span></header>
+            <div class="slice">
+                <span class="eyebrow">London Road</span>
+                <h1>Restaurant Menu</h1>
+                <div class="hrule"></div>
+                <h3>Starters</h3>
+                <p class="note">Please see the chalkboards for the Specials and Catch of the Day.</p>
+                <div class="row"><span class="nm">Soup of the Day</span><span class="dots"></span><span class="pr">5.35</span></div>
+                <div class="row"><span class="nm">Prawn Cocktail</span><span class="dots"></span><span class="pr">7.25</span></div>
+                <div class="row"><span class="nm">Whitebait</span><span class="dots"></span><span class="pr">7.25</span></div>
+                <h4>Chicken</h4>
+                <div class="row"><span class="nm">Leg</span><span class="dots"></span><span class="pr">12.35</span></div>
+                <div class="row"><span class="nm">Half</span><span class="dots"></span><span class="pr">15.95</span></div>
+                <div class="callout"><h3>Early Bird</h3><p>From 12pm until 6pm — Small Cod and chips <strong>10.25</strong>.</p></div>
+                <div class="kids"><h3>Oliver's for Kids</h3><p>Under 12's only. Main meal, drink &amp; dessert included.</p><p>Cod fillet <strong>7.25</strong> · Burger <strong>6.80</strong></p></div>
+            </div>
+        </section>
+
+    </div>
+
+    <p class="footnote">Comparison sheet, not a page of the site. Pick one (or mix — e.g. B's dividers with C's prices) and I'll apply it to the real menu page. <a href="_preview-index.html">Back to all mockups</a></p>
+</div>
+<script src="js/_preview-hub.js"></script>
+</body>
+</html>

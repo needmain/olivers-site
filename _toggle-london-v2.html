@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver's — London Road (toggle mockup)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <!-- PREVIEW-ONLY overrides (never linked by production pages) -->
+    <link rel="stylesheet" href="css/_preview-scope.css?v=1">
+    <style>
+        /* Typography: Montserrat + Inter (London Road page only) */
+        .section-title, .feature-title, .nav-menu a,
+        .info-card h3, h3, h2, .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        body, p, .info-card p, .info-card .small, .feature-text,
+        .hero-tagline-sub, .footer-section p,
+        .footer-bottom, .footer-section a, .loc-note {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: var(--navy);
+        }
+        .logo-sub, .hero-logo-sub, .fp-sub,
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        /* ---- Chip-fork location toggles (user's CapCut fork asset) ---- */
+        :root { --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
+                --forest-hover: #A9CDB3; --slate: #1C2526;
+                --fork-h: clamp(20px, 2.4vw, 26px);
+                --fork-w: calc(var(--fork-h) * 1122 / 184); }
+        .location-switch {
+            display: flex; gap: 12px; align-items: center;
+            position: absolute; top: 14px; right: 20px; z-index: 101;
+        }
+        /* Shape comes from the PNG's alpha channel (mask); colour/texture comes from CSS,
+           so the same shape can be wood, a flat colour, or a tinted overlay. */
+        .loc-fork { display: block; height: var(--fork-h); width: var(--fork-w);
+                            text-decoration: none; }
+                .loc-fork svg { display: block; width: 100%; height: 100%; overflow: visible; }
+                /* Real SVG stroke = uniform-width border all the way round (equally thick on the
+                   top/bottom and the sides). The earlier mask-enlargement trick couldn't do this on
+                   a fork that is ~6x wider than it is tall. */
+                .f-body { fill: url(#woodpat); stroke: #000000; stroke-width: 5;
+                                  stroke-linejoin: round; stroke-linecap: round;
+                                  transition: fill .2s ease, stroke .2s ease; }
+                .f-wash { fill: rgba(47, 140, 74, 0.33); opacity: 0; transition: opacity .2s ease; }
+                .f-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 57px;
+                           letter-spacing: 2px; text-anchor: middle; fill: var(--slate);
+                           transition: fill .2s ease; }
+                .loc-fork:not(.active):hover .f-wash { opacity: 1; }
+                .loc-fork:hover .f-label { fill: #14191A; }
+                .loc-fork.active .f-body { fill: var(--forest); stroke: var(--slate); }
+                .loc-fork.active .f-label { fill: #ffffff; }
+                .loc-fork.active:hover .f-body { fill: var(--forest-dark); }
+        /* Right space reserves the fork toggle zone so the nav never runs under it.
+           The nav shares the logo's row and wraps within its column. */
+        .nav-container { padding-right: 330px; }
+        .nav-menu { flex: 1 1 0; min-width: 0; gap: 3px; }
+        .nav-menu a { padding: 8px 4px; font-size: 0.68rem; }
+        @media (max-width: 860px) {
+            .location-switch { position: static; width: 100%; justify-content: center; padding: 8px 0 2px; }
+            .nav-container { padding-right: 20px; }
+        }
+        /* Nav links start flush with the logo brand lock-up */
+        .loc-note {
+            text-align: center; padding: 14px 20px; background: var(--cream);
+            border-bottom: 1px solid #eee; font-family: 'Lato', sans-serif; font-size: 0.95rem;
+        }
+        .loc-note a { color: var(--green); font-weight: 700; }
+        /* Takeaway/Restaurant/Visit Us cards: white bg, green top border, rounded, soft shadow */
+        .info-card {
+            background: var(--white);
+            border-top: 3px solid var(--green);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        /* Why Choose section: navy bg, white title/subheads, soft grey body, green icons */
+        .features-section { background: var(--navy); color: white; }
+        .features-section .section-title { color: white; }
+        .feature-title { color: white; }
+        .feature-text { color: #cbd5e1; opacity: 1; }
+        .feature-icon svg { filter: none; }
+        .feature-icon { display: inline-flex; align-items: center; justify-content: center; }
+        /* Hero brand: centred lockup, balanced vertical rhythm, soft radial glow behind */
+        .hero { justify-content: center; text-align: center; }
+        .hero-brand {
+            gap: 0;
+            align-items: center;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 46px 80px;
+        }
+        .hero-fish-divider { justify-content: center; margin: 16px auto; }
+        .hero-logo-sub { margin-top: 0; }
+        .hero-tagline { margin-top: 12px; font-family: 'Dancing Script', cursive; }
+        /* ALL hero text white + subtle dark shadow for legibility */
+        .hero-logo-main { color: #FFFFFF; text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55); }
+        .hero-fish-divider { color: #FFFFFF; }
+        .hero-fish-divider svg { filter: drop-shadow(0 2px 8px rgba(11, 27, 43, 0.55)); }
+        .hero-logo-sub { color: #FFFFFF; text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55); }
+        .hero-tagline { color: #FFFFFF; text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55); }
+        /* Radial glow replaces the band overlay for contrast */
+        .hero::before { background: transparent; }
+        /* Footer: navy bg retained, white primary/headings/links, light-grey secondary */
+        .site-footer { background: var(--navy); color: #ffffff; }
+        .footer-title { color: #ffffff; }
+        .footer-section p { color: #D1D5DB; }
+        .footer-section a { color: #ffffff; }
+        .footer-section a:hover { color: var(--gold); }
+        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+
+        /* ==================================================================
+           TWO-TIER HEADER  —  scoped to THIS PAGE ONLY
+           Every selector is prefixed with body.page-toggle-london, so nothing
+           here can reach another template or the shared css/style.css.
+           Tier 1: logo (left) + chip-fork badges (right)
+           Tier 2: the full nav menu, centred beneath
+           ================================================================== */
+
+        /* The site header is position:fixed, so the page must offset its own
+           content by the header's height. Re-tuned for the two-tier header
+           (15 + 26 logo + 8 + 41 nav row + 15 = 105px) -> measured 90px header,
+           so the content offset is set to the measured height below.
+           NOTE: if the logo/fork size or tier padding changes, update this. */
+        body.page-toggle-london { padding-top: 102px; }   /* header measured 96.2px */
+
+        /* The nav container becomes the vertical stack of the two tiers */
+        body.page-toggle-london .nav-container {
+            flex-direction: column;
+            align-items: stretch;
+            flex-wrap: nowrap;
+            gap: 0;
+            padding-right: 20px;      /* release the old 330px fork reserve */
+        }
+        /* navbar's own padding would double up with Tier 1's - hand it over */
+        body.page-toggle-london .navbar { padding: 0; }
+
+        /* ---- Tier 1 rows: logo left, badges right ---- */
+        body.page-toggle-london .nav-tier-1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px 0 8px;      /* 15px clear of the top edge; 8px into the tier gap */
+        }
+        /* Badges anchor to the HEADER edge (right: 20px), exactly as on the
+           Festival Place page. In flow they inherit the centred 1200px
+           container's edge instead, which insets them by (viewport - 1200)/2
+           -> 24.5px at a 1264px window, 360px at 1920px.
+           Resolves against .site-header (position: fixed = positioned
+           ancestor); nothing positioned sits between here and there. */
+        body.page-toggle-london .nav-tier-1 .location-switch {
+            position: absolute;
+            top: 15px;                /* = tier-1 padding-top; centres the 26px badge */
+            right: 20px;
+            z-index: 101;
+            width: auto;
+            padding: 0;
+        }
+        /* forbid any logo shrink so it stays at its original readable scale */
+        body.page-toggle-london .nav-tier-1 .logo {
+            flex-shrink: 0;
+        }
+        /* enlarged to ~2/3 of the header bar (was 30px, ~1/3) */
+        /* ---- Logo ON the nav row ----
+           The logo used to sit on the strip ABOVE the tabs. `display: contents`
+           dissolves that tier's box so the logo and the location toggles join the nav
+           container directly, which is then laid out as one row: logo hard left, tabs
+           next to it, toggles pushed right by margin-left:auto. Desktop only, so the
+           mobile hamburger bar keeps its own layout. */
+        @media (min-width: 861px) {
+            /* min-height restores the bar's height: the logo is absolute now, so it
+               contributes none, and a 62px logo in a 65px bar looks cramped. No extra
+               clearance is needed here — the tabs sit in the container's own centred
+               column, as they did before, and a narrow-screen guard (below) handles
+               the case where that column would start underneath the logo. */
+            /* The container keeps its own centred max-width from style.css — that is what
+               lines the nav items up with the page content. My earlier full-width override
+               dragged them out of that column. The logo no longer consumes flow space
+               (it is absolute), so nothing needs reserving here. */
+            body.page-toggle-london .nav-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 30px;
+                padding: 12px 0;
+                min-height: 86px;
+            }
+            /* Narrow-screen guard: the absolute logo ends at ~301px, so below this the
+               centred column would start underneath it. Pushes the tabs clear instead. */
+            @media (max-width: 1620px) {
+                body.page-toggle-london .nav-menu { margin-left: 310px; }   /* clears the logo (~301px) */
+            }
+            body.page-toggle-london .nav-tier-1 { display: contents; }
+            body.page-toggle-london .nav-container { position: static; }   /* keep the header as the containing block */
+            /* Pinned to the BAR, not the container, with absolute positioning. The nav
+               container is centred with a max-width, so its left inset GROWS with the
+               viewport (~24px at 1249 wide, ~337px at 1835) — a fixed negative margin
+               only ever landed in the corner at one window size. Anchored to the fixed
+               header, 4px is 4px from the left edge at any width. */
+            body.page-toggle-london .nav-tier-1 .logo {
+                order: 1;
+                position: absolute;
+                left: 130px;   /* ~3.4cm in from the left, not jammed against the edge */
+                top: 50%;
+                transform: translateY(-50%);
+                margin-left: 0;
+            }
+            /* 190px clears the absolutely-positioned logo (~171px) plus a gap. At wider
+               viewports the container's own inset pushes the tabs further right anyway,
+               so this only ever sets a floor — it can't cause a collision. */
+            body.page-toggle-london .nav-menu { order: 2; flex-wrap: nowrap; white-space: nowrap; }
+            body.page-toggle-london .location-switch { order: 3; margin-left: auto; }
+        }
+
+        /* ---- Food hygiene award: enlarged for prominence (user request) ----
+           css/style.css renders this "small and discreet" (a 110px image inside a 160px
+           card), and that file is frozen because nine live pages share it — so the
+           enlargement is a scoped override here rather than an edit there. Roughly
+           doubled, with the shadow and corner radius scaled to suit the bigger box.
+           Overrides win on source order: style.css loads first, this block comes later. */
+        .awards-banner { padding: 26px 20px 18px; }
+        .award-card {
+            max-width: 300px;
+            padding: 16px;
+            border-radius: 14px;
+            box-shadow: 0 8px 22px rgba(11, 27, 43, 0.14);
+        }
+        .award-img { width: 230px; border-radius: 10px; }
+
+        body.page-toggle-london .nav-tier-1 .logo-main { font-size: 62px; }
+
+        /* ---- Tier 2 row: the full nav menu, left-aligned ---- */
+        body.page-toggle-london .nav-menu {
+            flex: 0 0 auto;
+            width: 100%;
+            justify-content: flex-start;
+            margin-left: -12px;       /* first tab's TEXT flush with the logo */
+            gap: 6px;
+            padding: 0 0 15px;
+        }
+        /* readable tab size - restores the shared default this page was
+           overriding with 0.68rem */
+        body.page-toggle-london .nav-menu a {
+            font-size: 0.9rem;
+            padding: 8px 12px;
+        }
+
+        /* keep the two tiers sane when space genuinely runs out */
+        @media (max-width: 860px) {
+            body.page-toggle-london .nav-tier-1 { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            /* the scoped absolute rule above outranks the page's own media
+               override, so drop the badges back into the flow here */
+            body.page-toggle-london .nav-tier-1 .location-switch {
+                position: static; width: 100%; justify-content: center; padding: 8px 0 2px;
+            }
+            body.page-toggle-london .nav-menu { flex-wrap: wrap; }
+            body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body class="page-toggle-london">
+    <svg class="fork-defs" width="0" height="0" style="position:absolute; overflow:hidden" aria-hidden="true" focusable="false">
+        <defs>
+            <pattern id="woodpat" width="1122" height="184" patternUnits="userSpaceOnUse">
+                <image href="images/chipfork-wood.png" x="0" y="0" width="1122" height="184"/>
+            </pattern>
+        </defs>
+    </svg>
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <div class="nav-tier-1">
+                    <a href="_toggle-london-v2.html" class="logo"><span class="logo-main">Oliver's</span></a>
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                <div class="location-switch">
+                                    <a href="_toggle-london-v2.html" class="loc-fork active" aria-label="London Road — current location">
+                                        <svg viewBox="0 0 1122 184" aria-hidden="true">
+                                            <path class="f-body" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
+                                            <path class="f-wash" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
+                                            <text class="f-label" x="578" y="115">LONDON ROAD</text>
+                                        </svg>
+                                    </a>
+                                    <a href="_toggle-town-v2.html" class="loc-fork" aria-label="Switch to Festival Place">
+                                        <svg viewBox="0 0 1122 184" aria-hidden="true">
+                                            <path class="f-body" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
+                                            <path class="f-wash" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
+                                            <text class="f-label" x="578" y="115">FESTIVAL PLACE</text>
+                                        </svg>
+                                    </a>
+                                </div>
+                </div><!-- /.nav-tier-1 -->
+                <ul class="nav-menu">
+                    <li><a href="_toggle-london-v2.html">Home</a></li>
+                    <li><a href="_toggle-london-v2.html">About Us</a></li>
+                    <li><a href="_restaurant-london-v2.html">Restaurant</a></li>
+                    <li><a href="_toggle-london-v2.html">Takeaway</a></li>
+                    <li class="has-dropdown">
+                        <a href="_restaurant-london-v2.html#menu" aria-haspopup="true">Menus<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="_restaurant-menu-london-v2.html">Restaurant menu</a></li>
+                            <li><a href="takeaway-menu.html">Takeaway menu</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="_toggle-london-v2.html">Oliver's for Kids</a></li>
+                    <li><a href="_toggle-london-v2.html">Catered Packages</a></li>
+                    <li><a href="_toggle-london-v2.html">Gift Vouchers</a></li>
+                    <li class="has-dropdown">
+                        <a href="_toggle-london-v2.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="_toggle-london-v2.html">London Road</a></li>
+                            <li><a href="_toggle-town-v2.html">Festival Place</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="_toggle-london-v2.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-brand">
+                <span class="hero-logo-main">Oliver's</span>
+                <span class="hero-fish-divider">
+                    <svg class="hero-fish-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img">
+                        <ellipse cx="26" cy="32" rx="18" ry="10" fill="currentColor"/>
+                        <polygon points="44,32 56,20 56,44" fill="currentColor"/>
+                        <circle cx="18" cy="32" r="3.5" fill="#0b3d2e"/>
+                        <circle cx="19.2" cy="31.2" r="1.2" fill="#ffffff"/>
+                    </svg>
+                </span>
+                <span class="hero-logo-sub">Fish &amp; Chips</span>
+                <p class="hero-tagline">famous for fish &amp; chips in Basingstoke &amp; North Hampshire</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Takeaway</h3>
+                    <p>Open all day, every day</p>
+                    <p class="small">11:30am – 9:00pm</p>
+                    <p>Famous award-winning Fish &amp; Chips</p>
+                    <a href="_toggle-london-v2.html" class="btn-outline">Takeaway Menu</a>
+                </div>
+                <div class="info-card">
+                    <h3>Restaurant</h3>
+                    <p>Open all day, every day</p>
+                    <p class="small">12:00pm – 9:00pm</p>
+                    <p>Last orders at 8:00pm</p>
+                    <a href="_toggle-london-v2.html" class="btn-outline">Restaurant Menu</a>
+                </div>
+                <div class="info-card">
+                    <h3>Visit Us</h3>
+                    <p>39 London Road</p>
+                    <p>Basingstoke</p>
+                    <p>RG24 7JE</p>
+                    <a href="_toggle-london-v2.html" class="btn-outline">How to Find Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose <span class="brand">Oliver's?</span></h2>
+            <div class="features-grid">
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Fresh Fish Daily</div><div class="feature-text">Fresh, sustainable fish and daily specials, prepared and cooked to order every day.</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Award Winning</div><div class="feature-text">Proudly recognised for our quality, taste and friendly local service.</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Takeaway &amp; Dine-in</div><div class="feature-text">Eat in or take away. Hot and fresh every time.</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Sustainable Practices</div><div class="feature-text">Committed to sourcing responsibly and minimising our environmental impact.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="awards-banner">
+        <div class="container">
+            <div class="awards-inner">
+                <div class="award-card">
+                    <img src="images/award-hygiene.jpg" alt="5 Star Food Hygiene Rating" class="award-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">London Road</h4>
+                <p>01256 321018</p>
+                <p>39 London Road, Old Basing, RG24 7JE</p>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-title">Festival Place</h4>
+                <p><a href="_toggle-town-v2.html"><img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too" class="brand-logo"> — Festival Place</a></p>
+                <p>[phone TBC]</p>
+                <p>Unit 6A, Festival Place, Basingstoke, RG21 7LJ</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
+        </div>
+    </footer>
+    <script src="js/_preview-hub.js"></script>
+</body>
+</html>

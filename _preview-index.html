@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup previews — Oliver's revamp (local)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <!-- PREVIEW-ONLY overrides (never linked by production pages) -->
+    <link rel="stylesheet" href="css/_preview-scope.css?v=1">
+    <style>
+        /* ==================================================================
+           PREVIEW HUB — one link to every local mockup page.
+           Preview-only utility page. Never linked from production.
+           css/style.css is not modified.
+           Deliberately has NO .site-header, so none of the fixed-header
+           offset machinery applies here.
+           ================================================================== */
+        body {
+            background: var(--off-white);
+            color: var(--navy);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+        }
+        .hub-top {
+            background: var(--navy);
+            color: #ffffff;
+            padding: 36px 24px 32px;
+        }
+        .hub-top .inner { max-width: 1040px; margin: 0 auto; }
+        .hub-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            padding: 5px 11px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+        .hub-top h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+            margin: 0 0 10px;
+            color: #ffffff;
+        }
+        .hub-top p { margin: 0; color: #cbd5e1; font-size: 1rem; max-width: 62ch; }
+
+        .hub { max-width: 1040px; margin: 0 auto; padding: 40px 24px 20px; }
+        .hub h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--navy);
+            margin: 0 0 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(11, 27, 43, 0.1);
+        }
+        .hub section + section { margin-top: 44px; }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: #ffffff;
+            border-top: 3px solid var(--green);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 22px 22px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .card .tag {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.65rem;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 9px;
+        }
+        .card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: var(--navy);
+            margin: 0 0 8px;
+        }
+        .card p { margin: 0 0 18px; font-size: 0.94rem; line-height: 1.6; color: #46505c; }
+        .card .open {
+            margin-top: auto;
+            align-self: flex-start;
+            background: var(--green);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: background .2s ease;
+        }
+        .card .open:hover { background: var(--green-dark); }
+        .card .file {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.74rem;
+            color: #8b95a1;
+            font-family: ui-monospace, Menlo, Consolas, monospace;
+        }
+
+        .ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 8px 26px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .ref-grid a {
+            display: block;
+            padding: 7px 0;
+            color: var(--navy);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(11, 27, 43, 0.07);
+        }
+        .ref-grid a:hover { color: var(--green); }
+        .ref-grid .f {
+            display: block;
+            font-size: 0.72rem;
+            color: #8b95a1;
+            font-family: ui-monospace, Menlo, Consolas, monospace;
+        }
+        .hub-note {
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: #6b7684;
+            line-height: 1.6;
+        }
+        .hub-foot {
+            background: var(--navy);
+            color: #cbd5e1;
+            padding: 24px;
+            margin-top: 40px;
+            font-size: 0.84rem;
+        }
+        .hub-foot .inner { max-width: 1040px; margin: 0 auto; }
+        .hub-foot strong { color: var(--gold); }
+    </style>
+</head>
+<body>
+    <div class="hub-top">
+        <div class="inner">
+            <span class="hub-badge">Preview only — not deployed</span>
+            <h1>Oliver's revamp — mockup previews</h1>
+            <p>Every local mockup page in one place, so the new scheme can be compared side by side. The live production site is untouched by anything on this list.</p>
+        </div>
+    </div>
+
+    <main class="hub">
+        <section>
+            <h2>Current revamp — London Road</h2>
+            <div class="cards">
+                <div class="card">
+                    <span class="tag">Homepage</span>
+                    <h3>London Road — home</h3>
+                    <p>New scheme homepage: two-tier header with chip-fork location toggles, navy hero, gold accents, info cards and the "Why Choose" band.</p>
+                    <a class="open" href="_toggle-london-v2.html">Open ▸</a>
+                    <span class="file">_toggle-london-v2.html</span>
+                </div>
+                <div class="card">
+                    <span class="tag">Subpage</span>
+                    <h3>London Road — About Us</h3>
+                    <p>Copy of the live About page, re-dressed in the new scheme: Montserrat + Inter, navy banner with gold tagline, same photos and wording.</p>
+                    <a class="open" href="_about-london-v2.html">Open ▸</a>
+                    <span class="file">_about-london-v2.html</span>
+                </div>
+                <div class="card">
+                    <span class="tag">Subpage</span>
+                    <h3>London Road — Restaurant</h3>
+                    <p>Brought across from the live site and re-dressed: navy hero with a ghosted interior, opening hours, daily specials, the facilities list, a crossfading photo box and a menu call-to-action.</p>
+                    <a class="open" href="_restaurant-london-v2.html">Open ▸</a>
+                    <span class="file">_restaurant-london-v2.html</span>
+                </div>
+                <div class="card">
+                    <span class="tag">Subpage</span>
+                    <h3>London Road — Restaurant Menu</h3>
+                    <p>Designed menu built from the items and prices on the old printed menu: bold caps headings, dot leaders to right-aligned prices, Reg/Lrg and half-pint/pint columns, plus a print stylesheet so the page itself prints as the menu.</p>
+                    <a class="open" href="_restaurant-menu-london-v2.html">Open ▸</a>
+                    <span class="file">_restaurant-menu-london-v2.html</span>
+                </div>
+                <div class="card">
+                    <span class="tag">Subpage</span>
+                    <h3>London Road — Printable Menu</h3>
+                    <p>Dedicated print sheet opened from the menu page's "Printable menu" button. Generated from the menu page so prices can't drift; black on white, A4 page margins, chrome stripped, with a Print button that never prints itself.</p>
+                    <a class="open" href="_restaurant-menu-print-london-v2.html" target="_blank" rel="noopener">Open ▸</a>
+                    <span class="file">_restaurant-menu-print-london-v2.html</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Current revamp — Festival Place</h2>
+            <div class="cards">
+                <div class="card">
+                    <span class="tag">Homepage</span>
+                    <h3>Festival Place — home</h3>
+                    <p>Oliver's Too homepage in the new scheme, with the two-chip nav and the location toggles anchored to the header edge.</p>
+                    <a class="open" href="_toggle-town-v2.html">Open ▸</a>
+                    <span class="file">_toggle-town-v2.html</span>
+                </div>
+                <div class="card">
+                    <span class="tag">Subpage</span>
+                    <h3>Festival Place — Click &amp; Collect</h3>
+                    <p>Click &amp; Collect page for Oliver's Too, built on the same header and palette.</p>
+                    <a class="open" href="_click-collect-festival.html">Open ▸</a>
+                    <span class="file">_click-collect-festival.html</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Earlier experiments &amp; assets — reference only</h2>
+            <ul class="ref-grid">
+                <li><a href="_opt3-copper.html">Copper toggle colour test<span class="f">_opt3-copper.html</span></a></li>
+                <li><a href="_opt4-navy.html">Navy toggle colour test<span class="f">_opt4-navy.html</span></a></li>
+                <li><a href="_opt5-green.html">Forest green toggle colour test<span class="f">_opt5-green.html</span></a></li>
+                <li><a href="_colour-preview.html">Toggle colour combinations<span class="f">_colour-preview.html</span></a></li>
+                <li><a href="_fork-toggle-mockup.html">Fork toggle — reference vs built<span class="f">_fork-toggle-mockup.html</span></a></li>
+                <li><a href="_chipfork-preview.html">Fork toggle — wood vs colour states<span class="f">_chipfork-preview.html</span></a></li>
+                <li><a href="_chipfork-mockup.html">Chip-fork motif options<span class="f">_chipfork-mockup.html</span></a></li>
+                <li><a href="_fp-hero-green.html">Festival Place hero — green logo<span class="f">_fp-hero-green.html</span></a></li>
+                <li><a href="_switch-london.html">Location switcher — London Road<span class="f">_switch-london.html</span></a></li>
+                <li><a href="_switch-town.html">Location switcher — Festival Place<span class="f">_switch-town.html</span></a></li>
+                <li><a href="_olivers-too-homepage.html">Oliver's Too — earlier homepage<span class="f">_olivers-too-homepage.html</span></a></li>
+                <li><a href="_olivers-too-mockup.html">Oliver's Too — logo concepts<span class="f">_olivers-too-mockup.html</span></a></li>
+                <li><a href="_olivers-too-fish-o.html">Oliver's Too — Fish-O in header<span class="f">_olivers-too-fish-o.html</span></a></li>
+                <li><a href="_bold-fish-oo.html">Oliver's Too — bold fish<span class="f">_bold-fish-oo.html</span></a></li>
+                <li><a href="_fish-logo-mockup.html">Oliver's Too — interlinked fish logo<span class="f">_fish-logo-mockup.html</span></a></li>
+                <li><a href="_wordmark-vector.html">Oliver's Too — clean wordmark<span class="f">_wordmark-vector.html</span></a></li>
+                <li><a href="_logo-preview.html">Logo preview — white on green<span class="f">_logo-preview.html</span></a></li>
+                <li><a href="_names-mockup.html">Name mockups — Oliver's Too / Mr Oliver's<span class="f">_names-mockup.html</span></a></li>
+            </ul>
+            <p class="hub-note">
+                Superseded design explorations, kept for reference — the current revamp is the four pages above.
+                Three further files on disk are build checks rather than designs and are not linked here:
+                <code>_export-check.html</code>, <code>_realign-check.html</code>, <code>_fish-extract-check.html</code>.
+            </p>
+        </section>
+    </main>
+
+    <footer class="hub-foot">
+        <div class="inner">
+            <p><strong>Preview only.</strong> These pages live in the local test environment. Nothing here is committed, pushed or deployed — <code>css/style.css</code> is unchanged and the live site is unaffected.</p>
+            <p>Server: <code>python _serve.py</code> in <code>C:\OLIVERS WEB\olivers-site</code> → http://localhost:8765</p>
+        </div>
+    </footer>
+</body>
+</html>
