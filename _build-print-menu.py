@@ -93,6 +93,7 @@ CSS = """        /* Print-first stylesheet. This page's ONLY job is to come out 
         .pm-bar address { font-style: normal; font-size: 0.78rem; line-height: 1.5; text-align: right; }
 
         .pm-actions { text-align: center; margin: 16px 0 24px; }
+        .pm-script { font-family: 'Dancing Script', cursive; font-weight: 800; font-size: 1.32em; line-height: 1; }
         .pm-btn { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem;
                   color: #ffffff; background: #2F8C4A; border: 0; border-radius: 999px;
                   padding: 13px 32px; cursor: pointer; }
@@ -155,7 +156,7 @@ PAGE = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Restaurant Menu (printable) — Oliver's Fish &amp; Chips</title>
+<title>Oliver's Restaurant Menu (printable) — Oliver's Fish &amp; Chips</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -176,7 +177,7 @@ PAGE = f"""<!DOCTYPE html>
     <div class="pm-bar">
         <div>
             <div class="pm-logo">Oliver's</div>
-            <h1>Restaurant Menu</h1>
+            <h1><span class="pm-script">Oliver&#39;s</span> Restaurant Menu</h1>
         </div>
         <address>{addr_html_out}</address>
     </div>

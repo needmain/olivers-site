@@ -13,6 +13,11 @@
     <style>
         /* Typography: Montserrat + Inter (London Road page only) */
         .section-title, .feature-title, .nav-menu a,
+        /* tighter card: style.css gives 40px/30px padding, which with a 104px star
+           made each card tall and heavy. Less padding plus a smaller star makes them
+           read as wide rectangles instead of blocks. */
+        .info-card { padding: 24px 22px 22px; }
+
         .info-card h3, h3, h2, .footer-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
@@ -33,7 +38,14 @@
             text-transform: uppercase;
         }
         /* ---- Chip-fork location toggles (user's CapCut fork asset) ---- */
-        :root { --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
+        :root {
+            /* Homepage creams, defined once. A tint reads much darker as a solid
+               field than when content breaks it up, so these are deliberately
+               LIGHTER than the tint used on the framed menu page. The body
+               ground, the wave's fill and the seam-fix banner must all use the
+               same value or a hairline appears where they meet. */
+            --hm-cream: #FFFEFB;   /* page ground — very close to white */
+            --hm-band:  #FEFDF7;   /* the block behind the cards, a touch deeper */ --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
                 --forest-hover: #A9CDB3; --slate: #1C2526;
                 --fork-h: clamp(20px, 2.4vw, 26px);
                 --fork-w: calc(var(--fork-h) * 1122 / 184); }
@@ -73,17 +85,21 @@
         /* Nav links start flush with the logo brand lock-up */
         .loc-note {
             text-align: center; padding: 14px 20px; background: var(--cream);
+            border-top: 1px solid rgba(11, 27, 43, 0.10);
             border-bottom: 1px solid #eee; font-family: 'Lato', sans-serif; font-size: 0.95rem;
         }
         .loc-note a { color: var(--green); font-weight: 700; }
         /* Takeaway/Restaurant/Visit Us cards: white bg, green top border, rounded, soft shadow */
         .info-card {
-            background: var(--white);
-            border-top: 3px solid var(--green);
+            background: var(--forest-dark);   /* the card base, matching the starburst's green */
+            /* cleared so no full-width rule can apply from anywhere upstream: the card now
+               carries a short accent bar instead (see .info-card::before). */
+            border-top: none;   
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-        /* Why Choose section: navy bg, white title/subheads, soft grey body, green icons */
+        
+            position: relative;   /* anchors the top-edge bar */}
+        /* Why Oliver's section: navy bg, white title/subheads, soft grey body, green icons */
         .features-section { background: var(--navy); color: white; }
         .features-section .section-title { color: white; }
         .feature-title { color: white; }
@@ -109,7 +125,7 @@
         .hero-logo-sub { color: #FFFFFF; text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55); }
         .hero-tagline { color: #FFFFFF; text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55); }
         /* Radial glow replaces the band overlay for contrast */
-        .hero::before { background: transparent; }
+        .hero::before { background: rgba(255, 255, 255, 0.25);   /* fades the photo ~25% toward white (user request) */ }
         /* Footer: navy bg retained, white primary/headings/links, light-grey secondary */
         .site-footer { background: var(--navy); color: #ffffff; }
         .footer-title { color: #ffffff; }
@@ -131,7 +147,15 @@
            (15 + 26 logo + 8 + 41 nav row + 15 = 105px) -> measured 90px header,
            so the content offset is set to the measured height below.
            NOTE: if the logo/fork size or tier padding changes, update this. */
-        body.page-toggle-london { padding-top: 102px; }   /* header measured 96.2px */
+        body.page-toggle-london {
+            padding-top: 102px;
+            /* Combo A (user-approved): warm cream ground. Not a new colour —
+               --cream is the site's own token (#fffdf5), already used by the
+               restaurant menu, so the two pages cannot drift apart. The white info
+               cards keep their own background and lift off it; the hero image, the
+               navy features band and the navy footer carry their own backgrounds. */
+            background: var(--hm-cream);
+        }   /* header measured 96.2px */
 
         /* The nav container becomes the vertical stack of the two tiers */
         body.page-toggle-london .nav-container {
@@ -266,7 +290,128 @@
             body.page-toggle-london .nav-menu { flex-wrap: wrap; }
             body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
         }
-    </style>
+    
+        /* ---- Wavy edge on the navy band (matches the restaurant page) ----
+           The wave is the band's LAST CHILD, so the navy box ends where the wave's fill
+           begins. On the restaurant page that shared edge once produced a faint hairline
+           at certain zoom levels; the fix there was to make the next section paint an
+           opaque background and overlap the band's bottom. Same approach here — and the
+           wave's fill is the cream, not white, so it blends into the page ground. */
+        .features-section { position: relative; padding-bottom: 74px; }   /* room for the wave, now out of flow */
+        .hm-wave path { fill: var(--hm-cream); }
+        .hm-wave {
+            position: absolute;
+            left: 0;
+            bottom: -1px;          /* the band's true bottom edge, not above its padding */
+            width: 100%;
+            height: auto;
+            margin: 0;
+            pointer-events: none;
+        }
+        .awards-banner {
+            position: relative;
+            z-index: 1;
+            background: var(--hm-cream);      /* opaque: covers the band's trailing edge */
+            margin-top: -3px;
+        }
+
+        /* ---- Cream band behind the three cards ----
+           The user wanted the cards' backing to read like the cream field lower down the
+           page. The ground alone was too thin a sliver between the cards to register, so
+           the band gets its own slightly deeper cream: the eye reads depth from a large
+           field, not from a hex value. */
+        .info-section { background: var(--hm-band); }
+
+        /* ---- Partial green line on each card ----
+           Replaces the full-width top rule. A short bar reads as a deliberate accent;
+           a full-width line reads as a border. Sized in px so its length is predictable
+           across the three cards regardless of how the text wraps. */
+        /* ---- Partial line on each card ----
+           Centred and sitting ON the card's top edge, not inset by the card's 40px padding.
+           Absolutely positioned rather than in the flow: that keeps it flush regardless of
+           the padding value (which lives in css/style.css, a shared file), and it stops the
+           bar from pushing the heading down. Rounded on its lower corners only, since its
+           top edge is the card's own edge. */
+        .info-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 3px;
+            border-radius: 0 0 2px 2px;
+            background: var(--forest);
+        }
+
+        /* ---- Wavy bottom edge on the hero photo ----
+           Same wave shape as the navy band below, so the two match. Pinned to the hero's
+           bottom edge and filled with the page ground, so the photograph dissolves into the
+           cream instead of ending on a straight line. bottom: -1px so the fill cannot leave
+           a hairline at the boundary — the same trap as the earlier navy band seam. */
+        .hm-hero-wave {
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 100%;
+            height: auto;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hm-hero-wave path { fill: var(--hm-cream); }
+
+        /* ---- Wavy TOP edge on the navy band (user request) ----
+           The same wave shape as everywhere else on this page, flipped vertically with
+           scaleY(-1) so its fill sits ABOVE the curve and carves the band's top edge.
+           Filled with --hm-band, the block behind the cards immediately above, so those
+           two meet in a wave instead of a straight line. top:-1px guards the boundary,
+           the same hairline trap as the band's bottom edge. */
+        .hm-top-wave {
+            position: absolute;
+            left: 0;
+            top: -1px;
+            width: 100%;
+            height: auto;
+            transform: scaleY(-1);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hm-top-wave path { fill: var(--hm-band); }
+
+        /* ---- Cards: gold on a green base (user request) ----
+           The starburst pairing applied to the cards. The base is --forest-dark (#26713C),
+           NOT the brand --forest (#2F8C4A): on the brand green every text option fails AA
+           (white 4.22:1, cream 4.15:1, navy 4.12:1). On the darker green, cream text is
+           5.9:1 and passes. The buttons become gold starbursts, using the SAME generated
+           polygon as the menu's, with the same navy #10243A label as the starburst. */
+        .info-card h3,
+        .info-card p,
+        .info-card .small,
+        .info-card .tagline { color: #FFFDF5; }
+
+        .info-card .btn-outline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 76px;
+            height: 76px;
+            margin: 12px auto 2px;
+            padding: 13px;
+            background: #E0A96D;
+            border: 0;
+            border-radius: 0;
+            color: #10243A;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.44rem;
+            line-height: 1.28;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            clip-path: polygon(50.0% 0.0%, 55.7% 13.9%, 65.5% 2.4%, 66.6% 17.5%, 79.4% 9.5%, 75.8% 24.2%, 90.5% 20.6%, 82.5% 33.4%, 97.6% 34.5%, 86.1% 44.3%, 100.0% 50.0%, 86.1% 55.7%, 97.6% 65.5%, 82.5% 66.6%, 90.5% 79.4%, 75.8% 75.8%, 79.4% 90.5%, 66.6% 82.5%, 65.5% 97.6%, 55.7% 86.1%, 50.0% 100.0%, 44.3% 86.1%, 34.5% 97.6%, 33.4% 82.5%, 20.6% 90.5%, 24.2% 75.8%, 9.5% 79.4%, 17.5% 66.6%, 2.4% 65.5%, 13.9% 55.7%, 0.0% 50.0%, 13.9% 44.3%, 2.4% 34.5%, 17.5% 33.4%, 9.5% 20.6%, 24.2% 24.2%, 20.6% 9.5%, 33.4% 17.5%, 34.5% 2.4%, 44.3% 13.9%);
+        }
+        .info-card .btn-outline:hover { background: #D89A57; }
+</style>
 </head>
 <body class="page-toggle-london">
     <svg class="fork-defs" width="0" height="0" style="position:absolute; overflow:hidden" aria-hidden="true" focusable="false">
@@ -301,7 +446,7 @@
                 </div><!-- /.nav-tier-1 -->
                 <ul class="nav-menu">
                     <li><a href="_toggle-london-v2.html">Home</a></li>
-                    <li><a href="_toggle-london-v2.html">About Us</a></li>
+                    <li><a href="_about-london-v2.html">About Us</a></li>
                     <li><a href="_restaurant-london-v2.html">Restaurant</a></li>
                     <li><a href="_toggle-london-v2.html">Takeaway</a></li>
                     <li class="has-dropdown">
@@ -344,6 +489,9 @@
                 <p class="hero-tagline">famous for fish &amp; chips in Basingstoke &amp; North Hampshire</p>
             </div>
         </div>
+            <svg class="hm-hero-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0,40 C150,10 300,70 470,42 C620,18 780,72 960,46 C1120,22 1300,66 1440,38 L1440,80 L0,80 Z" fill="#FDFAF3"/>
+        </svg>
     </section>
 
     <section class="info-section">
@@ -375,8 +523,11 @@
     </section>
 
     <section class="features-section">
+        <svg class="hm-top-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0,40 C150,10 300,70 470,42 C620,18 780,72 960,46 C1120,22 1300,66 1440,38 L1440,80 L0,80 Z" fill="#FDFAF3"/>
+        </svg>
         <div class="container">
-            <h2 class="section-title">Why Choose <span class="brand">Oliver's?</span></h2>
+            <h2 class="section-title">Why <span class="brand">Oliver's?</span></h2>
             <div class="features-grid">
                 <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Fresh Fish Daily</div><div class="feature-text">Fresh, sustainable fish and daily specials, prepared and cooked to order every day.</div></div>
                 <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Award Winning</div><div class="feature-text">Proudly recognised for our quality, taste and friendly local service.</div></div>
@@ -384,6 +535,9 @@
                 <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Sustainable Practices</div><div class="feature-text">Committed to sourcing responsibly and minimising our environmental impact.</div></div>
             </div>
         </div>
+        <svg class="hm-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0,40 C150,10 300,70 470,42 C620,18 780,72 960,46 C1120,22 1300,66 1440,38 L1440,80 L0,80 Z" fill="#FDFAF3"/>
+        </svg>
     </section>
 
     <section class="awards-banner">

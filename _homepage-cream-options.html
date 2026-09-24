@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homepage cream options (mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --cream: #fffdf5;      /* the site's existing token — same value the menu uses */
+        --white: #ffffff;
+        --navy:  #0B1B2B;
+        --forest:#2F8C4A;
+        --gold:  #E0A96D;
+        --ink:   #46505C;
+        --shadow: 0 2px 6px rgba(11, 27, 43, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 28px 22px 40px; background: #e9eaec;
+           font-family: 'Inter', sans-serif; color: var(--ink); }
+    h1 { font-family: 'Montserrat', sans-serif; font-size: 1.15rem; margin: 0 0 4px; color: var(--navy); }
+    .lede { font-size: 0.86rem; margin: 0 0 24px; max-width: 78ch; }
+    .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 22px; align-items: start; }
+    .panel { background: var(--white); border-radius: 10px; overflow: hidden;
+             box-shadow: 0 1px 3px rgba(11,27,43,.16); }
+    .panel > header { padding: 12px 14px 11px; background: var(--navy); color: #fff; }
+    .panel > header b { font-family: 'Montserrat', sans-serif; font-size: .78rem; letter-spacing: .04em; }
+    .panel > header span { display: block; font-size: .72rem; opacity: .82; margin-top: 3px; line-height: 1.35; }
+    /* the mini page inside each panel */
+    .mini { background: var(--page); padding: 14px 13px 16px; }
+    .mini .navstrip { height: 26px; background: var(--navy); border-radius: 4px; margin-bottom: 12px; }
+    .mini .cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .mini .card { background: var(--card); border-top: 3px solid var(--forest); border-radius: 7px;
+                  box-shadow: var(--shadow); padding: 9px 8px 11px; min-height: 92px; }
+    .mini .card h3 { font-family: 'Montserrat', sans-serif; font-size: .56rem; margin: 0 0 5px;
+                     text-transform: uppercase; letter-spacing: .05em; color: var(--navy); }
+    .mini .card .line { height: 4px; border-radius: 2px; background: var(--line); margin: 0 0 4px; }
+    .mini .card .line.short { width: 68%; }
+    .mini .band { margin-top: 12px; padding: 9px 10px; border-radius: 6px; background: var(--inner);
+                  font-size: .6rem; line-height: 1.4; }
+    .mini .award { margin-top: 12px; display: flex; justify-content: center; }
+    .mini .award .badge { background: var(--card); border-radius: 6px; box-shadow: var(--shadow);
+                          padding: 7px 9px; font-size: .5rem; text-align: center; color: var(--navy);
+                          font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: .04em; }
+    .mini .locbar { margin-top: 12px; padding: 8px; border-radius: 5px; text-align: center;
+                    font-size: .58rem; background: var(--loc); color: var(--locink); }
+    .note { font-size: .74rem; line-height: 1.5; margin: 0; padding: 11px 14px 13px; border-top: 1px solid #e3e4e7; }
+    .note b { color: var(--navy); }
+
+    /* ---------------- the four combos ---------------- */
+    /* 0 — current: everything white */
+    .c0 { --page: var(--white); --card: var(--white); --inner: var(--white);
+          --line: #dfe1e4; --loc: var(--cream); --locink: var(--navy); }
+    /* A — cream page, white cards  (recommended) */
+    .cA { --page: var(--cream); --card: var(--white); --inner: var(--white);
+          --line: #e2ded2; --loc: var(--white); --locink: var(--navy); }
+    /* B — cream page, cream cards, white inner panels */
+    .cB { --page: var(--cream); --card: var(--cream); --inner: var(--white);
+          --line: #e2ded2; --loc: var(--white); --locink: var(--navy); }
+    /* C — white page, cream cards */
+    .cC { --page: var(--white); --card: var(--cream); --inner: var(--cream);
+          --line: #e2ded2; --loc: var(--cream); --locink: var(--navy); }
+    /* the loc bar gets a rule in the cream combos so it doesn't vanish */
+    .cA .mini .locbar, .cB .mini .locbar { border: 1px solid #e2ded2; }
+</style>
+</head>
+<body>
+<h1>Homepage — where the cream could go</h1>
+<p class="lede">Four combinations, using the cream the site already defines (<code>--cream: #fffdf5</code> — the same value the restaurant menu uses). Each panel is a miniature of the homepage: navy nav strip, the three info cards, an inner panel, the hygiene badge, and the location bar.</p>
+
+<div class="board">
+
+    <div class="panel c0">
+        <header><b>0 — CURRENT</b><span>Everything white. This is the homepage as it stands today.</span></header>
+        <div class="mini">
+            <div class="navstrip"></div>
+            <div class="cards">
+                <div class="card"><h3>Opening hours</h3><div class="line"></div><div class="line short"></div><div class="line"></div></div>
+                <div class="card"><h3>Daily specials</h3><div class="line"></div><div class="line short"></div></div>
+                <div class="card"><h3>Facilities</h3><div class="line"></div><div class="line short"></div><div class="line"></div></div>
+            </div>
+            <div class="band">inner panel — white on white</div>
+            <div class="award"><div class="badge">5 STAR FOOD HYGIENE</div></div>
+            <div class="locbar">London Road · Festival Place</div>
+        </div>
+        <p class="note"><b>No change.</b> The baseline, so you can see what the others actually move.</p>
+    </div>
+
+    <div class="panel cA">
+        <header><b>A — CREAM GROUND, WHITE CARDS</b><span>Recommended. The menu's relationship exactly.</span></header>
+        <div class="mini">
+            <div class="navstrip"></div>
+            <div class="cards">
+                <div class="card"><h3>Opening hours</h3><div class="line"></div><div class="line short"></div><div class="line"></div></div>
+                <div class="card"><h3>Daily specials</h3><div class="line"></div><div class="line short"></div></div>
+                <div class="card"><h3>Facilities</h3><div class="line"></div><div class="line short"></div><div class="line"></div></div>
+            </div>
+            <div class="band">inner panel — white, sitting on cream</div>
+            <div class="award"><div class="badge">5 STAR FOOD HYGIENE</div></div>
+            <div class="locbar">London Road · Festival Place</div>
+        </div>
+        <p class="note"><b>Every empty area becomes warm</b>, and the white cards and badge lift off it. The strongest, simplest change — one line of CSS.</p>
+    </div>
+
+    <div class="panel cB">
+        <header><b>B — CREAM CARDS ON CREAM</b><span>Softest. Warmest, lowest contrast.</span></header>
+        <div class="mini">
+            <div class="navstrip"></div>
+            <div class="cards">
+                <div class="card"><h3>Opening hours</h3><div class="line"></div><div class="line short"></div><div class="line"></div></div>
+                <div class="card"><h3>Daily specials</h3><div class="line"></div><div class="line short"></div></div>
+                <div class="card"><h3>Facilities</h3><div class="line"></div><div class="line short"></div><div class="line"></div></div>
+            </div>
+            <div class="band">inner panel — white, for definition</div>
+            <div class="award"><div class="badge">5 STAR FOOD HYGIENE</div></div>
+            <div class="locbar">London Road · Festival Place</div>
+        </div>
+        <p class="note"><b>Most subtle.</b> The cards rely on their shadow to separate from the ground. Charmingly soft, but the three cards stop reading as distinct blocks.</p>
+    </div>
+
+    <div class="panel cC">
+        <header><b>C — WHITE GROUND, CREAM CARDS</b><span>The reverse. Cream as the panels only.</span></header>
+        <div class="mini">
+            <div class="navstrip"></div>
+            <div class="cards">
+                <div class="card"><h3>Opening hours</h3><div class="line"></div><div class="line short"></div><div class="line"></div></div>
+                <div class="card"><h3>Daily specials</h3><div class="line"></div><div class="line short"></div></div>
+                <div class="card"><h3>Facilities</h3><div class="line"></div><div class="line short"></div><div class="line"></div></div>
+            </div>
+            <div class="band">inner panel — cream</div>
+            <div class="award"><div class="badge">5 STAR FOOD HYGIENE</div></div>
+            <div class="locbar">London Road · Festival Place</div>
+        </div>
+        <p class="note"><b>The cards stop standing out</b> — they're warmer than the page, so the eye reads the background as the "real" surface. Works if you want the cream confined to the cards only.</p>
+    </div>
+
+</div>
+</body>
+</html>
