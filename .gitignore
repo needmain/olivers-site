@@ -61,3 +61,8 @@ images/_preview-*
 _preview-index.html
 # Preview-only "back to hub" button script (loaded by mockup pages only)
 js/_preview-hub.js
+
+# Preview conventions — every local mockup experiment (never production)
+_*.html
+_*.py
+_*.png
