@@ -101,7 +101,11 @@
             position: relative;   /* anchors the top-edge bar */}
         /* Why Oliver's section: navy bg, white title/subheads, soft grey body, green icons */
         .features-section { background: var(--navy); color: white; }
-        .features-section .section-title { color: white; }
+        .features-section .section-title {/* Montserrat, matching every other heading here. The Oswald it was inheriting
+               comes from css/style.css's .section-title, left over from the previous design
+               and still @import-ed by that shared file. */
+            font-family: 'Montserrat', sans-serif;
+            color: white;}
         .feature-title { color: white; }
         .feature-text { color: #cbd5e1; opacity: 1; }
         .feature-icon svg { filter: none; }

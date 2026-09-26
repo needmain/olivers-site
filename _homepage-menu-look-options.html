@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homepage — bringing the menu's look across (mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@800&family=Inter:wght@400;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --forest: #2F8C4A; --forest-dark: #26713C;
+        --navy: #0B1B2B; --gold: #E0A96D;
+        --cream: #FFFEFB; --band: #FEFDF7;
+        --shadow: 0 2px 6px rgba(11,27,43,.08);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 26px 22px 40px; background: #e9eaec;
+           font-family: 'Inter', sans-serif; color: var(--navy); }
+    h1 { font-family: 'Montserrat', sans-serif; font-size: 1.12rem; margin: 0 0 5px; }
+    .lede { font-size: 0.85rem; margin: 0 0 22px; max-width: 80ch; line-height: 1.5; }
+    .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 22px; align-items: start; }
+
+    .panel { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(11,27,43,.16); }
+    .panel > header { padding: 11px 14px; background: var(--navy); color: #fff; }
+    .panel > header b { font-family: 'Montserrat', sans-serif; font-size: .76rem; letter-spacing: .04em; }
+    .panel > header span { display: block; font-size: .71rem; opacity: .84; margin-top: 3px; line-height: 1.35; }
+    .note { font-size: .72rem; line-height: 1.5; margin: 0; padding: 10px 14px 12px; border-top: 1px solid #e3e4e7; }
+
+    /* the mini homepage */
+    .mini { background: var(--page); padding: var(--pad); }
+    .navstrip { height: 24px; background: var(--navy); border-radius: 4px; }
+    .logoRow { display: flex; align-items: center; gap: 8px; }
+    .script { font-family: 'Dancing Script', cursive; font-weight: 800; color: #fff; font-size: 1.15rem; line-height: 1; }
+    .band { background: var(--forest); border-radius: 5px; padding: 12px 10px 11px; text-align: center; margin-bottom: 12px; }
+    .band .est { display: block; font-family: 'Montserrat', sans-serif; font-size: .46rem;
+                 letter-spacing: .2em; color: var(--gold); margin-top: 5px; }
+    .photo { height: 74px; border-radius: 5px; background: linear-gradient(135deg,#8d9aa6,#c3cbd2);
+             display: flex; align-items: flex-end; padding: 8px; margin-bottom: 12px; }
+    .photo h2 { margin: 0; color: #fff; font-family: 'Montserrat', sans-serif; font-size: .78rem; }
+    .cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
+    .card { background: var(--card); border-radius: 7px; box-shadow: var(--shadow); padding: 8px 7px 9px;
+            border-top: var(--cardline); }
+    .card h3 { font-family: 'Montserrat', sans-serif; font-size: .5rem; margin: 0 0 5px;
+               text-transform: uppercase; letter-spacing: .05em; color: var(--cardink); }
+    .card .l { height: 3px; border-radius: 2px; background: var(--line); margin-bottom: 3px; }
+    .card .l.s { width: 62%; }
+    .star { width: 34px; height: 34px; margin: 7px auto 0; background: var(--gold);
+            clip-path: polygon(50% 0%, 60.9% 15.5%, 79.4% 9.5%, 78.1% 28.9%, 97.6% 30.9%, 84.5% 45%, 100% 55.3%,
+            84.5% 65.7%, 97.6% 79.8%, 78.1% 81.8%, 79.4% 101.2%, 60.9% 95.2%, 50% 110.7%, 39.1% 95.2%, 20.6% 101.2%,
+            21.9% 81.8%, 2.4% 79.8%, 15.5% 65.7%, 0% 55.3%, 15.5% 45%, 2.4% 30.9%, 21.9% 28.9%, 20.6% 9.5%, 39.1% 15.5%); }
+    .navyBand { height: 34px; border-radius: 4px; background: var(--navy); margin-top: 12px; }
+    .badge { width: 54px; height: 16px; border-radius: 4px; background: var(--card); margin: 11px auto 0;
+             box-shadow: var(--shadow); }
+    .secHead { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: .52rem; letter-spacing: .12em;
+               text-transform: uppercase; color: #FFFDF5; background: var(--navy); border-radius: 3px;
+               padding: 5px 9px; display: inline-block; margin: 12px 0 8px; }
+
+    /* ---- panel 1: the homepage as it stands ---- */
+    .p1 { --page: var(--cream); --pad: 12px; --card: var(--forest-dark); --cardink: #FFFDF5;
+          --cardline: 0; --line: rgba(255,253,245,.45); }
+
+    /* ---- panel 2: framed like the menu, navy section banners ---- */
+    .p2 { --page: var(--cream); --pad: 0; --card: var(--forest-dark); --cardink: #FFFDF5;
+          --cardline: 0; --line: rgba(255,253,245,.45); }
+    .p2 .inner { border: 9px solid var(--forest); border-radius: 6px; background: var(--band); padding: 12px; }
+
+    /* ---- panel 3: framed + the menu's green band and wordmark ---- */
+    .p3 { --page: var(--cream); --pad: 0; --card: var(--card3); --cardink: var(--ink3);
+          --cardline: var(--line3); --line: #e2ded2; }
+    .p3 .inner { border: 9px solid var(--forest); border-radius: 6px; background: var(--band); padding: 0 12px 12px; }
+    .p3 { --card3: #F2F7F3; --ink3: var(--navy); --line3: 3px solid var(--forest); }
+    .p3 .band { border-radius: 0; margin: 0 -12px 12px; }
+</style>
+</head>
+<body>
+<h1>Homepage — bringing the menu's look across</h1>
+<p class="lede">Three ways of translating the restaurant menu's language onto the homepage. The menu's defining devices are: a <b>thick green frame</b> around everything, <b>solid navy banners</b> for section headings, the <b>green header band</b> with the script wordmark, and <b>gold accents</b>.</p>
+
+<div class="board">
+
+    <div class="panel">
+        <header><b>1 — AS IT STANDS</b><span>Your baseline, for comparison.</span></header>
+        <div class="mini p1">
+            <div class="navstrip" style="margin-bottom:12px"></div>
+            <div class="photo"><h2>Restaurant</h2></div>
+            <div class="cards">
+                <div class="card"><h3>Takeaway</h3><div class="l"></div><div class="l s"></div></div>
+                <div class="card"><h3>Restaurant</h3><div class="l"></div><div class="l s"></div></div>
+                <div class="card"><h3>Visit us</h3><div class="l"></div><div class="l s"></div></div>
+            </div>
+            <div class="navyBand"></div>
+            <div class="badge"></div>
+        </div>
+        <p class="note">Cards float on cream. No frame, no banner headings. Clean, but it shares nothing structural with the menu.</p>
+    </div>
+
+    <div class="panel">
+        <header><b>2 — FRAMED, WITH BANNER HEADINGS</b><span>The menu's two strongest devices.</span></header>
+        <div class="mini p2"><div class="inner">
+            <div class="navstrip" style="margin-bottom:12px"></div>
+            <div class="photo"><h2>Restaurant</h2></div>
+            <div class="cards">
+                <div class="card"><h3>Takeaway</h3><div class="l"></div><div class="l s"></div></div>
+                <div class="card"><h3>Restaurant</h3><div class="l"></div><div class="l s"></div></div>
+                <div class="card"><h3>Visit us</h3><div class="l"></div><div class="l s"></div></div>
+            </div>
+            <div class="secHead">Why Oliver's?</div>
+            <div class="navyBand"></div>
+            <div class="badge"></div>
+        </div></div>
+        <p class="note">A <b>thick green border</b> wraps the page content on a cream panel, and section headings become <b>navy banners</b> with cream text. This is the menu's actual grammar — frame, band, banner.</p>
+    </div>
+
+    <div class="panel">
+        <header><b>3 — PLUS THE MENU'S HEADER BAND</b><span>The full treatment.</span></header>
+        <div class="mini p3"><div class="inner">
+            <div class="navstrip" style="margin-bottom:10px"></div>
+            <div class="band">
+                <div class="logoRow" style="justify-content:center">
+                    <span class="script">Oliver's</span>
+                </div>
+                <span class="est">EST. 1974 &nbsp;·&nbsp; FISH &amp; CHIPS</span>
+            </div>
+            <div class="photo"><h2>Restaurant</h2></div>
+            <div class="cards">
+                <div class="card"><h3>Takeaway</h3><div class="l"></div><div class="l s"></div>
+                    <div class="star"></div></div>
+                <div class="card"><h3>Restaurant</h3><div class="l"></div><div class="l s"></div>
+                    <div class="star"></div></div>
+                <div class="card"><h3>Visit us</h3><div class="l"></div><div class="l s"></div>
+                    <div class="star"></div></div>
+            </div>
+            <div class="navyBand"></div>
+            <div class="badge"></div>
+        </div></div>
+        <p class="note">As 2, plus the menu's <b>green header band</b> carrying the script wordmark and "Est. 1974 · Fish &amp; Chips" — so the page opens the way the menu does. Pale green cards here, to show the other colour direction.</p>
+    </div>
+
+</div>
+</body>
+</html>
