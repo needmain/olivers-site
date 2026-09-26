@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footer address card — colour options (mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root { --navy:#0B1B2B; --gold:#E0A96D; --cream:#FFFEFB; --band:#FEFDF7; --forest:#2F8C4A; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 26px 22px 40px; background: #e9eaec; font-family: 'Inter', sans-serif; color: var(--navy); }
+    h1 { font-family: 'Montserrat', sans-serif; font-size: 1.12rem; margin: 0 0 5px; }
+    .lede { font-size: .85rem; margin: 0 0 20px; max-width: 82ch; line-height: 1.5; }
+    .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: start; }
+
+    .panel { background:#fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(11,27,43,.16); }
+    .panel > header { padding: 11px 14px; background: var(--navy); color:#fff; }
+    .panel > header b { font-family:'Montserrat',sans-serif; font-size:.76rem; letter-spacing:.04em; }
+    .panel > header span { display:block; font-size:.71rem; opacity:.84; margin-top:3px; }
+    .note { font-size:.71rem; line-height:1.5; margin:0; padding:10px 14px 12px; border-top:1px solid #e3e4e7; }
+    .ratio { font-family:'Montserrat',sans-serif; font-weight:700; color:var(--forest); }
+
+    /* the footer strip each option is shown on */
+    .strip { background: var(--navy); padding: 16px 15px 14px; }
+    .addrs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .addr { background: var(--card); border-top: 3px solid var(--gold); border-radius: 9px;
+            padding: 12px 12px 14px; text-align: center; color: var(--ink); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin: 0 auto 8px; }
+    .addr h4 { font-family:'Montserrat',sans-serif; font-size:.52rem; letter-spacing:.12em;
+               text-transform:uppercase; margin:0 0 6px; color: var(--ink); }
+    .addr p { margin:0 0 2px; font-size:.55rem; line-height:1.5; }
+    .badge { width: 56px; height: 17px; border-radius: 4px; background: rgba(255,255,255,.95);
+             margin: 13px auto 0; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+    .copy { text-align:center; font-size:.52rem; color:#9ca3af; margin-top:11px;
+            border-top:1px solid #374151; padding-top:9px; }
+
+    /* ---- the five options ---- */
+    .o1 { --card: rgba(255,255,255,.06); --ink: #FFFFFF; }                            /* current */
+    .o2 { --card: rgba(255,255,255,.14); --ink: #FFFFFF; }                            /* lighter */
+    .o3 { --card: #FFFEFB; --ink: #0B1B2B; }                                          /* cream */
+    .o4 { --card: #F2F7F3; --ink: #0B1B2B; }                                          /* pale green */
+        .marker-fish { width: 30px; height: 30px; margin: 0 auto 8px;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='26' cy='32' rx='18' ry='10' fill='%23E0A96D'/%3E%3Cpolygon points='44,32 56,20 56,44' fill='%23E0A96D'/%3E%3Ccircle cx='18' cy='32' r='3.5' fill='%230b3d2e'/%3E%3Ccircle cx='19.2' cy='31.2' r='1.2' fill='%23ffffff'/%3E%3C/svg%3E") center/contain no-repeat; }
+        .marker-diamond { width: 9px; height: 9px; background: var(--gold); transform: rotate(45deg); margin: 8px auto 12px; }
+    .o5 { --card: rgba(224,169,109,.12); --ink: #FFFFFF; }                            /* gold-tinted */
+</style>
+</head>
+<body>
+<h1>Footer address cards — colour options</h1>
+<p class="lede">Five card backgrounds, shown on the navy footer. Each has a gold top border and a gold dot above the location name, as chosen. <b>Text contrast passes AA comfortably in all five</b> (14.8:1 down to 11.5:1), so legibility isn't the deciding factor — this is purely about which reads best to the eye.</p>
+
+<div class="board">
+
+    <div class="panel">
+        <header><b>1 — CURRENT</b><span>Lighter navy on navy.</span></header>
+        <div class="strip o1">
+            <div class="addrs">
+                <div class="addr"><div class="dot"></div><h4>London Road</h4><p>01256 321018</p><p>39 London Road,</p><p>Old Basing, RG24 7JE</p></div>
+                <div class="addr"><div class="dot"></div><h4>Festival Place</h4><p>Unit 6A, Festival Place,</p><p>Basingstoke, RG21 7LJ</p></div>
+            </div>
+            <div class="badge"></div><div class="copy">© 2026 Oliver's Fish &amp; Chips. Est. 1974.</div>
+        </div>
+        <p class="note">Deliberately subtle. The cards whisper rather than announce — fine if you want the addresses to feel secondary. <span class="ratio">14.8:1</span></p>
+    </div>
+
+    <div class="panel">
+        <header><b>2 — LIGHTER NAVY</b><span>The same idea, more visible.</span></header>
+        <div class="strip o2">
+            <div class="addrs">
+                <div class="addr"><div class="dot"></div><h4>London Road</h4><p>01256 321018</p><p>39 London Road,</p><p>Old Basing, RG24 7JE</p></div>
+                <div class="addr"><div class="dot"></div><h4>Festival Place</h4><p>Unit 6A, Festival Place,</p><p>Basingstoke, RG21 7LJ</p></div>
+            </div>
+            <div class="badge"></div><div class="copy">© 2026 Oliver's Fish &amp; Chips. Est. 1974.</div>
+        </div>
+        <p class="note">Cards clearly separate from the footer without changing the palette. Most restrained way to make them read as cards. <span class="ratio">11.5:1</span></p>
+    </div>
+
+    <div class="panel">
+        <header><b>3 — CREAM CARDS</b><span>Strong contrast, matches the menu's panel.</span></header>
+        <div class="strip o3">
+            <div class="addrs">
+                <div class="addr"><div class="dot"></div><h4>London Road</h4><p>01256 321018</p><p>39 London Road,</p><p>Old Basing, RG24 7JE</p></div>
+                <div class="addr"><div class="dot"></div><h4>Festival Place</h4><p>Unit 6A, Festival Place,</p><p>Basingstoke, RG21 7LJ</p></div>
+            </div>
+            <div class="badge"></div><div class="copy">© 2026 Oliver's Fish &amp; Chips. Est. 1974.</div>
+        </div>
+        <p class="note">Light cards on the navy — the same relationship the menu uses inside its green frame. They'd become the second-brightest thing on the page after the hero. <span class="ratio">17.3:1</span></p>
+    </div>
+
+    <div class="panel">
+        <header><b>4 — PALE GREEN CARDS</b><span>Echoes the menu's Early Bird box.</span></header>
+        <div class="strip o4">
+            <div class="addrs">
+                <div class="addr"><div class="dot"></div><h4>London Road</h4><p>01256 321018</p><p>39 London Road,</p><p>Old Basing, RG24 7JE</p></div>
+                <div class="addr"><div class="dot"></div><h4>Festival Place</h4><p>Unit 6A, Festival Place,</p><p>Basingstoke, RG21 7LJ</p></div>
+            </div>
+            <div class="badge"></div><div class="copy">© 2026 Oliver's Fish &amp; Chips. Est. 1974.</div>
+        </div>
+        <p class="note">Ties the footer to the menu's colour language — the only option that introduces green down here. Warm and distinctive without shouting. <span class="ratio">16.1:1</span></p>
+    </div>
+
+    <div class="panel">
+        <header><b>5 — GOLD-TINTED</b><span>A warm dark card.</span></header>
+        <div class="strip o5">
+            <div class="addrs">
+                <div class="addr"><div class="dot"></div><h4>London Road</h4><p>01256 321018</p><p>39 London Road,</p><p>Old Basing, RG24 7JE</p></div>
+                <div class="addr"><div class="dot"></div><h4>Festival Place</h4><p>Unit 6A, Festival Place,</p><p>Basingstoke, RG21 7LJ</p></div>
+            </div>
+            <div class="badge"></div><div class="copy">© 2026 Oliver's Fish &amp; Chips. Est. 1974.</div>
+        </div>
+        <p class="note">The gold works into the card itself, so the border and dot feel part of it rather than applied. Warmest of the dark options. <span class="ratio">14.1:1</span></p>
+    </div>
+
+
+    <div class="panel">
+        <header><b>6 — OPTION 2 + GOLD FISH</b><span>The hero's own fish, above each address.</span></header>
+        <div class="strip o2">
+            <div class="addrs">
+                <div class="addr"><div class="marker-fish"></div><h4>London Road</h4><p>01256 321018</p><p>39 London Road,</p><p>Old Basing, RG24 7JE</p></div>
+                <div class="addr"><div class="marker-fish"></div><h4>Festival Place</h4><p>Unit 6A, Festival Place,</p><p>Basingstoke, RG21 7LJ</p></div>
+            </div>
+            <div class="badge"></div><div class="copy">&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</div>
+        </div>
+        <p class="note">Reuses the fish from beside "Oliver's" in the hero — the same body, tail and eye, scaled down. Ties the footer to the brand mark.</p>
+    </div>
+
+    <div class="panel">
+        <header><b>7 — OPTION 2 + GOLD DIAMOND</b><span>A small rotated square.</span></header>
+        <div class="strip o2">
+            <div class="addrs">
+                <div class="addr"><div class="marker-diamond"></div><h4>London Road</h4><p>01256 321018</p><p>39 London Road,</p><p>Old Basing, RG24 7JE</p></div>
+                <div class="addr"><div class="marker-diamond"></div><h4>Festival Place</h4><p>Unit 6A, Festival Place,</p><p>Basingstoke, RG21 7LJ</p></div>
+            </div>
+            <div class="badge"></div><div class="copy">&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</div>
+        </div>
+        <p class="note">More restrained and symmetrical — reads as a bullet rather than a picture. Safer at small sizes.</p>
+    </div>
+</div>
+</body>
+</html>
