@@ -11,12 +11,7 @@
     <!-- PREVIEW-ONLY overrides (never linked by production pages) -->
     <link rel="stylesheet" href="css/_preview-scope.css?v=1">
     <style>
-        /* Typography: Montserrat + Inter (London Road page only) */
-        .section-title, .feature-title, .nav-menu a,
-        /* tighter card: style.css gives 40px/30px padding, which with a 104px star
-           made each card tall and heavy. Less padding plus a smaller star makes them
-           read as wide rectangles instead of blocks. */
-        .info-card { padding: 24px 22px 22px; }
+        
 
         .info-card h3, h3, h2, .footer-title {
             font-family: 'Montserrat', sans-serif;
@@ -91,16 +86,26 @@
         .loc-note a { color: var(--green); font-weight: 700; }
         /* Takeaway/Restaurant/Visit Us cards: white bg, green top border, rounded, soft shadow */
         .info-card {
-            background: var(--forest-dark);   /* the card base, matching the starburst's green */
-            /* cleared so no full-width rule can apply from anywhere upstream: the card now
-               carries a short accent bar instead (see .info-card::before). */
+            /* flex column so the starburst can be pushed to the bottom of every card:
+               that aligns the three of them even though the Visit Us card carries an
+               extra address line. align-items: stretch (the default) keeps each child
+               full width, so the centred text is unaffected. */
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 30px;
+            background: var(--forest-dark);   
+            
             border-top: none;   
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         
-            position: relative;   /* anchors the top-edge bar */}
+            position: relative;
+        }
         /* Why Oliver's section: navy bg, white title/subheads, soft grey body, green icons */
-        .features-section { position: relative; background: var(--navy); color: white; }
+        /* padding-bottom reduced from 80px: with the footer's 60px above the address cards
+           that made a 140px gap, against only 40px above the feature stars, so the
+           section read bottom-heavy. 30 + 10 = 40px, matching the gap above. */
+        .features-section { position: relative; background: var(--navy); color: white; padding-bottom: 30px; }
         .features-section .section-title {/* Montserrat, matching every other heading here. The Oswald it was inheriting
                comes from css/style.css's .section-title, left over from the previous design
                and still @import-ed by that shared file. */
@@ -144,7 +149,14 @@
         .footer-section a { color: #ffffff; }
         .footer-section a:hover { color: var(--gold); }
         .footer-award { display: flex; justify-content: center; padding: 2px 0 20px; }
-        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+        /* the copyright paragraph needs its own colour: a page rule sets color: var(--navy)
+           on .footer-bottom's descendants, which made this NAVY TEXT ON THE NAVY FOOTER
+           - invisible. Inheriting from the div restores the intended light grey. */
+        .footer-bottom p { color: inherit; }
+        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); 
+            /* clears the fixed preview button that floats over the footer's
+               bottom-right in mockups only — it does not exist on the live site */
+            padding-bottom: 46px;}
 
         /* ==================================================================
            TWO-TIER HEADER  —  scoped to THIS PAGE ONLY
@@ -391,7 +403,7 @@
             text-align: center;
             width: 76px;
             height: 76px;
-            margin: 12px auto 2px;
+            margin: auto auto 2px;
             padding: 13px;
             background: #E0A96D;
             border: 0;
@@ -433,6 +445,15 @@
             margin: 0 auto 9px;
             background: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cellipse%20cx%3D%2726%27%20cy%3D%2732%27%20rx%3D%2718%27%20ry%3D%2710%27%20fill%3D%27%23E0A96D%27/%3E%3Cpolygon%20points%3D%2744%2C32%2056%2C20%2056%2C44%27%20fill%3D%27%23E0A96D%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%2732%27%20r%3D%273.5%27%20fill%3D%27%230b3d2e%27/%3E%3Ccircle%20cx%3D%2719.2%27%20cy%3D%2731.2%27%20r%3D%271.2%27%20fill%3D%27%23ffffff%27/%3E%3C/svg%3E") center/contain no-repeat;
         }
+
+        /* ---- Balanced navy section (user request) ----
+           Measured: 40px between the heading and the feature stars, but 140px from the
+           feature text down to the footer's address cards (80px of this section's bottom
+           padding + 60px of the footer's top padding). The block read bottom-heavy.
+           30 + 10 = 40px, matching the gap above, so the content sits centred.
+           Padding-top is untouched: 80px of air above the heading is not part of the
+           imbalance the eye was reading. */
+        .site-footer { padding-top: 10px; }
 </style>
 </head>
 <body class="page-toggle-london">
@@ -457,7 +478,7 @@
                                             <text class="f-label" x="578" y="115">LONDON ROAD</text>
                                         </svg>
                                     </a>
-                                    <a href="_toggle-town-v2.html" class="loc-fork" aria-label="Switch to Festival Place">
+                                    <a href="_toggle-town-v2.html" class="loc-fork" aria-label="Switch to Festival Place (coming soon)">
                                         <svg viewBox="0 0 1122 184" aria-hidden="true">
                                             <path class="f-body" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
                                             <path class="f-wash" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
@@ -485,7 +506,7 @@
                         <a href="_toggle-london-v2.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
                         <ul class="nav-dropdown">
                             <li><a href="_toggle-london-v2.html">London Road</a></li>
-                            <li><a href="_toggle-town-v2.html">Festival Place</a></li>
+                            <li><a href="_toggle-town-v2.html">Festival Place (coming soon)</a></li>
                         </ul>
                     </li>
 
@@ -538,7 +559,7 @@
                     <p>39 London Road</p>
                     <p>Basingstoke</p>
                     <p>RG24 7JE</p>
-                        <p>and Festival Place, Basingstoke RG21 7LJ</p>
+                        <p>and Festival Place, Basingstoke RG21 7LJ (coming soon)</p>
                     <a href="_toggle-london-v2.html" class="btn-outline">How to Find Us</a>
                 </div>
             </div>
@@ -554,7 +575,7 @@
             <div class="features-grid">
                 <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Fresh Fish Daily</div><div class="feature-text">Fresh, sustainable fish and daily specials, prepared and cooked to order every day.</div></div>
                 <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Award Winning</div><div class="feature-text">Proudly recognised for our quality, taste and friendly local service.</div></div>
-                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Takeaway &amp; Dine-in</div><div class="feature-text">Eat in or take away. Hot and fresh every time.</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Takeaway &amp; Dine-in</div><div class="feature-text">Eat in or take away in our sustainable packaging</div></div>
                 <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Sustainable Practices</div><div class="feature-text">Committed to sourcing responsibly and minimising our environmental impact.</div></div>
             </div>
         </div>
@@ -568,8 +589,8 @@
                 <p>39 London Road, Old Basing, RG24 7JE</p>
             </div>
             <div class="footer-section">
-                <h4 class="footer-title">Festival Place</h4>
-                <p><a href="_toggle-town-v2.html"><img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too" class="brand-logo"> — Festival Place</a></p>
+                <h4 class="footer-title">Festival Place (coming soon)</h4>
+                <p><a href="_toggle-town-v2.html"><img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too" class="brand-logo"> — Festival Place (coming soon)</a></p>
                 <p>[phone TBC]</p>
                 <p>Unit 6A, Festival Place, Basingstoke, RG21 7LJ</p>
             </div>
