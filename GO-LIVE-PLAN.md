@@ -103,7 +103,7 @@ Each mockup becomes its production page:
 | `_about-london-v2.html` | `about.html` |
 | `_restaurant-london-v2.html` | `restaurant.html` |
 | `_takeaway-london-v2.html` | `takeaway.html` |
-| `_restaurant-menu-london-v2.html` | *(new page — decide the filename)* |
+| `_restaurant-menu-london-v2.html` | **`restaurant-menu.html`** (new page) |
 | `_takeaway-menu-london-v2.html` | `takeaway-menu.html` |
 | `_kids-london-v2.html` | `kids.html` |
 | `_catered-packages-london-v2.html` | `catered-packages.html` |
