@@ -79,10 +79,14 @@
            fixed header. This page clears it with body padding-top instead, so
            the margin would double up. */
         .site-banner { margin-top: 0; background: var(--navy); }
-        /* +50% on style.css's 2.7rem (43.2px -> 64.8px). Same 0,2,0 specificity,
-           but this block loads after style.css so it wins. The .brand span
-           scales with it via style.css's .section-title .brand { 1.2em }. */
-        .site-banner .section-title { color: #ffffff; font-size: 4.05rem; }
+        /* Matches the other banners. They set clamp(2.6rem, 6vw, 4.05rem) on
+           .site-banner .menu-page-title; this page pinned a flat 4.05rem, so its
+           heading sat at 64.8px at EVERY width while every other banner scaled
+           down - at 900px that read as visibly bolder (64.8px vs 54px), and at
+           390px as 64.8px vs 41.6px. Same clamp now, so they track together.
+           The .brand span scales with it via style.css's
+           .section-title .brand { 1.2em }. */
+        .site-banner .section-title { color: #ffffff; font-size: clamp(2.6rem, 6vw, 4.05rem); }
         .site-banner p { color: var(--gold); font-weight: 600; }
 
         /* ---- Body copy + photo strip ---- */
