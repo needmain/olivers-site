@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Board — Gift Vouchers in the page header</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <link rel="stylesheet" href="css/_preview-scope.css?v=1">
+    <style>
+        :root {
+            --navy: #0B1B2B;
+            --gold: #E0A96D;
+            --forest: #2F8C4A; --forest-dark: #26713C;
+        }
+        body { font-family: 'Inter', sans-serif; background: #EEF1F4; margin: 0; padding: 40px 20px 90px; color: #46505c; }
+        .board-head { max-width: 900px; margin: 0 auto 34px; text-align: center; }
+        .board-head h1 { font-family: 'Montserrat', sans-serif; font-size: 1.9rem; color: #0B1B2B; margin: 0 0 10px; }
+        .board-head p { color: #5a6672; font-size: 1rem; margin: 0 auto; max-width: 660px; }
+
+        .opt { max-width: 1060px; margin: 0 auto 26px; background: #fff; border: 1px solid #dde3e9; border-radius: 14px; overflow: hidden; }
+        .opt-meta { padding: 16px 22px 14px; border-bottom: 1px solid #eef2f5; background: #fbfcfd; }
+        .opt-tag { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--forest-dark); background: #D9EADB; padding: 3px 9px; border-radius: 5px; }
+        .opt-meta h2 { font-family: 'Montserrat', sans-serif; font-size: 1.12rem; color: #0B1B2B; margin: 8px 0 4px; }
+        .opt-meta p { margin: 0; font-size: 0.88rem; color: #6b7684; line-height: 1.55; }
+
+        /* ---- The real hero, faithfully reproduced ---- */
+        .site-banner.rst-hero {
+            position: relative; overflow: hidden; margin-top: 0;
+            background: var(--navy);
+            padding: 56px 20px 54px;
+            text-align: center;
+        }
+        .site-banner.rst-hero::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(11,27,43,0.55) 0%, rgba(11,27,43,0.68) 50%, rgba(11,27,43,0.82) 100%);
+        }
+        .site-banner.rst-hero > * { position: relative; z-index: 1; }
+        .rst-eyebrow { display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+        .menu-page-title { font-family: 'Montserrat', sans-serif; font-weight: 600; color: #fff; font-size: clamp(2.6rem, 6vw, 4.05rem); line-height: 1.04; margin: 0 0 20px; }
+        .rst-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--gold); margin: 0 auto 24px; }
+        .rst-lede { font-family: 'Inter', sans-serif; font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.86); max-width: 66ch; margin: 0 auto; }
+
+        /* ===== 1. second gold eyebrow line ===== */
+        .gv-eyebrow { display: block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(224,169,109,0.78); margin: -8px 0 14px; }
+
+        /* ===== 2. corner badge ===== */
+        .gv-badge {
+            position: absolute; top: 18px; right: 20px; z-index: 2;
+            font-family: 'Montserrat', sans-serif; font-size: 0.64rem; font-weight: 700;
+            letter-spacing: 0.13em; text-transform: uppercase;
+            color: var(--gold); border: 1px solid rgba(224,169,109,0.6);
+            border-radius: 999px; padding: 6px 14px; background: rgba(11,27,43,0.45);
+        }
+
+        /* ===== 3. gold-ruled line under the lede ===== */
+        .gv-under {
+            margin: 26px auto 0; max-width: 620px;
+            padding-top: 16px; border-top: 1px solid rgba(224,169,109,0.4);
+            font-size: 0.92rem; color: rgba(255,255,255,0.72);
+        }
+        .gv-under b { font-family: 'Montserrat', sans-serif; color: var(--gold); font-weight: 700; letter-spacing: 0.06em; }
+
+        /* ===== 4. sentence folded into the lede ===== */
+        .rst-lede em { color: var(--gold); font-style: normal; font-weight: 600; }
+
+        /* ===== 5. thin gold strip along the top edge ===== */
+        .gv-topstrip {
+            position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+            background: rgba(224,169,109,0.92); color: #10243A;
+            font-family: 'Montserrat', sans-serif; font-size: 0.64rem; font-weight: 700;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            padding: 7px 12px; text-align: center;
+        }
+        .gv-topstrip + * { margin-top: 0; }
+    </style>
+</head>
+<body>
+
+<header class="board-head">
+    <h1>Gift Vouchers — in the page header</h1>
+    <p>Five ways to carry the gift-voucher mention in the Restaurant / Takeaway hero band. Each is shown on the real hero, so you're judging the actual weight.</p>
+</header>
+
+<!-- 0. CURRENT -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 0 — current header</span>
+        <h2>No mention</h2>
+        <p>The hero exactly as it is today, for reference.</p>
+    </div>
+    <section class="site-banner rst-hero">
+        <span class="rst-eyebrow">London Road</span>
+        <h1 class="menu-page-title">Restaurant</h1>
+        <div class="rst-rule"></div>
+        <p class="rst-lede">Serving ALL DAY, EVERY DAY. Choose from our range of tempting starters &amp; delicious mains — as well as our famous Fish &amp; Chips, we offer a variety of specialities, non-fish alternatives &amp; vegetarian meals.</p>
+    </section>
+</section>
+
+<!-- 1. SECOND EYEBROW LINE -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 1</span>
+        <h2>Second line under the location eyebrow</h2>
+        <p>Sits with "LONDON ROAD" in the same gold caps. Reads as part of the header furniture — quiet but unmistakably in the header.</p>
+    </div>
+    <section class="site-banner rst-hero">
+        <span class="rst-eyebrow">London Road</span>
+        <span class="gv-eyebrow">Gift vouchers available</span>
+        <h1 class="menu-page-title">Restaurant</h1>
+        <div class="rst-rule"></div>
+        <p class="rst-lede">Serving ALL DAY, EVERY DAY. Choose from our range of tempting starters &amp; delicious mains — as well as our famous Fish &amp; Chips, we offer a variety of specialities, non-fish alternatives &amp; vegetarian meals.</p>
+    </section>
+</section>
+
+<!-- 2. CORNER BADGE -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 2</span>
+        <h2>Small badge in the top-right corner</h2>
+        <p>A gold-outlined pill tucked into the corner. Out of the reading path, so it never competes with the page title.</p>
+    </div>
+    <section class="site-banner rst-hero">
+        <span class="gv-badge">Gift vouchers</span>
+        <span class="rst-eyebrow">London Road</span>
+        <h1 class="menu-page-title">Restaurant</h1>
+        <div class="rst-rule"></div>
+        <p class="rst-lede">Serving ALL DAY, EVERY DAY. Choose from our range of tempting starters &amp; delicious mains — as well as our famous Fish &amp; Chips, we offer a variety of specialities, non-fish alternatives &amp; vegetarian meals.</p>
+    </section>
+</section>
+
+<!-- 3. UNDER THE LEDE -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 3</span>
+        <h2>Gold-ruled line beneath the lede</h2>
+        <p>A rule and one line at the foot of the hero. Clearly inside the header, but below the title so it doesn't interrupt it.</p>
+    </div>
+    <section class="site-banner rst-hero">
+        <span class="rst-eyebrow">London Road</span>
+        <h1 class="menu-page-title">Restaurant</h1>
+        <div class="rst-rule"></div>
+        <p class="rst-lede">Serving ALL DAY, EVERY DAY. Choose from our range of tempting starters &amp; delicious mains — as well as our famous Fish &amp; Chips, we offer a variety of specialities, non-fish alternatives &amp; vegetarian meals.</p>
+        <p class="gv-under"><b>GIFT VOUCHERS</b> &nbsp;·&nbsp; £5 denominations, redeemable here or in the takeaway</p>
+    </section>
+</section>
+
+<!-- 4. IN THE LEDE -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 4</span>
+        <h2>Folded into the lede sentence</h2>
+        <p>No new element at all — one gold sentence added to the paragraph already there. Lightest possible header mention.</p>
+    </div>
+    <section class="site-banner rst-hero">
+        <span class="rst-eyebrow">London Road</span>
+        <h1 class="menu-page-title">Restaurant</h1>
+        <div class="rst-rule"></div>
+        <p class="rst-lede">Serving ALL DAY, EVERY DAY. Choose from our range of tempting starters &amp; delicious mains — as well as our famous Fish &amp; Chips, we offer a variety of specialities, non-fish alternatives &amp; vegetarian meals. <em>Gift vouchers available in £5 denominations.</em></p>
+    </section>
+</section>
+
+<!-- 5. TOP STRIP -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 5</span>
+        <h2>Thin gold strip along the top edge</h2>
+        <p>Spans the full width at the very top of the header. The most visible of the five, but completely flat — it never fights the title.</p>
+    </div>
+    <section class="site-banner rst-hero">
+        <div class="gv-topstrip">Gift vouchers available · £5 denominations</div>
+        <span class="rst-eyebrow">London Road</span>
+        <h1 class="menu-page-title">Restaurant</h1>
+        <div class="rst-rule"></div>
+        <p class="rst-lede">Serving ALL DAY, EVERY DAY. Choose from our range of tempting starters &amp; delicious mains — as well as our famous Fish &amp; Chips, we offer a variety of specialities, non-fish alternatives &amp; vegetarian meals.</p>
+    </section>
+</section>
+
+<script src="js/_preview-hub.js"></script>
+</body>
+</html>

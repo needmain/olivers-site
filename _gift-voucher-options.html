@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Board — Gift Vouchers: quieter treatments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <link rel="stylesheet" href="css/_preview-scope.css?v=1">
+    <style>
+        /* Mirror the restaurant/takeaway page tokens so each treatment is judged
+           against the real card design, not an approximation. */
+        :root {
+            --cream: #F8F9FA;
+            --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
+            --gold: #E0A96D;
+            --rst-ink: #46505c;
+            --rst-mute: #8b95a1;
+            --rst-line: rgba(11, 27, 43, 0.08);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #EEF1F4;
+            color: var(--rst-ink);
+            margin: 0;
+            padding: 40px 20px 90px;
+        }
+        .board-head { max-width: 900px; margin: 0 auto 34px; text-align: center; }
+        .board-head h1 { font-family: 'Montserrat', sans-serif; font-size: 1.9rem; color: #0B1B2B; margin: 0 0 10px; }
+        .board-head p { color: #5a6672; font-size: 1rem; margin: 0 auto; max-width: 640px; }
+
+        .opt { max-width: 1000px; margin: 0 auto 26px; background: #ffffff; border: 1px solid #dde3e9; border-radius: 14px; overflow: hidden; }
+        .opt-meta { padding: 16px 22px 14px; border-bottom: 1px solid #eef2f5; background: #fbfcfd; }
+        .opt-tag { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--forest-dark); background: var(--forest-pale); padding: 3px 9px; border-radius: 5px; }
+        .opt-meta h2 { font-family: 'Montserrat', sans-serif; font-size: 1.12rem; color: #0B1B2B; margin: 8px 0 4px; }
+        .opt-meta p { margin: 0; font-size: 0.88rem; color: #6b7684; line-height: 1.55; }
+        .opt-demo { padding: 26px 22px; background: var(--cream); }
+
+        /* ---- Real card styling, copied from the pages ---- */
+        .rst-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+        .rst-card {
+            background: #ffffff;
+            border-top: 4px solid var(--forest);
+            border-radius: 14px;
+            box-shadow: 0 10px 26px rgba(11, 27, 43, 0.07);
+            padding: 26px 24px 28px;
+            position: relative;
+        }
+        .rst-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.15rem; color: #0B1B2B; margin: 0 0 12px; }
+        .rst-card p { font-size: 0.98rem; line-height: 1.66; color: var(--rst-ink); margin: 0 0 10px; }
+        .rst-card p:last-child { margin-bottom: 0; }
+        .rst-muted { display: block; color: var(--rst-mute); font-size: 0.9rem; margin-top: 6px; }
+
+        /* ===== TREATMENT 1 — slim note strip under the card row ===== */
+        .gv-strip {
+            margin-top: 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #ffffff;
+            border: 1px solid var(--rst-line);
+            border-left: 3px solid var(--gold);
+            border-radius: 8px;
+            padding: 13px 18px;
+            font-size: 0.93rem;
+            color: var(--rst-ink);
+        }
+        .gv-strip strong { color: #0B1B2B; }
+
+        /* ===== TREATMENT 2 — quiet centred text line ===== */
+        .gv-line {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 0.94rem;
+            color: var(--rst-mute);
+        }
+        .gv-line strong { color: var(--forest-dark); font-weight: 600; }
+        .gv-line .ic { color: var(--gold); margin-right: 6px; }
+
+        /* ===== TREATMENT 3 — inline footnote inside an existing card ===== */
+        .gv-foot {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px dashed var(--rst-line);
+            font-size: 0.88rem;
+            color: var(--rst-mute);
+            line-height: 1.6;
+        }
+        .gv-foot strong { color: var(--rst-ink); }
+
+        /* ===== TREATMENT 4 — gold hairline ribbon, very low contrast ===== */
+        .gv-ribbon {
+            margin-top: 22px;
+            text-align: center;
+            padding: 12px 18px;
+            border-top: 1px solid rgba(224, 169, 109, 0.55);
+            border-bottom: 1px solid rgba(224, 169, 109, 0.55);
+            font-size: 0.9rem;
+            letter-spacing: 0.01em;
+            color: var(--rst-mute);
+        }
+        .gv-ribbon b { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #0B1B2B; letter-spacing: 0.04em; }
+
+        /* ===== TREATMENT 5 — hero lede mention ===== */
+        .hero-demo { background: #0B1B2B; border-radius: 12px; padding: 30px 26px; text-align: center; }
+        .hero-demo .eyebrow { font-family: 'Montserrat', sans-serif; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+        .hero-demo h1 { font-family: 'Montserrat', sans-serif; font-size: 1.9rem; color: #fff; margin: 10px 0 12px; }
+        .hero-demo .lede { color: #cfd8e0; font-size: 0.95rem; line-height: 1.7; margin: 0 auto; max-width: 620px; }
+        .hero-demo .lede em { color: var(--gold); font-style: normal; font-weight: 600; }
+
+        /* ===== TREATMENT 6 — single footer strip ===== */
+        .foot-demo { background: #0B1B2B; border-radius: 12px; padding: 22px 26px; text-align: center; }
+        .foot-demo .ft { font-size: 0.9rem; color: #cfd8e0; }
+        .foot-demo .ft b { font-family: 'Montserrat', sans-serif; color: var(--gold); font-weight: 700; letter-spacing: 0.05em; }
+    </style>
+</head>
+<body>
+
+<header class="board-head">
+    <h1>Gift Vouchers — quieter treatments</h1>
+    <p>Six ways to mention gift vouchers on the Restaurant &amp; Takeaway pages without giving them the same weight as the info cards. Option 0 shows the current treatment for comparison.</p>
+</header>
+
+<!-- ============ 0. CURRENT ============ -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 0 — current</span>
+        <h2>Full card, same weight as the others</h2>
+        <p>What's on the pages now. Fourth card in the row, styled identically to Opening hours / Facilities.</p>
+    </div>
+    <div class="opt-demo">
+        <div class="rst-grid">
+            <article class="rst-card"><h3>Opening hours</h3><p>Open every day, except Christmas day, Boxing day and New Year's day</p><p>Monday – Sunday 12pm–9pm<span class="rst-muted">Last orders at 8pm.</span></p></article>
+            <article class="rst-card"><h3>Facilities</h3><p>High chairs &amp; baby-changing facilities available.</p><p>Fully air-conditioned. Free Wi-Fi. Free car parking.</p></article>
+            <article class="rst-card"><h3>Gift Vouchers</h3><p>Available in <strong>£5 denominations</strong> and redeemable in both the restaurant &amp; takeaway against food &amp; drink.</p><p>Ideal as a birthday present or leaving gift — please just ask for them in the restaurant or the takeaway.</p></article>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 1. SLIM STRIP ============ -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 1</span>
+        <h2>Slim note strip beneath the cards</h2>
+        <p>One line, full width, gold left edge. Clearly secondary — reads as a footnote to the row, not a peer of it.</p>
+    </div>
+    <div class="opt-demo">
+        <div class="rst-grid">
+            <article class="rst-card"><h3>Opening hours</h3><p>Open every day, except Christmas day, Boxing day and New Year's day</p><p>Monday – Sunday 12pm–9pm<span class="rst-muted">Last orders at 8pm.</span></p></article>
+            <article class="rst-card"><h3>Facilities</h3><p>High chairs &amp; baby-changing facilities available.</p><p>Fully air-conditioned. Free Wi-Fi. Free car parking.</p></article>
+        </div>
+        <div class="gv-strip">
+            <span>🎁</span>
+            <span><strong>Gift vouchers</strong> — available in £5 denominations, redeemable in the restaurant or takeaway. Just ask.</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 2. QUIET TEXT LINE ============ -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 2</span>
+        <h2>Quiet centred text line</h2>
+        <p>No container at all — a single muted sentence under the cards. Lightest touch of the six; almost disappears.</p>
+    </div>
+    <div class="opt-demo">
+        <div class="rst-grid">
+            <article class="rst-card"><h3>Opening hours</h3><p>Open every day, except Christmas day, Boxing day and New Year's day</p><p>Monday – Sunday 12pm–9pm<span class="rst-muted">Last orders at 8pm.</span></p></article>
+            <article class="rst-card"><h3>Facilities</h3><p>High chairs &amp; baby-changing facilities available.</p><p>Fully air-conditioned. Free Wi-Fi. Free car parking.</p></article>
+        </div>
+        <p class="gv-line"><span class="ic">🎁</span>Looking for a gift? <strong>Gift vouchers</strong> in £5 denominations, redeemable in the restaurant or takeaway.</p>
+    </div>
+</section>
+
+<!-- ============ 3. INLINE FOOTNOTE ============ -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 3</span>
+        <h2>Footnote inside an existing card</h2>
+        <p>Appended to the bottom of the Facilities card behind a dashed rule. Adds no new element to the page at all.</p>
+    </div>
+    <div class="opt-demo">
+        <div class="rst-grid">
+            <article class="rst-card"><h3>Opening hours</h3><p>Open every day, except Christmas day, Boxing day and New Year's day</p><p>Monday – Sunday 12pm–9pm<span class="rst-muted">Last orders at 8pm.</span></p></article>
+            <article class="rst-card">
+                <h3>Facilities</h3>
+                <p>High chairs &amp; baby-changing facilities available.</p>
+                <p>Fully air-conditioned. Free Wi-Fi. Free car parking.</p>
+                <p class="gv-foot">🎁 <strong>Gift vouchers</strong> — £5 denominations, redeemable in the restaurant or takeaway.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 4. GOLD HAIRLINE RIBBON ============ -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 4</span>
+        <h2>Gold hairline ribbon</h2>
+        <p>Two thin gold rules top and bottom, centred text. Noticeable but flat — it reads as a divider with a message on it.</p>
+    </div>
+    <div class="opt-demo">
+        <div class="rst-grid">
+            <article class="rst-card"><h3>Opening hours</h3><p>Open every day, except Christmas day, Boxing day and New Year's day</p><p>Monday – Sunday 12pm–9pm<span class="rst-muted">Last orders at 8pm.</span></p></article>
+            <article class="rst-card"><h3>Facilities</h3><p>High chairs &amp; baby-changing facilities available.</p><p>Fully air-conditioned. Free Wi-Fi. Free car parking.</p></article>
+        </div>
+        <div class="gv-ribbon"><b>GIFT VOUCHERS</b> &nbsp;·&nbsp; £5 denominations, redeemable in the restaurant or takeaway</div>
+    </div>
+</section>
+
+<!-- ============ 5. HERO LEDE ============ -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 5</span>
+        <h2>Mentioned in the hero paragraph</h2>
+        <p>Folded into the lede at the top of the page. Zero new elements, but it sits above the fold where it's read as body copy.</p>
+    </div>
+    <div class="opt-demo">
+        <div class="hero-demo">
+            <span class="eyebrow">London Road</span>
+            <h1>Restaurant</h1>
+            <p class="lede">Serving ALL DAY, EVERY DAY. Choose from our range of tempting starters &amp; delicious mains — as well as our famous Fish &amp; Chips, we offer a variety of specialities, non-fish alternatives &amp; vegetarian meals. <em>Gift vouchers available in £5 denominations.</em></p>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 6. FOOTER STRIP ============ -->
+<section class="opt">
+    <div class="opt-meta">
+        <span class="opt-tag">Option 6</span>
+        <h2>Single line above the footer address cards</h2>
+        <p>Keeps the body of the page completely clean; the mention lives with the other practical detail at the bottom.</p>
+    </div>
+    <div class="opt-demo" style="background:#dfe4e9;">
+        <div class="foot-demo">
+            <p class="ft"><b>GIFT VOUCHERS</b> &nbsp;·&nbsp; £5 denominations, redeemable in the restaurant or takeaway — just ask</p>
+        </div>
+    </div>
+</section>
+
+<script src="js/_preview-hub.js"></script>
+</body>
+</html>

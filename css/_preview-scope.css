@@ -64,8 +64,10 @@
 .brand-logo {
     height: 1.15em;
     width: auto;
-    vertical-align: middle;
+    vertical-align: -0.15em;
     display: inline-block;
+    position: relative;
+    top: -2px;
 }
 
 /* ---------------------------------------------------------------------------

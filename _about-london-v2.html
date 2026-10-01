@@ -42,7 +42,16 @@
         :root { --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
                 --forest-hover: #A9CDB3; --slate: #1C2526;
                 --fork-h: clamp(20px, 2.4vw, 26px);
-                --fork-w: calc(var(--fork-h) * 1122 / 184); }
+                --fork-w: calc(var(--fork-h) * 1122 / 184);
+                /* Paragraph spacing for the About copy. The shared sheet's CSS reset zeroes
+                   every margin (a `*` rule, specificity 0) and nothing puts paragraph spacing
+                   back, so the four paragraphs rendered as one unbroken slab. A VARIABLE, not a
+                   literal: this gets tuned by eye ("tighter/looser"), and one number here moves
+                   every gap. 1em = 16.8px at the copy's 1.05rem.
+                   NB no braces in this comment — a comment containing one truncates any
+                   brace-matching scan of :root, which made the verifier report this variable as
+                   undefined while the browser resolved it fine. */
+                --about-para-gap: 1em; }
         .location-switch {
             display: flex; gap: 12px; align-items: center;
             position: absolute; top: 14px; right: 20px; z-index: 101;
@@ -78,14 +87,44 @@
 
         /* ---- Body copy + photo strip ---- */
         .info-section { background: var(--off-white); }
-        .about-copy p { font-size: 1.05rem; line-height: 1.75; color: var(--navy); }
+        /* Paragraph spacing — edited INTO the existing rule, not added as a second
+           `.about-copy p` rule (the duplicate-rule trap that has bitten twice on this
+           project). The shared sheet's universal reset is specificity 0,0,0, so this
+           class+element rule (0,1,1) wins without needing !important. */
+        .about-copy p {
+            font-size: 1.05rem; line-height: 1.75; color: var(--navy);
+            margin-bottom: var(--about-para-gap);
+        }
+        /* no trailing gap, so the column stays honestly centred against the photos */
+        .about-copy p:last-child { margin-bottom: 0; }
         .about-photos { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin: 34px 0 6px; }
         .about-photos img {
             width: 100%; max-width: 340px; border-radius: 14px;
             box-shadow: 0 4px 16px rgba(11, 27, 43, 0.12); object-fit: cover;
         }
 
-        /* ---- Footer ---- */
+        /* ---- Footer address cards (matching homepage design) ---- */
+        .site-footer .footer-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        .site-footer .footer-section {
+            background: rgba(255, 255, 255, 0.14);
+            border-top: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 18px 20px 20px;
+            text-align: center;
+        }
+        .site-footer .footer-section::before {
+            content: "";
+            display: block;
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 9px;
+            background: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cellipse%20cx%3D%2726%27%20cy%3D%2732%27%20rx%3D%2718%27%20ry%3D%2710%27%20fill%3D%27%23E0A96D%27/%3E%3Cpolygon%20points%3D%2744%2C32%2056%2C20%2056%2C44%27%20fill%3D%27%23E0A96D%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%2732%27%20r%3D%273.5%27%20fill%3D%27%230b3d2e%27/%3E%3Ccircle%20cx%3D%2719.2%27%20cy%3D%2731.2%27%20r%3D%271.2%27%20fill%3D%27%23ffffff%27/%3E%3C/svg%3E") center/contain no-repeat;
+        }
         .site-footer { background: var(--navy); color: #ffffff; }
         .footer-title { color: #ffffff; }
         .footer-section p { color: #D1D5DB; }
@@ -219,7 +258,60 @@
             body.page-toggle-london .nav-menu { flex-wrap: wrap; }
             body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
         }
-    </style>
+    
+        /* ---- About: 4 photos surrounding the central copy ----
+           Top-left: Big Fry (heritage) | Top-right: Mural
+           Centre: About story copy
+           Bottom-left: Oliver's Outside | Bottom-right: Restaurant Interior */
+        .about-layout {
+            display: grid;
+            grid-template-columns: 340px minmax(0, 1fr) 340px;
+            grid-template-rows: auto auto;
+            gap: 24px;
+            align-items: center;
+        }
+        .about-copy {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            padding: 0 10px;
+        }
+        .about-photo-item {
+            width: 100%;
+        }
+        .about-photo-item img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+            border-radius: 18px;
+            box-shadow: 0 0 0 8px #ffffff, 0 20px 44px rgba(11, 27, 43, 0.30);
+        }
+        .about-tl { grid-column: 1; grid-row: 1; }
+        .about-tr { grid-column: 3; grid-row: 1; }
+        .about-bl { grid-column: 1; grid-row: 2; }
+        .about-br { grid-column: 3; grid-row: 2; }
+
+        @media (max-width: 1080px) {
+            .about-layout {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+                gap: 20px;
+            }
+            .about-copy {
+                grid-column: 1 / -1;
+                grid-row: auto;
+                order: 1;
+                margin-bottom: 10px;
+            }
+            .about-tl { grid-column: auto; grid-row: auto; order: 2; }
+            .about-tr { grid-column: auto; grid-row: auto; order: 3; }
+            .about-bl { grid-column: auto; grid-row: auto; order: 4; }
+            .about-br { grid-column: auto; grid-row: auto; order: 5; }
+        }
+        @media (max-width: 600px) {
+            .about-layout { grid-template-columns: 1fr; }
+        }
+</style>
 </head>
 <body class="page-toggle-london">
     <svg class="fork-defs" width="0" height="0" style="position:absolute; overflow:hidden" aria-hidden="true" focusable="false">
@@ -256,17 +348,16 @@
                     <li><a href="_toggle-london-v2.html">Home</a></li>
                     <li><a href="_about-london-v2.html" class="nav-active">About Us</a></li>
                     <li><a href="_restaurant-london-v2.html">Restaurant</a></li>
-                    <li><a href="_toggle-london-v2.html">Takeaway</a></li>
+                    <li><a href="_takeaway-london-v2.html">Takeaway</a></li>
                     <li class="has-dropdown">
                         <a href="_restaurant-london-v2.html#menu" aria-haspopup="true">Menus<span class="nav-caret" aria-hidden="true">▾</span></a>
                         <ul class="nav-dropdown">
                             <li><a href="_restaurant-menu-london-v2.html">Restaurant menu</a></li>
-                            <li><a href="takeaway-menu.html">Takeaway menu</a></li>
+                            <li><a href="_takeaway-menu-london-v2.html">Takeaway menu</a></li>
                         </ul>
                     </li>
                     <li><a href="_toggle-london-v2.html">Oliver's for Kids</a></li>
                     <li><a href="_toggle-london-v2.html">Catered Packages</a></li>
-                    <li><a href="_toggle-london-v2.html">Gift Vouchers</a></li>
                     <li class="has-dropdown">
                         <a href="_toggle-london-v2.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
                         <ul class="nav-dropdown">
@@ -287,17 +378,19 @@
     </section>
 
     <section class="info-section">
-        <div class="container" style="max-width:800px;">
+        <div class="container about-layout" style="max-width:1320px;">
+            <div class="about-photo-item about-tl"><img src="images/olivers-bigfry-light.jpg?v=4" alt="Original Big Fry takeaway"></div>
+            <div class="about-photo-item about-tr"><img src="images/olivers-mural-light.jpg" alt="Oliver's mural"></div>
+            
             <div class="about-copy">
                 <p>Oliver's has been serving great Fish &amp; Chips to the people of Basingstoke &amp; North Hampshire since 1974. We're a family-run business proud of our reputation for quality, taste, and friendly service.</p>
                 <p>We began life as a takeaway named "The Big Fry". The restaurant was added in 1989 and we changed our name to Oliver's. (Trivia Fans: our corner plot used to be known as Oliver's Corner due to the area's association with Oliver Cromwell).</p>
                 <p>We're conveniently located on the A30, parallel to the M3 between Jnct 6 Basingstoke &amp; Jnct 5 Hook. We have our own private car park.</p>
                 <p>Whether you visit us for a quick takeaway on the way home from work, bring the children for a tea-time treat, or you wish to make an evening of it in our fully licensed restaurant, Oliver's is ready to welcome you.</p>
             </div>
-            <div class="about-photos">
-                <img src="images/restaurant-4.jpg" alt="Inside Oliver's restaurant">
-                <img src="images/takeaway-2.jpg" alt="Oliver's takeaway">
-            </div>
+
+            <div class="about-photo-item about-bl"><img src="images/OLIVERS%20OUTSIDE%20SIGN.jpg" alt="Oliver's Fish &amp; Chips shopfront on London Road"></div>
+            <div class="about-photo-item about-br"><img src="images/_preview-interior-light.jpg" alt="Oliver's restaurant dining area and chalkboard menu"></div>
         </div>
     </section>
 
@@ -310,8 +403,7 @@
             </div>
             <div class="footer-section">
                 <h4 class="footer-title">Festival Place</h4>
-                <p><a href="_toggle-town-v2.html"><img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too" class="brand-logo"> — Festival Place</a></p>
-                <p>[phone TBC]</p>
+                <p><img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too" class="brand-logo"> ... coming soon!</p>
                 <p>Unit 6A, Festival Place, Basingstoke, RG21 7LJ</p>
             </div>
         </div>

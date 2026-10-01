@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Board — Restaurant Menu Pill Colour Options</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <link rel="stylesheet" href="css/_preview-scope.css?v=1">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F4F6F8;
+            color: #1a2a3a;
+            padding: 40px 20px 80px;
+            margin: 0;
+        }
+        .board-header {
+            max-width: 1100px;
+            margin: 0 auto 36px;
+            text-align: center;
+        }
+        .board-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: #0B1B2B;
+            margin: 0 0 10px;
+        }
+        .board-header p {
+            color: #556575;
+            font-size: 1.05rem;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .board-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .option-box {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid #e1e6eb;
+        }
+        .option-meta {
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #eef2f5;
+        }
+        .option-tag {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: #eef2f7;
+            color: #0B1B2B;
+            margin-bottom: 6px;
+        }
+        .option-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0B1B2B;
+            margin: 4px 0;
+        }
+        .option-desc {
+            font-size: 0.92rem;
+            color: #607080;
+            margin: 0;
+        }
+
+        /* --- Replicating the Restaurant Card --- */
+        .rst-menu-card {
+            background: rgb(39, 55, 70);
+            border-radius: 22px;
+            box-shadow: 0 18px 42px rgba(11, 27, 43, 0.12);
+            padding: 36px 32px 40px;
+            max-width: 520px;
+            margin: 0 auto;
+            text-align: center;
+            color: #ffffff;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .rst-menu-card::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 34%;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        .rst-menu-head h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+            color: var(--cream);
+            margin: 8px 0 0;
+        }
+        .rst-menu-sub {
+            display: block;
+            text-align: center;
+            color: var(--cream);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 auto 24px;
+            max-width: 380px;
+        }
+        .rst-menu-wrap { text-align: center; }
+        
+        /* Base CTA structure */
+        .rst-menu-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            padding: 22px 54px;
+            border-radius: 999px;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+        .rst-menu-cta svg { width: 22px; height: 22px; flex: 0 0 auto; }
+        .rst-menu-inner { display: inline-flex; align-items: center; gap: 10px; line-height: 1; }
+        .rst-menu-oliver {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: 0;
+            display: inline;
+            position: relative;
+            top: 1px;
+        }
+
+        /* --- OPTION 0: Current Cream / Off-White --- */
+        .cta-current {
+            color: var(--navy);
+            background: var(--cream);
+            border: 1px solid #e6e3da;
+            box-shadow: 0 10px 26px rgba(47, 140, 74, 0.28);
+        }
+        .cta-current .rst-menu-oliver { color: var(--navy); }
+        .cta-current:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(47, 140, 74, 0.36);
+        }
+
+        /* --- OPTION 1: Warm Heritage Gold --- */
+        .cta-opt1 {
+            color: #0B1B2B;
+            background: #E0A96D;
+            border: 1px solid #c99357;
+            box-shadow: 0 10px 26px rgba(224, 169, 109, 0.32);
+        }
+        .cta-opt1 .rst-menu-oliver { color: #0B1B2B; }
+        .cta-opt1:hover {
+            background: #eab77f;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(224, 169, 109, 0.45);
+        }
+
+        /* --- OPTION 2: Signature Forest Green --- */
+        .cta-opt2 {
+            color: #FAF8F5;
+            background: #247844;
+            border: 1.5px solid rgba(224, 169, 109, 0.65);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+        }
+        .cta-opt2 .rst-menu-oliver { color: #FAF8F5; }
+        .cta-opt2:hover {
+            background: #2b8c50;
+            border-color: rgba(224, 169, 109, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+        }
+
+        /* --- OPTION 3: Soft Muted Sage --- */
+        .cta-opt3 {
+            color: #0B1B2B;
+            background: #D9EADB;
+            border: 1px solid #bdd7c1;
+            box-shadow: 0 10px 26px rgba(47, 140, 74, 0.22);
+        }
+        .cta-opt3 .rst-menu-oliver { color: #0B1B2B; }
+        .cta-opt3:hover {
+            background: #e4f2e6;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(47, 140, 74, 0.3);
+        }
+
+        /* --- OPTION 4: Toasted Buttercream / Warm Parchment --- */
+        .cta-opt4 {
+            color: #0B1B2B;
+            background: #F3E5D0;
+            border: 1px solid #decab0;
+            box-shadow: 0 10px 26px rgba(180, 130, 70, 0.22);
+        }
+        .cta-opt4 .rst-menu-oliver { color: #0B1B2B; }
+        .cta-opt4:hover {
+            background: #faeedc;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(180, 130, 70, 0.3);
+        }
+
+        /* --- OPTION 5: Midnight Navy & Gold Inversion --- */
+        .cta-opt5 {
+            color: #E0A96D;
+            background: #0B1B2B;
+            border: 2px solid #E0A96D;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+        }
+        .cta-opt5 .rst-menu-oliver { color: #E0A96D; }
+        .cta-opt5:hover {
+            background: #12283d;
+            border-color: #ecc08a;
+            color: #ecc08a;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45);
+        }
+        .cta-opt5:hover .rst-menu-oliver { color: #ecc08a; }
+    </style>
+</head>
+<body>
+
+    <header class="board-header">
+        <h1>Restaurant Menu Pill Colour Options</h1>
+        <p>Testing alternative pill colours inside the London Road Restaurant Menu card (slate navy <code>rgb(39, 55, 70)</code> with gold top accent).</p>
+    </header>
+
+    <main class="board-grid">
+
+        <!-- 0. CURRENT REFERENCE -->
+        <section class="option-box">
+            <div class="option-meta">
+                <span class="option-tag">Baseline Reference</span>
+                <h3 class="option-title">Current Cream / Off-White</h3>
+                <p class="option-desc">Off-white background (<code>var(--cream)</code>), dark navy text, subtle green shadow.</p>
+            </div>
+            <div class="rst-menu-card">
+                <div class="rst-menu-head">
+                    <h2>Restaurant Menu</h2>
+                    <span class="rst-menu-sub">View our full menu here...</span>
+                </div>
+                <div class="rst-menu-wrap">
+                    <a class="rst-menu-cta cta-current" href="#">
+                        <span class="rst-menu-inner">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8.5 9.5h7"/><path d="M8.5 13h4.5"/></svg>
+                            <span class="rst-menu-oliver">Oliver's</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. WARM HERITAGE GOLD -->
+        <section class="option-box">
+            <div class="option-meta">
+                <span class="option-tag" style="background:#fdefdc; color:#9c6218;">Option 1 — Warm Gold</span>
+                <h3 class="option-title">Warm Heritage Gold</h3>
+                <p class="option-desc">Rich gold (<code>#E0A96D</code>) matches the top accent bar &amp; footer fish motifs. Deep navy text.</p>
+            </div>
+            <div class="rst-menu-card">
+                <div class="rst-menu-head">
+                    <h2>Restaurant Menu</h2>
+                    <span class="rst-menu-sub">View our full menu here...</span>
+                </div>
+                <div class="rst-menu-wrap">
+                    <a class="rst-menu-cta cta-opt1" href="#">
+                        <span class="rst-menu-inner">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8.5 9.5h7"/><path d="M8.5 13h4.5"/></svg>
+                            <span class="rst-menu-oliver">Oliver's</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. BRAND FOREST GREEN -->
+        <section class="option-box">
+            <div class="option-meta">
+                <span class="option-tag" style="background:#d9eadb; color:#185a2b;">Option 2 — Signature Green</span>
+                <h3 class="option-title">Oliver's Forest Green</h3>
+                <p class="option-desc">Deep brand forest green (<code>#247844</code>) with gold border rim &amp; crisp cream lettering.</p>
+            </div>
+            <div class="rst-menu-card">
+                <div class="rst-menu-head">
+                    <h2>Restaurant Menu</h2>
+                    <span class="rst-menu-sub">View our full menu here...</span>
+                </div>
+                <div class="rst-menu-wrap">
+                    <a class="rst-menu-cta cta-opt2" href="#">
+                        <span class="rst-menu-inner">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8.5 9.5h7"/><path d="M8.5 13h4.5"/></svg>
+                            <span class="rst-menu-oliver">Oliver's</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SOFT MUTED SAGE -->
+        <section class="option-box">
+            <div class="option-meta">
+                <span class="option-tag" style="background:#e8f3ea; color:#2d693f;">Option 3 — Soft Sage</span>
+                <h3 class="option-title">Soft Muted Sage</h3>
+                <p class="option-desc">Gentle pale sage tint (<code>#D9EADB</code>) gives an organic feel that softens the starkness of off-white.</p>
+            </div>
+            <div class="rst-menu-card">
+                <div class="rst-menu-head">
+                    <h2>Restaurant Menu</h2>
+                    <span class="rst-menu-sub">View our full menu here...</span>
+                </div>
+                <div class="rst-menu-wrap">
+                    <a class="rst-menu-cta cta-opt3" href="#">
+                        <span class="rst-menu-inner">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8.5 9.5h7"/><path d="M8.5 13h4.5"/></svg>
+                            <span class="rst-menu-oliver">Oliver's</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TOASTED BUTTERCREAM -->
+        <section class="option-box">
+            <div class="option-meta">
+                <span class="option-tag" style="background:#faeedc; color:#875416;">Option 4 — Toasted Parchment</span>
+                <h3 class="option-title">Toasted Parchment / Buttercream</h3>
+                <p class="option-desc">Warm golden parchment tone (<code>#F3E5D0</code>), reminiscent of menu card stock and golden batter.</p>
+            </div>
+            <div class="rst-menu-card">
+                <div class="rst-menu-head">
+                    <h2>Restaurant Menu</h2>
+                    <span class="rst-menu-sub">View our full menu here...</span>
+                </div>
+                <div class="rst-menu-wrap">
+                    <a class="rst-menu-cta cta-opt4" href="#">
+                        <span class="rst-menu-inner">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8.5 9.5h7"/><path d="M8.5 13h4.5"/></svg>
+                            <span class="rst-menu-oliver">Oliver's</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. MIDNIGHT & GOLD INVERSION -->
+        <section class="option-box">
+            <div class="option-meta">
+                <span class="option-tag" style="background:#e1e7ec; color:#0B1B2B;">Option 5 — Navy &amp; Gold Inverted</span>
+                <h3 class="option-title">Midnight Slate &amp; Gold Inversion</h3>
+                <p class="option-desc">Deep dark navy fill (<code>#0B1B2B</code>) with a crisp 2px warm gold border and shining gold Dancing Script.</p>
+            </div>
+            <div class="rst-menu-card">
+                <div class="rst-menu-head">
+                    <h2>Restaurant Menu</h2>
+                    <span class="rst-menu-sub">View our full menu here...</span>
+                </div>
+                <div class="rst-menu-wrap">
+                    <a class="rst-menu-cta cta-opt5" href="#">
+                        <span class="rst-menu-inner">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8.5 9.5h7"/><path d="M8.5 13h4.5"/></svg>
+                            <span class="rst-menu-oliver">Oliver's</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/_preview-hub.js"></script>
+</body>
+</html>

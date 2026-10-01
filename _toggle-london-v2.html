@@ -105,7 +105,27 @@
         /* padding-bottom reduced from 80px: with the footer's 60px above the address cards
            that made a 140px gap, against only 40px above the feature stars, so the
            section read bottom-heavy. 30 + 10 = 40px, matching the gap above. */
-        .features-section { position: relative; background: var(--navy); color: white; padding-bottom: 30px; }
+        .features-section { position: relative; background: var(--navy); color: white; padding-bottom: 20px; }
+        .feature-divider-spot {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 35px auto 10px;
+            max-width: 600px;
+        }
+        .feature-divider-spot .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(224, 169, 109, 0.4), transparent);
+        }
+        .feature-divider-spot .gold-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(224, 169, 109, 0.6);
+        }
         .features-section .section-title {/* Montserrat, matching every other heading here. The Oswald it was inheriting
                comes from css/style.css's .section-title, left over from the previous design
                and still @import-ed by that shared file. */
@@ -124,16 +144,25 @@
         .feature-icon { display: inline-flex; align-items: center; justify-content: center; }
         /* Hero brand: centred lockup, balanced vertical rhythm, soft radial glow behind */
         .hero { justify-content: center; text-align: center; }
+        /* Hero vertical padding, re-balanced so the tagline sits ON the wave's clearance
+           rather than inside it. Sized at ANY viewport width:
+             bottom padding 36 + .hero-brand's 22 = 58px of clear space under the tagline
+             the wave's fill is 38.9px (fixed 64px height x 48.6/80 of the viewBox)  ->  19px gap.
+           The savings that PAY for that clearance come from ABOVE the tagline
+           (.hero-fish-divider and .hero-tagline margins, -16px), so the hero's total height —
+           and the green cards' position below it — is unchanged at 464px. css/style.css sets
+           80px 0 40px on .hero-content and is FROZEN, hence the override here. */
+        .hero-content { padding: 8px 0 36px; }
         .hero-brand {
             gap: 0;
             align-items: center;
             max-width: 760px;
             margin: 0 auto;
-            padding: 46px 80px;
+            padding: 18px 80px 22px;   /* 22px bottom = half the tagline's wave clearance; 80px sides kept */
         }
-        .hero-fish-divider { justify-content: center; margin: 16px auto; }
+        .hero-fish-divider { justify-content: center; margin: 10px auto; }   /* 16 -> 10px: funds the wave clearance below */
         .hero-logo-sub { margin-top: 0; }
-        .hero-tagline { margin-top: 12px; font-family: 'Dancing Script', cursive; }
+        .hero-tagline { margin-top: 8px; font-family: 'Dancing Script', cursive; }   /* 12 -> 8px: ditto */
         /* ALL hero text white + subtle dark shadow for legibility */
         .hero-logo-main { color: #FFFFFF; text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55); }
         .hero-fish-divider { color: #FFFFFF; }
@@ -327,7 +356,12 @@
            page. The ground alone was too thin a sliver between the cards to register, so
            the band gets its own slightly deeper cream: the eye reads depth from a large
            field, not from a hex value. */
-        .info-section { background: var(--hm-band); }
+        /* padding-top trimmed 80px -> 36px: this is the gap immediately ABOVE the green cards,
+           i.e. the rest of the distance the user was having to scroll. padding-bottom is left
+           at style.css's 80px, so the gap BELOW the cards is unchanged. Edited in place — a
+           second .info-section rule would silently win and the duplicate-rule trap has bitten
+           twice on this project. */
+        .info-section { background: var(--hm-band); padding-top: 36px; }
 
         /* ---- Partial green line on each card ----
            Replaces the full-width top rule. A short bar reads as a deliberate accent;
@@ -355,13 +389,23 @@
            Same wave shape as the navy band below, so the two match. Pinned to the hero's
            bottom edge and filled with the page ground, so the photograph dissolves into the
            cream instead of ending on a straight line. bottom: -1px so the fill cannot leave
-           a hairline at the boundary — the same trap as the earlier navy band seam. */
+           a hairline at the boundary — the same trap as the earlier navy band seam.
+
+           ⚠️ The height is FIXED, not `auto`, and that is the whole point. The wave is
+           viewBox "0 0 1440 80" with preserveAspectRatio="none", and the path fills only the
+           LOWER 48.6/80 of that box — so at `height: auto` the fill's intrusion grew with the
+           VIEWPORT WIDTH: 42px in a 1249px window, 62px in the user's 1848px one. The tagline's
+           clearance underneath is a fixed number, so a wide window drove the wave up THROUGH
+           the tagline (reported: "the tag line is cut off / intersects the bottom of the wavy
+           border"). Pinning the height holds the fill at 38.9px at every width — which is what
+           .hero-content's 58px of clearance is actually sized against. A wave that scales with
+           the viewport can never be cleared by a fixed offset. */
         .hm-hero-wave {
             position: absolute;
             left: 0;
             bottom: -1px;
             width: 100%;
-            height: auto;
+            height: 64px;      /* was `auto` -> 69.4px at 1249 wide, 102.6px at 1848 */
             z-index: 1;
             pointer-events: none;
         }
@@ -418,6 +462,41 @@
             clip-path: polygon(50.0% 0.0%, 55.7% 13.9%, 65.5% 2.4%, 66.6% 17.5%, 79.4% 9.5%, 75.8% 24.2%, 90.5% 20.6%, 82.5% 33.4%, 97.6% 34.5%, 86.1% 44.3%, 100.0% 50.0%, 86.1% 55.7%, 97.6% 65.5%, 82.5% 66.6%, 90.5% 79.4%, 75.8% 75.8%, 79.4% 90.5%, 66.6% 82.5%, 65.5% 97.6%, 55.7% 86.1%, 50.0% 100.0%, 44.3% 86.1%, 34.5% 97.6%, 33.4% 82.5%, 20.6% 90.5%, 24.2% 75.8%, 9.5% 79.4%, 17.5% 66.6%, 2.4% 65.5%, 13.9% 55.7%, 0.0% 50.0%, 13.9% 44.3%, 2.4% 34.5%, 17.5% 33.4%, 9.5% 20.6%, 24.2% 24.2%, 20.6% 9.5%, 33.4% 17.5%, 34.5% 2.4%, 44.3% 13.9%);
         }
         .info-card .btn-outline:hover { background: #D89A57; }
+
+        /* ---- Visit Us card: compact inline presentation for Oliver's Too
+           so all three cards stay equal height and compact. ---- */
+        .info-card .vu-addr {
+            margin: 4px 0 6px;
+            font-size: 0.9rem;
+            line-height: 1.25;
+        }
+        .info-card .vu-new-inline {
+            margin: 6px 0 10px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 253, 245, 0.20);
+        }
+        .info-card .vu-eyebrow {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.55rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #E0A96D;
+        }
+        .info-card .vu-name {
+            margin: 2px 0 2px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.35rem;
+            line-height: 1;
+            color: #FFFDF5;
+        }
+        .info-card .vu-where {
+            margin: 0;
+            font-size: 0.72rem;
+            line-height: 1.35;
+            color: #cbd5e1;
+        }
 
         /* ---- Footer address cards (user request, from the reference design) ----
            Each location becomes its own card: a slightly lighter navy, a gold top border,
@@ -491,17 +570,16 @@
                     <li><a href="_toggle-london-v2.html">Home</a></li>
                     <li><a href="_about-london-v2.html">About Us</a></li>
                     <li><a href="_restaurant-london-v2.html">Restaurant</a></li>
-                    <li><a href="_toggle-london-v2.html">Takeaway</a></li>
+                    <li><a href="_takeaway-london-v2.html">Takeaway</a></li>
                     <li class="has-dropdown">
                         <a href="_restaurant-london-v2.html#menu" aria-haspopup="true">Menus<span class="nav-caret" aria-hidden="true">▾</span></a>
                         <ul class="nav-dropdown">
                             <li><a href="_restaurant-menu-london-v2.html">Restaurant menu</a></li>
-                            <li><a href="takeaway-menu.html">Takeaway menu</a></li>
+                            <li><a href="_takeaway-menu-london-v2.html">Takeaway menu</a></li>
                         </ul>
                     </li>
                     <li><a href="_toggle-london-v2.html">Oliver's for Kids</a></li>
                     <li><a href="_toggle-london-v2.html">Catered Packages</a></li>
-                    <li><a href="_toggle-london-v2.html">Gift Vouchers</a></li>
                     <li class="has-dropdown">
                         <a href="_toggle-london-v2.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
                         <ul class="nav-dropdown">
@@ -544,23 +622,25 @@
                     <h3>Takeaway</h3>
                     <p>Open all day, every day</p>
                     <p class="small">11:30am – 9:00pm</p>
-                    <p>Famous award-winning Fish &amp; Chips</p>
-                    <a href="_toggle-london-v2.html" class="btn-outline">Takeaway Menu</a>
+                    <p class="small">Pull up and pop in!</p>
+                    <a href="_takeaway-menu-london-v2.html" class="btn-outline">Takeaway Menu</a>
                 </div>
                 <div class="info-card">
                     <h3>Restaurant</h3>
                     <p>Open all day, every day</p>
                     <p class="small">12:00pm – 9:00pm</p>
                     <p>Last orders at 8:00pm</p>
-                    <a href="_toggle-london-v2.html" class="btn-outline">Restaurant Menu</a>
+                    <a href="_restaurant-menu-london-v2.html" class="btn-outline">Restaurant Menu</a>
                 </div>
                 <div class="info-card">
                     <h3>Visit Us</h3>
-                    <p>39 London Road</p>
-                    <p>Basingstoke</p>
-                    <p>RG24 7JE</p>
-                        <p>and Festival Place, Basingstoke RG21 7LJ (coming soon)</p>
-                    <a href="_toggle-london-v2.html" class="btn-outline">How to Find Us</a>
+                    <p class="vu-addr">39 London Road, Basingstoke RG24 7JE</p>
+                    <div class="vu-new-inline">
+                        <p class="vu-eyebrow">Coming soon</p>
+                        <p class="vu-name">Oliver's Too</p>
+                        <p class="vu-where">Festival Place, RG21 7LJ</p>
+                    </div>
+                    <a href="#" class="btn-outline" data-map-modal>How to Find Us</a>
                 </div>
             </div>
         </div>
@@ -578,6 +658,13 @@
                 <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Takeaway &amp; Dine-in</div><div class="feature-text">Eat in or take away in our sustainable packaging</div></div>
                 <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Sustainable Practices</div><div class="feature-text">Committed to sourcing responsibly and minimising our environmental impact.</div></div>
             </div>
+
+            <!-- Single gold spot divider between features and footer -->
+            <div class="feature-divider-spot" aria-hidden="true">
+                <div class="line"></div>
+                <div class="gold-dot"></div>
+                <div class="line"></div>
+            </div>
         </div>
     </section>
 
@@ -589,9 +676,8 @@
                 <p>39 London Road, Old Basing, RG24 7JE</p>
             </div>
             <div class="footer-section">
-                <h4 class="footer-title">Festival Place (coming soon)</h4>
-                <p><a href="_toggle-town-v2.html"><img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too" class="brand-logo"> — Festival Place (coming soon)</a></p>
-                <p>[phone TBC]</p>
+                <h4 class="footer-title">Festival Place</h4>
+                <p><img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too" class="brand-logo"> ... coming soon!</p>
                 <p>Unit 6A, Festival Place, Basingstoke, RG21 7LJ</p>
             </div>
         </div>
@@ -605,5 +691,72 @@
         </div>
     </footer>
     <script src="js/_preview-hub.js"></script>
+
+    <!-- ---- Visit Us: map pop-up (mockup only) ---- -->
+    <style>
+        .map-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;          /* clears the floating "All mockups" button (9999) */
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(11, 27, 43, 0.72);
+        }
+        .map-modal.is-open { display: flex; }
+        .map-modal-box {
+            position: relative;
+            width: min(900px, 100%);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(11, 27, 43, 0.4);
+        }
+        .map-modal-box iframe {
+            width: 100%;
+            height: min(70vh, 520px);
+            border: 0;
+            display: block;
+        }
+        .map-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+            width: 38px;
+            height: 38px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(11, 27, 43, 0.82);
+            color: #ffffff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+        }
+        .map-modal-close:hover { background: var(--forest-dark); }
+    </style>
+
+    <div class="map-modal" id="visit-map-modal" role="dialog" aria-modal="true" aria-label="Oliver's location map">
+        <div class="map-modal-box">
+            <button type="button" class="map-modal-close" aria-label="Close map">&times;</button>
+            <iframe src="https://www.google.com/maps?q=Oliver's+Fish+%26+Chip+Restaurant+39+London+Rd+Old+Basing+Basingstoke+RG24+7JE&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Oliver's location map"></iframe>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var modal = document.getElementById('visit-map-modal');
+            var trigger = document.querySelector('[data-map-modal]');
+            if (!modal || !trigger) return;
+            function shut() { modal.classList.remove('is-open'); }
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                modal.classList.add('is-open');
+            });
+            modal.querySelector('.map-modal-close').addEventListener('click', shut);
+            modal.addEventListener('click', function (e) { if (e.target === modal) shut(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
+        })();
+    </script>
 </body>
 </html>
