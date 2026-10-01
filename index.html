@@ -4,32 +4,818 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Oliver's Fish &amp; Chips</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=16">
-    <script src="js/nav.js"></script>
+    <style>
+        /* ---- Promoted from css/_preview-scope.css ----
+           PREVIEW-ONLY had to go: that file is not shipped. These rules must
+           ultimately live in css/style.css (see GO-LIVE-PLAN.md step 4); they are
+           inlined here so this page stands alone for review. Kept UNPREFIXED, and
+           the dropdown selector kept at (0,3,2), for the reasons the original file
+           documents. */
+
+:root {
+    --green: #2F8C4A;        /* primary green */
+    --green-light: #4aa35f;
+    --green-dark: #246b39;
+    --navy: #0B1B2B;         /* dark navy */
+    --off-white: #F8F9FA;    /* off white */
+    --gold: #E0A96D;         /* accent gold */
+    --text-dark: #22252A;    /* text dark */
+
+    /* legacy aliases repointed to the new palette */
+    --cream: #F8F9FA;
+    --gray-50: #F8F9FA;
+    --gray-800: #22252A;
+}
+
+/* ---------------------------------------------------------------------------
+   2. Logo / brand images  (were new global classes in css/style.css)
+   --------------------------------------------------------------------------- */
+.logo-img {
+    height: 42px;
+    width: auto;
+    display: block;
+}
+
+.brand-logo {
+    height: 1.15em;
+    width: auto;
+    vertical-align: -0.15em;
+    display: inline-block;
+    position: relative;
+    top: -2px;
+}
+
+/* ---------------------------------------------------------------------------
+   3. Colour overrides on shared components
+   --------------------------------------------------------------------------- */
+.logo-sub {
+    color: var(--navy);
+}
+
+.nav-menu a {
+    color: var(--navy);
+}
+
+/* ---------------------------------------------------------------------------
+   4. Info cards — solid green CTA buttons
+   --------------------------------------------------------------------------- */
+.info-card .btn-outline {
+    background: var(--green);
+    border: 2px solid var(--green);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+.info-card .btn-outline:hover {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    color: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   5. "Menus" navigation dropdown
+      Shared by every preview page whose nav carries the two-tier header
+      (homepage, About Us, Restaurant) — one definition instead of three copies.
+
+   SPECIFICITY NOTE — the double prefix is deliberate, not decoration.
+      The two-tier header rules in each page's inline style block use
+      `body.page-toggle-london .nav-menu a`  ->  (0,2,2)
+      and set font-size/padding on nav links. A plain `.nav-dropdown a` is only
+      (0,1,1), and SPECIFICITY BEATS SOURCE ORDER, so the dropdown items were
+      silently inheriting the nav-link padding instead of these values.
+      `body.page-toggle-london .nav-menu .nav-dropdown a` is (0,3,2) and wins.
+      Nothing else styles the dropdown, so beating the inline block is harmless.
+
+   BEHAVIOUR: opens on :hover for pointer users, :focus-within for keyboard.
+   No JS, matching the rest of the mockup. Caveat: on touch a tap must focus the
+   parent link before the menu appears — needs JS if this ever goes mobile.
+   --------------------------------------------------------------------------- */
+body.page-toggle-london .nav-menu li.has-dropdown {
+    position: relative;
+}
+
+.nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 214px;
+    margin: 6px 0 0;
+    padding: 8px;
+    list-style: none;
+    background: #ffffff;
+    border: 1px solid rgba(11, 27, 43, 0.10);
+    border-radius: 12px;
+    box-shadow: 0 18px 40px rgba(11, 27, 43, 0.18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity .16s ease, transform .16s ease, visibility .16s;
+    z-index: 130;
+}
+
+body.page-toggle-london .nav-menu li.has-dropdown:hover .nav-dropdown,
+body.page-toggle-london .nav-menu li.has-dropdown:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown li {
+    margin: 0;
+}
+
+body.page-toggle-london .nav-menu .nav-dropdown a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.92rem;
+    white-space: nowrap;
+}
+
+body.page-toggle-london .nav-menu .nav-dropdown a:hover {
+    background: rgba(224, 169, 109, 0.20);
+}
+
+.nav-caret {
+    font-size: 0.68em;
+    margin-left: 5px;
+    opacity: 0.75;
+}
+
+        .info-card h3, h3, h2, .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        body, p, .info-card p, .info-card .small, .feature-text,
+        .hero-tagline-sub, .footer-section p,
+        .footer-bottom, .footer-section a, .loc-note {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: var(--navy);
+        }
+
+        /* The nav uses the brand sans, matching every other redesign page. This
+           page never carried the shared Montserrat block, so its nav fell back to
+           style.css's .nav-menu a and rendered in a different face and weight to
+           the other eight. */
+        .nav-menu a { font-family: 'Montserrat', sans-serif; font-weight: 600; }
+
+        .logo-sub, .hero-logo-sub, .fp-sub,
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        /* ---- Chip-fork location toggles (user's CapCut fork asset) ---- */
+        :root {
+            /* Homepage creams, defined once. A tint reads much darker as a solid
+               field than when content breaks it up, so these are deliberately
+               LIGHTER than the tint used on the framed menu page. The body
+               ground, the wave's fill and the seam-fix banner must all use the
+               same value or a hairline appears where they meet. */
+            --hm-cream: #FFFEFB;   /* page ground — very close to white */
+            --hm-band:  #FEFDF7;   /* the block behind the cards, a touch deeper */ --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
+                --forest-hover: #A9CDB3; --slate: #1C2526;
+                --fork-h: clamp(20px, 2.4vw, 26px);
+                --fork-w: calc(var(--fork-h) * 1122 / 184); }
+        .location-switch {
+            display: flex; gap: 12px; align-items: center;
+            position: absolute; top: 14px; right: 20px; z-index: 101;
+        }
+        /* Shape comes from the PNG's alpha channel (mask); colour/texture comes from CSS,
+           so the same shape can be wood, a flat colour, or a tinted overlay. */
+        .loc-fork { display: block; height: var(--fork-h); width: var(--fork-w);
+                            text-decoration: none; }
+                .loc-fork svg { display: block; width: 100%; height: 100%; overflow: visible; }
+                /* Real SVG stroke = uniform-width border all the way round (equally thick on the
+                   top/bottom and the sides). The earlier mask-enlargement trick couldn't do this on
+                   a fork that is ~6x wider than it is tall. */
+                .f-body { fill: url(#woodpat); stroke: #000000; stroke-width: 5;
+                                  stroke-linejoin: round; stroke-linecap: round;
+                                  transition: fill .2s ease, stroke .2s ease; }
+                .f-wash { fill: rgba(47, 140, 74, 0.33); opacity: 0; transition: opacity .2s ease; }
+                .f-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 57px;
+                           letter-spacing: 2px; text-anchor: middle; fill: var(--slate);
+                           transition: fill .2s ease; }
+                .loc-fork:not(.active):hover .f-wash { opacity: 1; }
+                .loc-fork:hover .f-label { fill: #14191A; }
+                .loc-fork.active .f-body { fill: var(--forest); stroke: var(--slate); }
+                .loc-fork.active .f-label { fill: #ffffff; }
+                .loc-fork.active:hover .f-body { fill: var(--forest-dark); }
+        /* Right space reserves the fork toggle zone so the nav never runs under it.
+           The nav shares the logo's row and wraps within its column. */
+        .nav-container { padding-right: 330px; }
+        .nav-menu { flex: 1 1 0; min-width: 0; gap: 3px; }
+        .nav-menu a { padding: 8px 4px; font-size: 0.68rem; }
+        @media (max-width: 1099px){
+            .location-switch { position: static; width: 100%; justify-content: center; padding: 8px 0 2px; }
+            .nav-container { padding-right: 20px; }
+        }
+        /* Nav links start flush with the logo brand lock-up */
+        .loc-note {
+            text-align: center; padding: 14px 20px; background: var(--cream);
+            border-top: 1px solid rgba(11, 27, 43, 0.10);
+            border-bottom: 1px solid #eee; font-family: 'Lato', sans-serif; font-size: 0.95rem;
+        }
+        .loc-note a { color: var(--green); font-weight: 700; }
+        /* Takeaway/Restaurant/Visit Us cards: white bg, green top border, rounded, soft shadow */
+        .info-card {
+            /* flex column so the starburst can be pushed to the bottom of every card:
+               that aligns the three of them even though the Visit Us card carries an
+               extra address line. align-items: stretch (the default) keeps each child
+               full width, so the centred text is unaffected. */
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 30px;
+            background: var(--forest-dark);   
+            
+            border-top: none;   
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        
+            position: relative;
+        }
+        /* Why Oliver's section: navy bg, white title/subheads, soft grey body, green icons */
+        /* padding-bottom reduced from 80px: with the footer's 60px above the address cards
+           that made a 140px gap, against only 40px above the feature stars, so the
+           section read bottom-heavy. 30 + 10 = 40px, matching the gap above. */
+        .features-section { position: relative; background: var(--navy); color: white; padding-bottom: 20px; }
+        .feature-divider-spot {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 35px auto 10px;
+            max-width: 600px;
+        }
+        .feature-divider-spot .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(224, 169, 109, 0.4), transparent);
+        }
+        .feature-divider-spot .gold-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(224, 169, 109, 0.6);
+        }
+        .features-section .section-title {/* Montserrat, matching every other heading here. The Oswald it was inheriting
+               comes from css/style.css's .section-title, left over from the previous design
+               and still @import-ed by that shared file. */
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            /* larger, to carry the navy section as its header (user request) */
+            font-size: 3.2rem;
+            /* Montserrat, matching every other heading here. The Oswald it was inheriting
+               comes from css/style.css's .section-title, left over from the previous design
+               and still @import-ed by that shared file. */
+            font-family: 'Montserrat', sans-serif;
+            color: white;}
+        .feature-title { color: white; }
+        .feature-text { color: #cbd5e1; opacity: 1; }
+        .feature-icon svg { filter: none; }
+        .feature-icon { display: inline-flex; align-items: center; justify-content: center; }
+        /* Hero brand: centred lockup, balanced vertical rhythm, soft radial glow behind */
+        .hero { justify-content: center; text-align: center; }
+        /* Hero vertical padding, re-balanced so the tagline sits ON the wave's clearance
+           rather than inside it. Sized at ANY viewport width:
+             bottom padding 36 + .hero-brand's 22 = 58px of clear space under the tagline
+             the wave's fill is 38.9px (fixed 64px height x 48.6/80 of the viewBox)  ->  19px gap.
+           The savings that PAY for that clearance come from ABOVE the tagline
+           (.hero-fish-divider and .hero-tagline margins, -16px), so the hero's total height —
+           and the green cards' position below it — is unchanged at 464px. css/style.css sets
+           80px 0 40px on .hero-content and is FROZEN, hence the override here. */
+        .hero-content { padding: 8px 0 36px; }
+        .hero-brand {
+            gap: 0;
+            align-items: center;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 18px 80px 22px;   /* 22px bottom = half the tagline's wave clearance; 80px sides kept */
+        }
+        /* Mobile: 80px side padding + the 96px wordmark (its clamp() MINIMUM in
+           style.css) made .hero-brand 416px wide inside a 390px viewport, giving
+           every phone a 6px horizontal scroll. The live homepage uses ~40px here;
+           the mockup's 80px was only ever checked at desktop width. */
+        @media (max-width: 860px){
+            .hero-brand { padding: 18px 20px 22px; }
+        }
+        .hero-fish-divider { justify-content: center; margin: 10px auto; }   /* 16 -> 10px: funds the wave clearance below */
+        .hero-logo-sub { margin-top: 0; }
+        .hero-tagline { margin-top: 8px; font-family: 'Dancing Script', cursive; }   /* 12 -> 8px: ditto */
+        /* ALL hero text white + subtle dark shadow for legibility */
+        .hero-logo-main { color: #FFFFFF; text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55); }
+        .hero-fish-divider { color: #FFFFFF; }
+        .hero-fish-divider svg { filter: drop-shadow(0 2px 8px rgba(11, 27, 43, 0.55)); }
+        .hero-logo-sub { color: #FFFFFF; text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55); }
+        .hero-tagline { color: #FFFFFF; text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55); }
+        /* Radial glow replaces the band overlay for contrast */
+        .hero::before { background: rgba(255, 255, 255, 0.25);   /* fades the photo ~25% toward white (user request) */ }
+        /* Footer: navy bg retained, white primary/headings/links, light-grey secondary */
+        .site-footer { background: var(--navy); color: #ffffff; }
+        .footer-title { color: #ffffff; }
+        .footer-section p { color: #D1D5DB; }
+        .footer-section a { color: #ffffff; }
+        .footer-section a:hover { color: var(--gold); }
+        .footer-award { display: flex; justify-content: center; padding: 2px 0 20px; }
+        /* the copyright paragraph needs its own colour: a page rule sets color: var(--navy)
+           on .footer-bottom's descendants, which made this NAVY TEXT ON THE NAVY FOOTER
+           - invisible. Inheriting from the div restores the intended light grey. */
+        .footer-bottom p { color: inherit; }
+        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+
+        /* ==================================================================
+           TWO-TIER HEADER  —  scoped to THIS PAGE ONLY
+           Every selector is prefixed with body.page-toggle-london, so nothing
+           here can reach another template or the shared css/style.css.
+           Tier 1: logo (left) + chip-fork badges (right)
+           Tier 2: the full nav menu, centred beneath
+           ================================================================== */
+
+        /* The site header is position:fixed, so the page must offset its own
+           content by the header's height. Re-tuned for the two-tier header
+           (15 + 26 logo + 8 + 41 nav row + 15 = 105px) -> measured 90px header,
+           so the content offset is set to the measured height below.
+           NOTE: if the logo/fork size or tier padding changes, update this. */
+        body.page-toggle-london {
+            padding-top: 102px;
+            /* Combo A (user-approved): warm cream ground. Not a new colour —
+               --cream is the site's own token (#fffdf5), already used by the
+               restaurant menu, so the two pages cannot drift apart. The white info
+               cards keep their own background and lift off it; the hero image, the
+               navy features band and the navy footer carry their own backgrounds. */
+            background: var(--hm-cream);
+        }   /* header measured 96.2px */
+
+        /* The nav container becomes the vertical stack of the two tiers */
+        body.page-toggle-london .nav-container {
+            flex-direction: column;
+            align-items: stretch;
+            flex-wrap: nowrap;
+            gap: 0;
+            padding-right: 20px;      /* release the old 330px fork reserve */
+        }
+        /* navbar's own padding would double up with Tier 1's - hand it over */
+        body.page-toggle-london .navbar { padding: 0; }
+
+        /* ---- Tier 1 rows: logo left, badges right ---- */
+        body.page-toggle-london .nav-tier-1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px 0 8px;      /* 15px clear of the top edge; 8px into the tier gap */
+        }
+        /* Badges anchor to the HEADER edge (right: 20px), exactly as on the
+           Festival Place page. In flow they inherit the centred 1200px
+           container's edge instead, which insets them by (viewport - 1200)/2
+           -> 24.5px at a 1264px window, 360px at 1920px.
+           Resolves against .site-header (position: fixed = positioned
+           ancestor); nothing positioned sits between here and there. */
+        body.page-toggle-london .nav-tier-1 .location-switch {
+            position: absolute;
+            top: 15px;                /* = tier-1 padding-top; centres the 26px badge */
+            right: 20px;
+            z-index: 101;
+            width: auto;
+            padding: 0;
+        }
+        /* forbid any logo shrink so it stays at its original readable scale */
+        body.page-toggle-london .nav-tier-1 .logo {
+            flex-shrink: 0;
+        }
+        /* enlarged to ~2/3 of the header bar (was 30px, ~1/3) */
+        /* ---- Logo ON the nav row ----
+           The logo used to sit on the strip ABOVE the tabs. `display: contents`
+           dissolves that tier's box so the logo and the location toggles join the nav
+           container directly, which is then laid out as one row: logo hard left, tabs
+           next to it, toggles pushed right by margin-left:auto. Desktop only, so the
+           mobile hamburger bar keeps its own layout. */
+        @media (min-width: 1100px){
+            /* min-height restores the bar's height: the logo is absolute now, so it
+               contributes none, and a 62px logo in a 65px bar looks cramped. No extra
+               clearance is needed here — the tabs sit in the container's own centred
+               column, as they did before, and a narrow-screen guard (below) handles
+               the case where that column would start underneath the logo. */
+            /* The container keeps its own centred max-width from style.css — that is what
+               lines the nav items up with the page content. My earlier full-width override
+               dragged them out of that column. The logo no longer consumes flow space
+               (it is absolute), so nothing needs reserving here. */
+            body.page-toggle-london .nav-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 30px;
+                padding: 12px 0;
+                min-height: 86px;
+            }
+            /* Narrow-screen guard: the absolute logo ends at ~301px, so below this the
+               centred column would start underneath it. Pushes the tabs clear instead. */
+            @media (max-width: 1620px) {
+                body.page-toggle-london .nav-menu { margin-left: 310px; }   /* clears the logo (~301px) */
+            }
+            body.page-toggle-london .nav-tier-1 { display: contents; }
+            body.page-toggle-london .nav-container { position: static; }   /* keep the header as the containing block */
+            /* Pinned to the BAR, not the container, with absolute positioning. The nav
+               container is centred with a max-width, so its left inset GROWS with the
+               viewport (~24px at 1249 wide, ~337px at 1835) — a fixed negative margin
+               only ever landed in the corner at one window size. Anchored to the fixed
+               header, 4px is 4px from the left edge at any width. */
+            body.page-toggle-london .nav-tier-1 .logo {
+                order: 1;
+                position: absolute;
+                left: 130px;   /* ~3.4cm in from the left, not jammed against the edge */
+                top: 50%;
+                transform: translateY(-50%);
+                margin-left: 0;
+            }
+            /* 190px clears the absolutely-positioned logo (~171px) plus a gap. At wider
+               viewports the container's own inset pushes the tabs further right anyway,
+               so this only ever sets a floor — it can't cause a collision. */
+            body.page-toggle-london .nav-menu { order: 2; flex-wrap: nowrap; white-space: nowrap; }
+            body.page-toggle-london .location-switch { order: 3; margin-left: auto; }
+        }
+
+        /* ---- Food hygiene award: enlarged for prominence (user request) ----
+           css/style.css renders this "small and discreet" (a 110px image inside a 160px
+           card), and that file is frozen because nine live pages share it — so the
+           enlargement is a scoped override here rather than an edit there. Roughly
+           doubled, with the shadow and corner radius scaled to suit the bigger box.
+           Overrides win on source order: style.css loads first, this block comes later. */
+        .awards-banner { padding: 26px 20px 18px; }
+        .award-card {
+            max-width: 240px;
+            padding: 16px;
+            border-radius: 14px;
+            box-shadow: 0 8px 22px rgba(11, 27, 43, 0.14);
+        }
+        .award-img { width: 180px; border-radius: 10px; }   /* slightly smaller (was 230) */
+
+        body.page-toggle-london .nav-tier-1 .logo-main { font-size: 62px; }
+
+        /* ---- Tier 2 row: the full nav menu, left-aligned ---- */
+        body.page-toggle-london .nav-menu {
+            flex: 0 0 auto;
+            width: 100%;
+            justify-content: flex-start;
+            margin-left: -12px;       /* first tab's TEXT flush with the logo */
+            gap: 6px;
+            padding: 0 0 15px;
+        }
+        /* readable tab size - restores the shared default this page was
+           overriding with 0.68rem */
+        body.page-toggle-london .nav-menu a {
+            font-size: 0.9rem;
+            padding: 8px 12px;
+        }
+
+        /* keep the two tiers sane when space genuinely runs out */
+        @media (max-width: 1099px){
+            body.page-toggle-london .nav-tier-1 { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            /* the scoped absolute rule above outranks the page's own media
+               override, so drop the badges back into the flow here */
+            body.page-toggle-london .nav-tier-1 .location-switch {
+                position: static; width: 100%; justify-content: center; padding: 8px 0 2px;
+            }
+            body.page-toggle-london .nav-menu { flex-wrap: wrap; }
+            body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
+        }
+    
+        .awards-banner {
+            position: relative;
+            z-index: 1;
+            background: var(--hm-cream);      /* opaque: covers the band's trailing edge */
+            margin-top: -3px;
+        }
+
+        /* ---- Cream band behind the three cards ----
+           The user wanted the cards' backing to read like the cream field lower down the
+           page. The ground alone was too thin a sliver between the cards to register, so
+           the band gets its own slightly deeper cream: the eye reads depth from a large
+           field, not from a hex value. */
+        /* padding-top trimmed 80px -> 36px: this is the gap immediately ABOVE the green cards,
+           i.e. the rest of the distance the user was having to scroll. padding-bottom is left
+           at style.css's 80px, so the gap BELOW the cards is unchanged. Edited in place — a
+           second .info-section rule would silently win and the duplicate-rule trap has bitten
+           twice on this project. */
+        .info-section { background: var(--hm-band); padding-top: 36px; }
+
+        /* ---- Partial green line on each card ----
+           Replaces the full-width top rule. A short bar reads as a deliberate accent;
+           a full-width line reads as a border. Sized in px so its length is predictable
+           across the three cards regardless of how the text wraps. */
+        /* ---- Partial line on each card ----
+           Centred and sitting ON the card's top edge, not inset by the card's 40px padding.
+           Absolutely positioned rather than in the flow: that keeps it flush regardless of
+           the padding value (which lives in css/style.css, a shared file), and it stops the
+           bar from pushing the heading down. Rounded on its lower corners only, since its
+           top edge is the card's own edge. */
+        .info-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 3px;
+            border-radius: 0 0 2px 2px;
+            background: var(--forest);
+        }
+
+        /* ---- Wavy bottom edge on the hero photo ----
+           Same wave shape as the navy band below, so the two match. Pinned to the hero's
+           bottom edge and filled with the page ground, so the photograph dissolves into the
+           cream instead of ending on a straight line. bottom: -1px so the fill cannot leave
+           a hairline at the boundary — the same trap as the earlier navy band seam.
+
+           ⚠️ The height is FIXED, not `auto`, and that is the whole point. The wave is
+           viewBox "0 0 1440 80" with preserveAspectRatio="none", and the path fills only the
+           LOWER 48.6/80 of that box — so at `height: auto` the fill's intrusion grew with the
+           VIEWPORT WIDTH: 42px in a 1249px window, 62px in the user's 1848px one. The tagline's
+           clearance underneath is a fixed number, so a wide window drove the wave up THROUGH
+           the tagline (reported: "the tag line is cut off / intersects the bottom of the wavy
+           border"). Pinning the height holds the fill at 38.9px at every width — which is what
+           .hero-content's 58px of clearance is actually sized against. A wave that scales with
+           the viewport can never be cleared by a fixed offset. */
+        .hm-hero-wave {
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 100%;
+            height: 64px;      /* was `auto` -> 69.4px at 1249 wide, 102.6px at 1848 */
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hm-hero-wave path { fill: var(--hm-cream); }
+
+        /* ---- Wavy TOP edge on the navy band (user request) ----
+           The same wave shape as everywhere else on this page, flipped vertically with
+           scaleY(-1) so its fill sits ABOVE the curve and carves the band's top edge.
+           Filled with --hm-band, the block behind the cards immediately above, so those
+           two meet in a wave instead of a straight line. top:-1px guards the boundary,
+           the same hairline trap as the band's bottom edge. */
+        .hm-top-wave {
+            position: absolute;
+            left: 0;
+            top: -1px;
+            width: 100%;
+            height: auto;
+            transform: scaleY(-1);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hm-top-wave path { fill: var(--hm-band); }
+
+        /* ---- Cards: gold on a green base (user request) ----
+           The starburst pairing applied to the cards. The base is --forest-dark (#26713C),
+           NOT the brand --forest (#2F8C4A): on the brand green every text option fails AA
+           (white 4.22:1, cream 4.15:1, navy 4.12:1). On the darker green, cream text is
+           5.9:1 and passes. The buttons become gold starbursts, using the SAME generated
+           polygon as the menu's, with the same navy #10243A label as the starburst. */
+        .info-card h3,
+        .info-card p,
+        .info-card .small,
+        .info-card .tagline { color: #FFFDF5; }
+
+        .info-card .btn-outline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 76px;
+            height: 76px;
+            margin: auto auto 2px;
+            padding: 13px;
+            background: #E0A96D;
+            border: 0;
+            border-radius: 0;
+            color: #10243A;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.44rem;
+            line-height: 1.28;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            clip-path: polygon(50.0% 0.0%, 55.7% 13.9%, 65.5% 2.4%, 66.6% 17.5%, 79.4% 9.5%, 75.8% 24.2%, 90.5% 20.6%, 82.5% 33.4%, 97.6% 34.5%, 86.1% 44.3%, 100.0% 50.0%, 86.1% 55.7%, 97.6% 65.5%, 82.5% 66.6%, 90.5% 79.4%, 75.8% 75.8%, 79.4% 90.5%, 66.6% 82.5%, 65.5% 97.6%, 55.7% 86.1%, 50.0% 100.0%, 44.3% 86.1%, 34.5% 97.6%, 33.4% 82.5%, 20.6% 90.5%, 24.2% 75.8%, 9.5% 79.4%, 17.5% 66.6%, 2.4% 65.5%, 13.9% 55.7%, 0.0% 50.0%, 13.9% 44.3%, 2.4% 34.5%, 17.5% 33.4%, 9.5% 20.6%, 24.2% 24.2%, 20.6% 9.5%, 33.4% 17.5%, 34.5% 2.4%, 44.3% 13.9%);
+        }
+        .info-card .btn-outline:hover { background: #D89A57; }
+
+        /* ---- Visit Us card: address + map link.
+           The Oliver's Too / Festival Place block was removed ahead of the
+           announcement; its rules below are kept so reinstating it is a
+           markup-only change. See PENDING-FESTIVAL-PLACE.md. ---- */
+        /* This card carries ONE address line where the others carry three, so the
+           starburst's margin-top:auto stranded it at the top with ~78px of dead
+           space below. Auto side margins make the address share that slack with
+           the button, centring it in the space above it. */
+        .info-card--visit .vu-addr {
+            margin: auto 0 6px;
+            font-size: 0.9rem;
+            line-height: 1.25;
+        }
+        .info-card .vu-new-inline {
+            margin: 6px 0 10px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 253, 245, 0.20);
+        }
+        .info-card .vu-eyebrow {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.55rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #E0A96D;
+        }
+        .info-card .vu-name {
+            margin: 2px 0 2px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.35rem;
+            line-height: 1;
+            color: #FFFDF5;
+        }
+        .info-card .vu-where {
+            margin: 0;
+            font-size: 0.72rem;
+            line-height: 1.35;
+            color: #cbd5e1;
+        }
+
+        /* ---- Footer address cards (user request, from the reference design) ----
+           Each location becomes its own card: a slightly lighter navy, a gold top border,
+           and a gold DOT above the heading. The reference used a star; the dot is the
+           requested swap. The hygiene badge and copyright sit below them, as in the
+           reference layout. Scoped to .site-footer so nothing else is affected. */
+        .site-footer .footer-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: stretch;   /* equal-height cards: 'start' let each shrink to its own content */
+        }
+        .site-footer .footer-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;   /* centre the content in the stretched card */
+            background: rgba(255, 255, 255, 0.14);   /* option 2: lighter navy (user pick) */
+            border-top: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 18px 20px 20px;
+            text-align: center;
+        }
+        .site-footer .footer-section::before {
+            content: "";
+            display: block;
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 9px;
+            background: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cellipse%20cx%3D%2726%27%20cy%3D%2732%27%20rx%3D%2718%27%20ry%3D%2710%27%20fill%3D%27%23E0A96D%27/%3E%3Cpolygon%20points%3D%2744%2C32%2056%2C20%2056%2C44%27%20fill%3D%27%23E0A96D%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%2732%27%20r%3D%273.5%27%20fill%3D%27%230b3d2e%27/%3E%3Ccircle%20cx%3D%2719.2%27%20cy%3D%2731.2%27%20r%3D%271.2%27%20fill%3D%27%23ffffff%27/%3E%3C/svg%3E") center/contain no-repeat;
+        }
+
+        /* ---- Balanced navy section (user request) ----
+           Measured: 40px between the heading and the feature stars, but 140px from the
+           feature text down to the footer's address cards (80px of this section's bottom
+           padding + 60px of the footer's top padding). The block read bottom-heavy.
+           30 + 10 = 40px, matching the gap above, so the content sits centred.
+           Padding-top is untouched: 80px of air above the heading is not part of the
+           imbalance the eye was reading. */
+        .site-footer { padding-top: 10px; }
+
+        /* Festival Place footer card — the second site is not announced yet,
+           so the card names no location. Reinstate the heading + address when
+           the opening is public. */
+        .footer-coming {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #ffffff;
+            margin: 0;
+        }
+        /* The trademark script on "Oliver's" — same values as the menu pages'
+           .mn-script so the brand mark is identical everywhere. */
+        .footer-coming .script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 800;
+            font-size: 1.32em;
+            line-height: 1;
+            vertical-align: 0.02em;
+        }
+/* ---- Nav centring ---- */
+        /* The items were left-aligned in a full-width box, so with Gift Vouchers
+           gone the row read left-heavy with ~250px of dead space at the right.
+           Centre them instead.
+           These rules sit LAST in the block on purpose: the base .nav-menu rule
+           above sets width/justify/margin at the same specificity, so only a
+           later rule can override it. */
+        @media (min-width: 1100px){
+            body.page-toggle-london .nav-menu {
+                flex: 1 1 auto;
+                width: auto;
+                justify-content: center;
+                margin-left: 0;
+            }
+            /* The logo is pinned 130-301px from the PAGE edge, while the nav
+               lives in the centred 1200px container — so the narrower the
+               viewport, the further the logo intrudes into the container and
+               the more of the nav's left side it would sit on top of.
+               The needed reservation is exactly linear:
+                   reserve = min(309px, (1822px - 100vw) / 2)
+               which clamps to 0 once the container starts clear of the logo
+               (~1832px) and to 309px once the container hits the page edge.
+               Replaces an earlier flat margin-left:310px that never applied —
+               it was overridden by the base rule further down the block. */
+            body.page-toggle-london .nav-menu {
+                /* margin, NOT padding: padding would shift the centring box's
+                   interior and push the items right by the full reserve, so the
+                   nav would sit off-centre. Margin moves the box itself, and
+                   justify-content then centres inside what's left. */
+                margin-left: clamp(0px, (1822px - 100vw) / 2, 309px);
+            }
+        }
+        /* At the tight end the reserved column leaves under ~950px for ~950px of
+           items, so shrink them rather than let the row overflow. */
+        @media (min-width: 1100px) and (max-width: 1400px){
+            body.page-toggle-london .nav-menu a { font-size: 0.82rem; padding: 8px 7px; }
+        }
+        @media (min-width: 1100px) and (max-width: 1150px){
+            body.page-toggle-london .nav-menu a { font-size: 0.75rem; padding: 8px 6px; }
+        }
+
+        /* ---- Hamburger across the whole stacked range ----
+           css/style.css switches to the hamburger at 768px, but this two-tier
+           header needs the stacked layout all the way to 1100px — the desktop nav
+           cannot fit below that with the logo pinned 130px from the page edge.
+           Between 769 and 1099 the two disagreed: the page stacked the header
+           while style.css still laid the nav out as a desktop row, so the last
+           three items ran off the right edge with no way to reach them.
+           These mirror style.css's own mobile nav rules verbatim, across the
+           wider range. Specificity is kept at (0,1,0)/(0,2,0) exactly as in
+           style.css so `.nav-menu.active` still beats the hidden state. */
+        @media (min-width: 769px) and (max-width: 1099px) {
+            .nav-toggle { display: flex; }
+            .nav-menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 2px;
+                padding-top: 12px;
+                background: white;
+                max-height: unset;
+                overflow: visible;
+            }
+            .nav-menu.active { display: flex; }
+        }
+</style>
 </head>
-<body>
+<body class="page-toggle-london">
     <header class="site-header">
         <nav class="navbar">
             <div class="container nav-container">
-                <a href="index.html" class="logo"><span class="logo-main">Oliver's</span><span class="logo-sub">Fish &amp; Chips</span></a>
+                <div class="nav-tier-1">
+                    <a href="index.html" class="logo"><span class="logo-main">Oliver's</span></a>
                 <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                </div><!-- /.nav-tier-1 -->
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="restaurant.html">Restaurant</a></li>
                     <li><a href="takeaway.html">Takeaway</a></li>
+                    <li class="has-dropdown">
+                        <a href="restaurant.html#menu" aria-haspopup="true">Menus<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="restaurant-menu.html">Restaurant menu</a></li>
+                            <li><a href="takeaway-menu.html">Takeaway menu</a></li>
+                        </ul>
+                    </li>
                     <li><a href="kids.html">Oliver's for Kids</a></li>
                     <li><a href="catered-packages.html">Catered Packages</a></li>
-                    <li><a href="giftvouchers.html">Gift Vouchers</a></li>
+                    <li class="has-dropdown">
+                        <a href="index.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="index.html">London Road</a></li>
+                        </ul>
+                    </li>
+
                     <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
     </header>
+
     <section class="hero">
         <div class="container hero-content">
             <div class="hero-brand">
-                <span class="hero-logo-main">Oliver's
+                <span class="hero-logo-main">Oliver's</span>
                 <span class="hero-fish-divider">
                     <svg class="hero-fish-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img">
                         <ellipse cx="26" cy="32" rx="18" ry="10" fill="currentColor"/>
@@ -39,11 +825,13 @@
                     </svg>
                 </span>
                 <span class="hero-logo-sub">Fish &amp; Chips</span>
-                <p class="hero-tagline">Famous for Fish &amp; Chips in Basingstoke &amp; North Hampshire!</p>
+                <p class="hero-tagline">famous for fish &amp; chips in Basingstoke &amp; North Hampshire</p>
             </div>
         </div>
+            <svg class="hm-hero-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0,40 C150,10 300,70 470,42 C620,18 780,72 960,46 C1120,22 1300,66 1440,38 L1440,80 L0,80 Z" fill="#FDFAF3"/>
+        </svg>
     </section>
-
 
     <section class="info-section">
         <div class="container">
@@ -52,61 +840,43 @@
                     <h3>Takeaway</h3>
                     <p>Open all day, every day</p>
                     <p class="small">11:30am – 9:00pm</p>
-                    <p>Famous award-winning Fish &amp; Chips</p>
-                    <a href="takeaway.html" class="btn-outline">Takeaway Menu</a>
+                    <p class="small">Pull up and pop in!</p>
+                    <a href="takeaway-menu.html" class="btn-outline">Takeaway Menu</a>
                 </div>
                 <div class="info-card">
                     <h3>Restaurant</h3>
                     <p>Open all day, every day</p>
                     <p class="small">12:00pm – 9:00pm</p>
                     <p>Last orders at 8:00pm</p>
-                    <a href="restaurant.html" class="btn-outline">Restaurant Menu</a>
+                    <a href="restaurant-menu.html" class="btn-outline">Restaurant Menu</a>
                 </div>
-                <div class="info-card">
+                <div class="info-card info-card--visit">
                     <h3>Visit Us</h3>
-                    <p>39 London Road</p>
-                    <p>Basingstoke</p>
-                    <p>RG24 7JE</p>
-                    <a href="contact.html" class="btn-outline">How to Find Us</a>
+                    <p class="vu-addr">39 London Road, Basingstoke RG24 7JE</p>
+                    <a href="#" class="btn-outline" data-map-modal>How to Find Us</a>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="features-section">
+        <svg class="hm-top-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0,40 C150,10 300,70 470,42 C620,18 780,72 960,46 C1120,22 1300,66 1440,38 L1440,80 L0,80 Z" fill="#FDFAF3"/>
+        </svg>
         <div class="container">
-            <h2 class="section-title">Why Choose <span class="brand">Oliver's?</span></h2>
+            <h2 class="section-title">Why <span class="brand">Oliver's?</span></h2>
             <div class="features-grid">
-                <div class="feature">
-                    <div class="feature-icon">⭐</div>
-                    <div class="feature-title">Fresh Fish Daily</div>
-                    <div class="feature-text">Fresh sustainable fish, prepared and cooked to order every day.</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">⭐</div>
-                    <div class="feature-title">Award Winning</div>
-                    <div class="feature-text">Proudly recognised for our quality, taste and friendly local service.</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">⭐</div>
-                    <div class="feature-title">Takeaway &amp; Dine-in</div>
-                    <div class="feature-text">Eat in or take away. Hot and fresh every time.</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">⭐</div>
-                    <div class="feature-title">Sustainable Practices</div>
-                    <div class="feature-text">Committed to sourcing responsibly and minimising our environmental impact.</div>
-                </div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Fresh Fish Daily</div><div class="feature-text">Fresh, sustainable fish and daily specials, prepared and cooked to order every day.</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Award Winning</div><div class="feature-text">Proudly recognised for our quality, taste and friendly local service.</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Takeaway &amp; Dine-in</div><div class="feature-text">Eat in or take away in our sustainable packaging</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Sustainable Practices</div><div class="feature-text">Committed to sourcing responsibly and minimising our environmental impact.</div></div>
             </div>
-        </div>
-    </section>
 
-    <section class="awards-banner">
-        <div class="container">
-            <div class="awards-inner">
-                <div class="award-card">
-                    <img src="images/award-hygiene.jpg" alt="5 Star Food Hygiene Rating" class="award-img">
-                </div>
+            <!-- Single gold spot divider between features and footer -->
+            <div class="feature-divider-spot" aria-hidden="true">
+                <div class="line"></div>
+                <div class="gold-dot"></div>
+                <div class="line"></div>
             </div>
         </div>
     </section>
@@ -114,18 +884,91 @@
     <footer class="site-footer">
         <div class="container footer-container">
             <div class="footer-section">
-                <h4 class="footer-title">Contact</h4>
+                <h4 class="footer-title">London Road</h4>
                 <p>01256 321018</p>
+                <p>39 London Road, Old Basing, RG24 7JE</p>
                 <p><a href="mailto:info@olivers4fish.co.uk">info@olivers4fish.co.uk</a></p>
             </div>
             <div class="footer-section">
-                <h4 class="footer-title">Address</h4>
-                <p>39 London Road<br>Old Basing<br>Basingstoke<br>RG24 7JE</p>
+                <p class="footer-coming">Another <span class="script">Oliver's</span> is on its way — and that's all we're saying for now!</p>
             </div>
         </div>
+        <div class="footer-award">
+            <div class="award-card">
+                    <img src="images/award-hygiene.jpg" alt="5 Star Food Hygiene Rating" class="award-img">
+                </div>
+            </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
         </div>
     </footer>
+
+    <!-- ---- Visit Us: map pop-up (mockup only) ---- -->
+    <style>
+        .map-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;          /* clears the floating "All mockups" button (9999) */
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(11, 27, 43, 0.72);
+        }
+        .map-modal.is-open { display: flex; }
+        .map-modal-box {
+            position: relative;
+            width: min(900px, 100%);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(11, 27, 43, 0.4);
+        }
+        .map-modal-box iframe {
+            width: 100%;
+            height: min(70vh, 520px);
+            border: 0;
+            display: block;
+        }
+        .map-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+            width: 38px;
+            height: 38px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(11, 27, 43, 0.82);
+            color: #ffffff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+        }
+        .map-modal-close:hover { background: var(--forest-dark); }
+    </style>
+
+    <div class="map-modal" id="visit-map-modal" role="dialog" aria-modal="true" aria-label="Oliver's location map">
+        <div class="map-modal-box">
+            <button type="button" class="map-modal-close" aria-label="Close map">&times;</button>
+            <iframe src="https://www.google.com/maps?q=Oliver's+Fish+%26+Chip+Restaurant+39+London+Rd+Old+Basing+Basingstoke+RG24+7JE&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Oliver's location map"></iframe>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var modal = document.getElementById('visit-map-modal');
+            var trigger = document.querySelector('[data-map-modal]');
+            if (!modal || !trigger) return;
+            function shut() { modal.classList.remove('is-open'); }
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                modal.classList.add('is-open');
+            });
+            modal.querySelector('.map-modal-close').addEventListener('click', shut);
+            modal.addEventListener('click', function (e) { if (e.target === modal) shut(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
+        })();
+    </script>
+    <script src="js/nav.js"></script>
 </body>
 </html>

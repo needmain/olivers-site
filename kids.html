@@ -3,85 +3,620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oliver's for Kids - Oliver's Fish & Chips</title>
+    <title>Oliver's for Kids - Oliver's Fish &amp; Chips</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=16">
-    <script src="js/nav.js"></script>
     <style>
-        .kids-section { padding: 40px 0 30px; }
-        .kids-container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
-        .kids-card { background: #ffffff; border: 2px solid #e5e7eb; border-radius: 14px; padding: 22px 24px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .kids-card h3 { color: #1f5c28; font-size: 1.05rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 3px solid #2d7d3a; display: inline-block; }
-        .kids-card p { color: #374151; font-size: 0.88rem; line-height: 1.7; margin: 0 0 8px 0; }
-        .kids-card p:last-child { margin-bottom: 0; }
-        .minnow-boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-top: 14px; }
-        .minnow-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 10px; padding: 14px 16px; text-align: center; font-weight: 700; color: #1f5c28; font-size: 0.9rem; }
-        .minnow-box .emoji { font-size: 1.6rem; display: block; margin-bottom: 4px; }
-        .minnow-box .sausage-icon { height: 14px; width: auto; display: block; margin: 21px auto 10px auto; }
-    </style>
+        /* ---- Promoted from css/_preview-scope.css ----
+           PREVIEW-ONLY had to go: that file is not shipped. These rules must
+           ultimately live in css/style.css (see GO-LIVE-PLAN.md step 4); they are
+           inlined here so this page stands alone for review. Kept UNPREFIXED, and
+           the dropdown selector kept at (0,3,2), for the reasons the original file
+           documents. */
+
+:root {
+    --green: #2F8C4A;        /* primary green */
+    --green-light: #4aa35f;
+    --green-dark: #246b39;
+    --navy: #0B1B2B;         /* dark navy */
+    --off-white: #F8F9FA;    /* off white */
+    --gold: #E0A96D;         /* accent gold */
+    --text-dark: #22252A;    /* text dark */
+
+    /* legacy aliases repointed to the new palette */
+    --cream: #F8F9FA;
+    --gray-50: #F8F9FA;
+    --gray-800: #22252A;
+}
+
+/* ---------------------------------------------------------------------------
+   2. Logo / brand images  (were new global classes in css/style.css)
+   --------------------------------------------------------------------------- */
+.logo-img {
+    height: 42px;
+    width: auto;
+    display: block;
+}
+
+.brand-logo {
+    height: 1.15em;
+    width: auto;
+    vertical-align: -0.15em;
+    display: inline-block;
+    position: relative;
+    top: -2px;
+}
+
+/* ---------------------------------------------------------------------------
+   3. Colour overrides on shared components
+   --------------------------------------------------------------------------- */
+.logo-sub {
+    color: var(--navy);
+}
+
+.nav-menu a {
+    color: var(--navy);
+}
+
+/* ---------------------------------------------------------------------------
+   4. Info cards — solid green CTA buttons
+   --------------------------------------------------------------------------- */
+.info-card .btn-outline {
+    background: var(--green);
+    border: 2px solid var(--green);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+.info-card .btn-outline:hover {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    color: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   5. "Menus" navigation dropdown
+      Shared by every preview page whose nav carries the two-tier header
+      (homepage, About Us, Restaurant) — one definition instead of three copies.
+
+   SPECIFICITY NOTE — the double prefix is deliberate, not decoration.
+      The two-tier header rules in each page's inline style block use
+      `body.page-toggle-london .nav-menu a`  ->  (0,2,2)
+      and set font-size/padding on nav links. A plain `.nav-dropdown a` is only
+      (0,1,1), and SPECIFICITY BEATS SOURCE ORDER, so the dropdown items were
+      silently inheriting the nav-link padding instead of these values.
+      `body.page-toggle-london .nav-menu .nav-dropdown a` is (0,3,2) and wins.
+      Nothing else styles the dropdown, so beating the inline block is harmless.
+
+   BEHAVIOUR: opens on :hover for pointer users, :focus-within for keyboard.
+   No JS, matching the rest of the mockup. Caveat: on touch a tap must focus the
+   parent link before the menu appears — needs JS if this ever goes mobile.
+   --------------------------------------------------------------------------- */
+body.page-toggle-london .nav-menu li.has-dropdown {
+    position: relative;
+}
+
+.nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 214px;
+    margin: 6px 0 0;
+    padding: 8px;
+    list-style: none;
+    background: #ffffff;
+    border: 1px solid rgba(11, 27, 43, 0.10);
+    border-radius: 12px;
+    box-shadow: 0 18px 40px rgba(11, 27, 43, 0.18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity .16s ease, transform .16s ease, visibility .16s;
+    z-index: 130;
+}
+
+body.page-toggle-london .nav-menu li.has-dropdown:hover .nav-dropdown,
+body.page-toggle-london .nav-menu li.has-dropdown:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown li {
+    margin: 0;
+}
+
+body.page-toggle-london .nav-menu .nav-dropdown a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.92rem;
+    white-space: nowrap;
+}
+
+body.page-toggle-london .nav-menu .nav-dropdown a:hover {
+    background: rgba(224, 169, 109, 0.20);
+}
+
+.nav-caret {
+    font-size: 0.68em;
+    margin-left: 5px;
+    opacity: 0.75;
+}
+
+        /* ==================================================================
+           PRODUCTION PAGE — London Road "Oliver's for Kids".
+           Content copied VERBATIM from the live kids.html (two cards, the
+           three Minnows' boxes, the price lines, the facilities note and the
+           link to the restaurant menu). Only the presentation is new: the
+           two-tier header, the hero band and the card grid used by the other
+           redesign pages. css/style.css is NOT modified.
+           ================================================================== */
+
+        /* ---- Typography: Montserrat headings + Inter body ---- */
+        .section-title, h1, h2, h3, .nav-menu a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        body, p, .footer-section p, .footer-bottom, .footer-section a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: var(--navy);
+        }
+        .logo-sub, .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* ---- Chip-fork location toggles (user's CapCut fork asset) ---- */
+        :root {
+            --cream: #F8F9FA;
+            --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
+            --forest-hover: #A9CDB3; --slate: #1C2526;
+            --fork-h: clamp(20px, 2.4vw, 26px);
+            --fork-w: calc(var(--fork-h) * 1122 / 184);
+            /* page-local design tokens */
+            --rst-ink: #46505c;
+            --rst-mute: #8b95a1;
+            --rst-line: rgba(11, 27, 43, 0.08);
+            --rst-lift: 0 14px 32px rgba(11, 27, 43, 0.13);
+        }
+
+        /* ---- Hero band: eyebrow → title → gold hairline → lede ---- */
+        .site-banner.rst-hero {
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+            background: var(--navy);
+            min-height: 0;
+            padding: 56px 20px 54px;
+            text-align: center;
+        }
+        .site-banner.rst-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                rgba(11, 27, 43, 0.55) 0%,
+                rgba(11, 27, 43, 0.68) 50%,
+                rgba(11, 27, 43, 0.82) 100%);
+        }
+        .site-banner.rst-hero > * { position: relative; z-index: 1; }
+        .rst-eyebrow {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+        /* 0,2,0 so it beats style.css's own .menu-page-title rule */
+        .site-banner .menu-page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: clamp(2.6rem, 6vw, 4.05rem);
+            line-height: 1.04;
+            margin: 0 0 20px;
+        }
+        /* "Oliver's" in the brand script, as on the two menu pages */
+        .site-banner .menu-page-title .kids-script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 800;
+            font-size: 1.32em;
+            line-height: 1;
+            vertical-align: 0.02em;
+        }
+        .rst-rule {
+            width: 64px; height: 3px; border-radius: 2px;
+            background: var(--gold);
+            margin: 0 auto 24px;
+        }
+        .rst-lede {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.86);
+            max-width: 66ch;
+            margin: 0 auto;
+        }
+
+        /* ---- Section rhythm ---- */
+        .rst-section { padding: 66px 0; }
+        @media (max-width: 860px){
+            .site-banner.rst-hero { padding: 40px 20px 38px; }
+            .rst-section { padding: 44px 0; }
+        }
+
+        /* ---- Cards ----
+           Two columns, not the three-across used elsewhere: this page has two
+           content cards and the Minnows' boxes need the room. minmax(420px)
+           resolves to 2 columns inside the 1200px container. */
+        .kids-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 24px;
+            align-items: stretch;
+        }
+        @media (max-width: 900px){ .kids-grid { grid-template-columns: 1fr; } }
+        .rst-card {
+            background: #ffffff;
+            border-top: 4px solid var(--forest);
+            border-radius: 14px;
+            box-shadow: 0 10px 26px rgba(11, 27, 43, 0.07);
+            padding: 30px 28px 32px;
+            position: relative;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .rst-card:hover { transform: translateY(-3px); box-shadow: var(--rst-lift); }
+        .rst-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin: 0 0 14px;
+        }
+        .rst-card p { font-size: 1.06rem; line-height: 1.72; color: var(--rst-ink); margin: 0 0 12px; }
+        .rst-card p:last-child { margin-bottom: 0; }
+
+        /* ---- Minnows' boxes: three across, emoji + label ---- */
+        .minnow-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+        .minnow-box {
+            background: var(--forest-pale);
+            border: 2px solid rgba(47, 140, 74, 0.28);
+            border-radius: 10px;
+            padding: 16px 14px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--forest-dark);
+            font-size: 0.88rem;
+            line-height: 1.35;
+        }
+        .minnow-box .emoji { font-size: 1.7rem; display: block; margin-bottom: 6px; }
+        .minnow-box .sausage-icon { height: 15px; width: auto; display: block; margin: 24px auto 12px; }
+
+        /* ---- Facilities note: gold accent panel, matching the site's callouts ---- */
+        .kids-note {
+            margin-top: 26px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(224, 169, 109, 0.18), rgba(224, 169, 109, 0.07));
+            border: 1px solid rgba(224, 169, 109, 0.45);
+            border-radius: 14px;
+            padding: 20px 24px;
+            font-size: 1.02rem;
+            color: var(--rst-ink);
+        }
+        .kids-note strong { color: var(--navy); }
+        .kids-note .ic { font-size: 1.25rem; margin-right: 8px; }
+
+        .rst-card a { color: var(--forest-dark); font-weight: 600; }
+
+        /* ---- Footer address cards (matching the other mockups) ---- */
+        .site-footer .footer-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        .site-footer .footer-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;   /* centre the content in the stretched card */
+            background: rgba(255, 255, 255, 0.14);
+            border-top: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 18px 20px 20px;
+            text-align: center;
+        }
+        .site-footer .footer-section::before {
+            content: "";
+            display: block;
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 9px;
+            background: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cellipse%20cx%3D%2726%27%20cy%3D%2732%27%20rx%3D%2718%27%20ry%3D%2710%27%20fill%3D%27%23E0A96D%27/%3E%3Cpolygon%20points%3D%2744%2C32%2056%2C20%2056%2C44%27%20fill%3D%27%23E0A96D%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%2732%27%20r%3D%273.5%27%20fill%3D%27%230b3d2e%27/%3E%3Ccircle%20cx%3D%2719.2%27%20cy%3D%2731.2%27%20r%3D%271.2%27%20fill%3D%27%23ffffff%27/%3E%3C/svg%3E") center/contain no-repeat;
+        }
+        .site-footer { background: var(--navy); color: #ffffff; }
+        .footer-title { color: #ffffff; }
+        .footer-section p { color: #D1D5DB; }
+        .footer-section a { color: #ffffff; }
+        .footer-section a:hover { color: var(--gold); }
+        /* The copyright paragraph needs its own colour. The typography block near the
+           top of this page sets `p { color: var(--navy) }`, and that targets the <p>
+           DIRECTLY — so it beats the light grey this div passes down by inheritance,
+           leaving NAVY TEXT ON THE NAVY FOOTER. Contrast measured 1.00:1: invisible.
+           (Same trap the handover brief records for the homepage.) */
+        .footer-bottom p { color: inherit; }
+        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+
+        /* ==================================================================
+           TWO-TIER HEADER — identical to other mockups.
+           ================================================================== */
+        body.page-toggle-london { padding-top: 102px; }
+        body.page-toggle-london .nav-container {
+            flex-direction: column;
+            align-items: stretch;
+            flex-wrap: nowrap;
+            gap: 0;
+            padding-right: 20px;
+        }
+        body.page-toggle-london .navbar { padding: 0; }
+        body.page-toggle-london .nav-tier-1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px 0 8px;
+        }
+        body.page-toggle-london .nav-tier-1 .location-switch {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 101;
+            width: auto;
+            padding: 0;
+        }
+        body.page-toggle-london .nav-tier-1 .logo {
+            flex-shrink: 0;
+        }
+        @media (min-width: 1100px){
+            body.page-toggle-london .nav-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 30px;
+                padding: 12px 0;
+                min-height: 86px;
+            }
+            @media (max-width: 1620px) {
+                body.page-toggle-london .nav-menu { margin-left: 310px; }
+            }
+            body.page-toggle-london .nav-tier-1 { display: contents; }
+            body.page-toggle-london .nav-container { position: static; }
+            body.page-toggle-london .nav-tier-1 .logo {
+                order: 1;
+                position: absolute;
+                left: 130px;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-left: 0;
+            }
+            body.page-toggle-london .nav-menu { order: 2; flex-wrap: nowrap; white-space: nowrap; }
+            body.page-toggle-london .location-switch { order: 3; margin-left: auto; }
+        }
+        body.page-toggle-london .nav-tier-1 .logo-main { font-size: 62px; }
+        body.page-toggle-london .nav-menu {
+            flex: 0 0 auto;
+            width: 100%;
+            justify-content: flex-start;
+            margin-left: -12px;
+            gap: 6px;
+            padding: 0 0 15px;
+        }
+        body.page-toggle-london .nav-menu a {
+            font-size: 0.9rem;
+            padding: 8px 12px;
+        }
+        @media (max-width: 1099px){
+            body.page-toggle-london .nav-tier-1 { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            body.page-toggle-london .nav-tier-1 .location-switch {
+                position: static; width: 100%; justify-content: center; padding: 8px 0 2px;
+            }
+            body.page-toggle-london .nav-menu { flex-wrap: wrap; }
+            body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
+        }
+    
+        /* Festival Place footer card — the second site is not announced yet,
+           so the card names no location. Reinstate the heading + address when
+           the opening is public. */
+        .footer-coming {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #ffffff;
+            margin: 0;
+        }
+        /* The trademark script on "Oliver's" — same values as the menu pages'
+           .mn-script so the brand mark is identical everywhere. */
+        .footer-coming .script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 800;
+            font-size: 1.32em;
+            line-height: 1;
+            vertical-align: 0.02em;
+        }
+/* ---- Nav centring ---- */
+        /* The items were left-aligned in a full-width box, so with Gift Vouchers
+           gone the row read left-heavy with ~250px of dead space at the right.
+           Centre them instead.
+           These rules sit LAST in the block on purpose: the base .nav-menu rule
+           above sets width/justify/margin at the same specificity, so only a
+           later rule can override it. */
+        @media (min-width: 1100px){
+            body.page-toggle-london .nav-menu {
+                flex: 1 1 auto;
+                width: auto;
+                justify-content: center;
+                margin-left: 0;
+            }
+            /* The logo is pinned 130-301px from the PAGE edge, while the nav
+               lives in the centred 1200px container — so the narrower the
+               viewport, the further the logo intrudes into the container and
+               the more of the nav's left side it would sit on top of.
+               The needed reservation is exactly linear:
+                   reserve = min(309px, (1822px - 100vw) / 2)
+               which clamps to 0 once the container starts clear of the logo
+               (~1832px) and to 309px once the container hits the page edge.
+               Replaces an earlier flat margin-left:310px that never applied —
+               it was overridden by the base rule further down the block. */
+            body.page-toggle-london .nav-menu {
+                /* margin, NOT padding: padding would shift the centring box's
+                   interior and push the items right by the full reserve, so the
+                   nav would sit off-centre. Margin moves the box itself, and
+                   justify-content then centres inside what's left. */
+                margin-left: clamp(0px, (1822px - 100vw) / 2, 309px);
+            }
+        }
+        /* At the tight end the reserved column leaves under ~950px for ~950px of
+           items, so shrink them rather than let the row overflow. */
+        @media (min-width: 1100px) and (max-width: 1400px){
+            body.page-toggle-london .nav-menu a { font-size: 0.82rem; padding: 8px 7px; }
+        }
+        @media (min-width: 1100px) and (max-width: 1150px){
+            body.page-toggle-london .nav-menu a { font-size: 0.75rem; padding: 8px 6px; }
+        }
+
+        /* ---- Hamburger across the whole stacked range ----
+           css/style.css switches to the hamburger at 768px, but this two-tier
+           header needs the stacked layout all the way to 1100px — the desktop nav
+           cannot fit below that with the logo pinned 130px from the page edge.
+           Between 769 and 1099 the two disagreed: the page stacked the header
+           while style.css still laid the nav out as a desktop row, so the last
+           three items ran off the right edge with no way to reach them.
+           These mirror style.css's own mobile nav rules verbatim, across the
+           wider range. Specificity is kept at (0,1,0)/(0,2,0) exactly as in
+           style.css so `.nav-menu.active` still beats the hidden state. */
+        @media (min-width: 769px) and (max-width: 1099px) {
+            .nav-toggle { display: flex; }
+            .nav-menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 2px;
+                padding-top: 12px;
+                background: white;
+                max-height: unset;
+                overflow: visible;
+            }
+            .nav-menu.active { display: flex; }
+        }
+</style>
 </head>
-<body>
+<body class="page-toggle-london">
     <header class="site-header">
         <nav class="navbar">
             <div class="container nav-container">
-                <a href="index.html" class="logo"><span class="logo-main">Oliver's</span><span class="logo-sub">Fish & Chips</span></a>
-                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                <div class="nav-tier-1">
+                    <a href="index.html" class="logo"><span class="logo-main">Oliver's</span></a>
+                    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                </div>
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="restaurant.html">Restaurant</a></li>
                     <li><a href="takeaway.html">Takeaway</a></li>
-                    <li><a href="kids.html">Oliver's for Kids</a></li>
+                    <li class="has-dropdown">
+                        <a href="restaurant.html#menu" aria-haspopup="true">Menus<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="restaurant-menu.html">Restaurant menu</a></li>
+                            <li><a href="takeaway-menu.html">Takeaway menu</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="kids.html" class="nav-active">Oliver's for Kids</a></li>
                     <li><a href="catered-packages.html">Catered Packages</a></li>
-                    <li><a href="giftvouchers.html">Gift Vouchers</a></li>
+                    <li class="has-dropdown">
+                        <a href="index.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="index.html">London Road</a></li>
+                        </ul>
+                    </li>
                     <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <section class="site-banner">
-        <h1 class="section-title"><span class="brand">Oliver's</span> for Kids</h1>
-        <p>Delicious meals for our younger guests</p>
+    <section class="site-banner rst-hero">
+        <span class="rst-eyebrow">London Road</span>
+        <h1 class="menu-page-title"><span class="kids-script">Oliver's</span> for Kids</h1>
+        <div class="rst-rule" aria-hidden="true"></div>
+        <p class="rst-lede">Delicious meals for our younger guests</p>
     </section>
 
-    <section class="kids-section">
-        <div class="kids-container">
+    <section class="rst-section">
+        <div class="container">
+            <div class="kids-grid">
+                <article class="rst-card">
+                    <h3>Kids' meals to Takeaway</h3>
+                    <p>If you're on the go, choose from three animal-themed <strong>Minnows' Meals</strong>… served in a box with chips, ketchup and a drink (Fruit Shoot or water), priced from <strong>£4.95</strong>.</p>
 
-            <div class="kids-card">
-                <h3>Kids Meals to Takeaway</h3>
-                <p>If you're on the go, choose from three animal-themed <strong>Minnows' Meals</strong>… served in a box with chips, ketchup and a drink (Fruit Shoot or water), priced from <strong>£4.95</strong>.</p>
+                    <div class="minnow-boxes">
+                        <div class="minnow-box">
+                            <img src="images/sausage-icon.png?v=5" alt="Sausage" class="sausage-icon">Sausage Minnows' Box
+                        </div>
+                        <div class="minnow-box">
+                            <span class="emoji">🍗</span>Chicken Nuggets Minnows' Box
+                        </div>
+                        <div class="minnow-box">
+                            <span class="emoji">🐟</span>Cod Bites Minnows' Box
+                        </div>
+                    </div>
+                </article>
 
-                <div class="minnow-boxes">
-                    <div class="minnow-box">
-                        <img src="images/sausage-icon.png?v=5" alt="Sausage" class="sausage-icon">Sausage Minnows' Box
-                    </div>
-                    <div class="minnow-box">
-                        <span class="emoji">🍗</span>Chicken Nuggets Minnows' Box
-                    </div>
-                    <div class="minnow-box">
-                        <span class="emoji">🐟</span>Cod Bites Minnows' Box
-                    </div>
-                </div>
+                <article class="rst-card">
+                    <h3>Kids' meals in our Restaurant</h3>
+                    <p>Children can choose from our <strong>"Oliver's for Kids"</strong> menu (under 12s only).</p>
+                    <p>Priced from just <strong>£6.70</strong>, all meals include chips plus garden peas, mushy peas or Heinz baked beans, as well as a drink and an ice-cream or lolly. In addition, macaroni cheese and spaghetti bolognese alternatives are available.</p>
+                    <p>You can see the Kids restaurant menu on the <a href="restaurant-menu.html">main restaurant menu</a>.</p>
+                </article>
             </div>
 
-            <div class="kids-card">
-                <h3>Kids Meals in our Restaurant</h3>
-                <p>Children can choose from our <strong>"Oliver's for Kids"</strong> menu (under 12s only).</p>
-                <p>Priced from just <strong>£6.70</strong>, all meals include chips plus garden peas, mushy peas or Heinz baked beans, as well as a drink and an ice-cream or lolly. In addition, macaroni cheese and spaghetti bolognese alternatives are available.</p>
-                <p>You can see the Kids restaurant menu on the <a href="restaurant.html" style="color: #2d7d3a; font-weight: 600;">main restaurant menu</a>.</p>
-            </div>
-
-            <div class="info-box">
-                For the tiny ones there are <strong>high-chairs</strong> and <strong>baby-changing facilities</strong>.
-            </div>
-
+            <p class="kids-note"><span class="ic">👶</span>For our tiniest guests we have <strong>high-chairs</strong> and <strong>baby-changing facilities</strong>.</p>
         </div>
     </section>
 
     <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">London Road</h4>
+                <p>01256 321018</p>
+                <p>39 London Road, Old Basing, RG24 7JE</p>
+            </div>
+            <div class="footer-section">
+                <p class="footer-coming">Another <span class="script">Oliver's</span> is on its way — and that's all we're saying for now!</p>
+            </div>
+        </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
         </div>
     </footer>
+    <script src="js/nav.js"></script>
 </body>
 </html>
