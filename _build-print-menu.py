@@ -87,8 +87,6 @@ CSS = """        /* Print-first stylesheet. This page's ONLY job is to come out 
 
         .pm-bar { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px;
                   padding-bottom: 12px; border-bottom: 3px solid #000000; margin-bottom: 20px; }
-        .pm-logo { font-family: 'Dancing Script', cursive; font-weight: 800; font-size: 30px;
-                   color: #2F8C4A; line-height: 1; }
         .pm-bar h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.35rem;
                      margin: 2px 0 0; letter-spacing: 0.01em; }
         .pm-bar address { font-style: normal; font-size: 0.78rem; line-height: 1.5; text-align: right; }
@@ -177,7 +175,6 @@ PAGE = f"""<!DOCTYPE html>
 
     <div class="pm-bar">
         <div>
-            <div class="pm-logo">Oliver's</div>
             <h1><span class="pm-script">Oliver&#39;s</span> Restaurant Menu</h1>
         </div>
         <address>{addr_html_out}</address>
