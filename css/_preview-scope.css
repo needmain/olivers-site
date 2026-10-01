@@ -5,7 +5,7 @@
      These rules previously lived directly in css/style.css. They were reverted
      on 2026-09-12 because css/style.css is loaded by NINE live production pages
      (index, about, contact, restaurant, takeaway, takeaway-menu, kids,
-     catered-packages, giftvouchers) and any edit there goes live on the next
+     catered-packages) and any edit there goes live on the next
      push. This file holds the same "new look" so the mockups keep rendering
      correctly WITHOUT touching production.
 

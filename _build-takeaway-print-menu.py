@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate _restaurant-menu-print-london-v2.html — a dedicated, print-optimised menu.
+"""Generate takeaway-menu-print.html — a dedicated, print-optimised TAKEAWAY menu.
 
-WHY A GENERATOR: the menu body (12 sections, 90 rows, 103 prices) is extracted from
-_restaurant-menu-london-v2.html and only the class names are remapped. Nothing is
+WHY A GENERATOR: the menu body (8 sections, 57 rows, 50 prices) is extracted from
+_takeaway-menu-london-v2.html and only the class names are remapped. Nothing is
 retyped, so the print page cannot silently disagree with the screen page about a
 price. If you edit the menu page, RE-RUN `python _build-print-menu.py` (this file,
 which lives in the project root) rather than hand-editing the print page — the two
@@ -12,9 +12,8 @@ import re
 from pathlib import Path
 
 SITE = Path(r"C:\OLIVERS WEB\olivers-site")
-SRC = SITE / "_restaurant-menu-london-v2.html"
-OUT = SITE / "_restaurant-menu-print-london-v2.html"
-OUT_PROD = SITE / "restaurant-menu-print.html"
+SRC = SITE / "_takeaway-menu-london-v2.html"
+OUT = SITE / "takeaway-menu-print.html"
 
 src = SRC.read_text(encoding="utf-8")
 body = src.split("</style>", 1)[1]
@@ -25,7 +24,7 @@ body = src.split("</style>", 1)[1]
 # "Printable menu" button, which then appeared on the print sheet. A mn-sec never
 # contains a nested <section>, so matching to </section> is safe.
 secs = re.findall(r'<section class="mn-sec.*?</section>', body, re.S)
-assert len(secs) == 12, "expected 12 sections, found %d" % len(secs)
+assert len(secs) == 8, "expected 8 sections, found %d" % len(secs)
 menu_html = "\n            ".join(s.strip() for s in secs)
 
 fi = body.index('<div class="mn-fine">') + len('<div class="mn-fine">')
@@ -73,8 +72,8 @@ n_sec = len(re.findall(r'class="pm-sec', menu_html))
 n_row = len(re.findall(r'class="pm-row', menu_html))
 prices = re.findall(r'class="pm-pr">([\d.]+)<', menu_html)
 fine_paras = len(re.findall(r"<p", fine_html))
-assert n_sec == 12, f"expected 12 sections, extracted {n_sec}"
-assert len(prices) == 103, f"expected 103 prices, extracted {len(prices)}"
+assert n_sec == 8, f"expected 8 sections, extracted {n_sec}"
+assert len(prices) == 50, f"expected 50 prices, extracted {len(prices)}"
 
 CSS = """        /* Print-first stylesheet. This page's ONLY job is to come out well on paper
            (and via Save as PDF), so it is black on white with no brand chrome.
@@ -157,7 +156,7 @@ PAGE = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oliver's Restaurant Menu (printable) — Oliver's Fish &amp; Chips</title>
+<title>Oliver's Takeaway Menu (printable) — Oliver's Fish &amp; Chips</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -168,17 +167,17 @@ PAGE = f"""<!DOCTYPE html>
 </head>
 <body>
 <!--
-    Printable menu. Content is GENERATED from _restaurant-menu-london-v2.html by
+    Printable menu. Content is GENERATED from _takeaway-menu-london-v2.html by
     remapping class names — do not hand-edit the menu here or the two pages will
-    drift apart. Edit _restaurant-menu-london-v2.html, then re-run
-    `python _build-print-menu.py` (project root) to regenerate this file.
+    drift apart. Edit _takeaway-menu-london-v2.html, then re-run
+    `python _build-takeaway-print-menu.py` (project root) to regenerate this file.
 -->
 <div class="pm-wrap">
 
     <div class="pm-bar">
         <div>
             <div class="pm-logo">Oliver's</div>
-            <h1><span class="pm-script">Oliver&#39;s</span> Restaurant Menu</h1>
+            <h1><span class="pm-script">Oliver&#39;s</span> Takeaway Menu</h1>
         </div>
         <address>{addr_html_out}</address>
     </div>
@@ -200,8 +199,7 @@ PAGE = f"""<!DOCTYPE html>
 """
 
 OUT.write_text(PAGE, encoding="utf-8", newline="")
-OUT_PROD.write_text(PAGE, encoding="utf-8", newline="")
-print(f"wrote {OUT.name} and {OUT_PROD.name}: {len(PAGE)} chars")
+print(f"wrote {OUT.name}: {len(PAGE)} chars")
 print(f"  sections: {n_sec}   rows: {n_row}   prices: {len(prices)}   fine-print paragraphs: {fine_paras}")
 print(f"  address carried from the footer: {' '.join(addr_html.split())[:120]}")
 print(f"  first price extracted: {prices[0]}   last: {prices[-1]}")
