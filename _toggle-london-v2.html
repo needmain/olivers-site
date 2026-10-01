@@ -80,7 +80,7 @@
         .nav-container { padding-right: 330px; }
         .nav-menu { flex: 1 1 0; min-width: 0; gap: 3px; }
         .nav-menu a { padding: 8px 4px; font-size: 0.68rem; }
-        @media (max-width: 860px) {
+        @media (max-width: 1099px){
             .location-switch { position: static; width: 100%; justify-content: center; padding: 8px 0 2px; }
             .nav-container { padding-right: 20px; }
         }
@@ -166,6 +166,13 @@
             max-width: 760px;
             margin: 0 auto;
             padding: 18px 80px 22px;   /* 22px bottom = half the tagline's wave clearance; 80px sides kept */
+        }
+        /* Mobile: 80px side padding + the 96px wordmark (its clamp() MINIMUM in
+           style.css) made .hero-brand 416px wide inside a 390px viewport, giving
+           every phone a 6px horizontal scroll. The live homepage uses ~40px here;
+           the mockup's 80px was only ever checked at desktop width. */
+        @media (max-width: 860px){
+            .hero-brand { padding: 18px 20px 22px; }
         }
         .hero-fish-divider { justify-content: center; margin: 10px auto; }   /* 16 -> 10px: funds the wave clearance below */
         .hero-logo-sub { margin-top: 0; }
@@ -261,7 +268,7 @@
            container directly, which is then laid out as one row: logo hard left, tabs
            next to it, toggles pushed right by margin-left:auto. Desktop only, so the
            mobile hamburger bar keeps its own layout. */
-        @media (min-width: 861px) {
+        @media (min-width: 1100px){
             /* min-height restores the bar's height: the logo is absolute now, so it
                contributes none, and a 62px logo in a 65px bar looks cramped. No extra
                clearance is needed here — the tabs sit in the container's own centred
@@ -340,7 +347,7 @@
         }
 
         /* keep the two tiers sane when space genuinely runs out */
-        @media (max-width: 860px) {
+        @media (max-width: 1099px){
             body.page-toggle-london .nav-tier-1 { flex-wrap: wrap; justify-content: center; gap: 10px; }
             /* the scoped absolute rule above outranks the page's own media
                override, so drop the badges back into the flow here */
@@ -577,7 +584,7 @@
            These rules sit LAST in the block on purpose: the base .nav-menu rule
            above sets width/justify/margin at the same specificity, so only a
            later rule can override it. */
-        @media (min-width: 861px) {
+        @media (min-width: 1100px){
             body.page-toggle-london .nav-menu {
                 flex: 1 1 auto;
                 width: auto;
@@ -604,11 +611,36 @@
         }
         /* At the tight end the reserved column leaves under ~950px for ~950px of
            items, so shrink them rather than let the row overflow. */
-        @media (min-width: 861px) and (max-width: 1400px) {
+        @media (min-width: 1100px) and (max-width: 1400px){
             body.page-toggle-london .nav-menu a { font-size: 0.82rem; padding: 8px 7px; }
         }
-        @media (min-width: 861px) and (max-width: 1150px) {
+        @media (min-width: 1100px) and (max-width: 1150px){
             body.page-toggle-london .nav-menu a { font-size: 0.75rem; padding: 8px 6px; }
+        }
+
+        /* ---- Hamburger across the whole stacked range ----
+           css/style.css switches to the hamburger at 768px, but this two-tier
+           header needs the stacked layout all the way to 1100px — the desktop nav
+           cannot fit below that with the logo pinned 130px from the page edge.
+           Between 769 and 1099 the two disagreed: the page stacked the header
+           while style.css still laid the nav out as a desktop row, so the last
+           three items ran off the right edge with no way to reach them.
+           These mirror style.css's own mobile nav rules verbatim, across the
+           wider range. Specificity is kept at (0,1,0)/(0,2,0) exactly as in
+           style.css so `.nav-menu.active` still beats the hidden state. */
+        @media (min-width: 769px) and (max-width: 1099px) {
+            .nav-toggle { display: flex; }
+            .nav-menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 2px;
+                padding-top: 12px;
+                background: white;
+                max-height: unset;
+                overflow: visible;
+            }
+            .nav-menu.active { display: flex; }
         }
 </style>
 </head>
@@ -811,5 +843,6 @@
             document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
         })();
     </script>
+    <script src="js/nav.js"></script>
 </body>
 </html>
