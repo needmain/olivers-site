@@ -25,6 +25,13 @@
             font-weight: 400;
             color: var(--navy);
         }
+
+        /* The nav uses the brand sans, matching every other redesign page. This
+           page never carried the shared Montserrat block, so its nav fell back to
+           style.css's .nav-menu a and rendered in a different face and weight to
+           the other eight. */
+        .nav-menu a { font-family: 'Montserrat', sans-serif; font-weight: 600; }
+
         .logo-sub, .hero-logo-sub, .fp-sub,
         .footer-title {
             font-family: 'Montserrat', sans-serif;
