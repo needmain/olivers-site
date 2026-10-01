@@ -111,6 +111,9 @@
             align-items: stretch;
         }
         .site-footer .footer-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;   /* centre the content in the stretched card */
             background: rgba(255, 255, 255, 0.14);
             border-top: 3px solid var(--gold);
             border-radius: 10px;
@@ -311,6 +314,27 @@
         @media (max-width: 600px) {
             .about-layout { grid-template-columns: 1fr; }
         }
+
+        /* Festival Place footer card — the second site is not announced yet,
+           so the card names no location. Reinstate the heading + address when
+           the opening is public. */
+        .footer-coming {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #ffffff;
+            margin: 0;
+        }
+        /* The trademark script on "Oliver's" — same values as the menu pages'
+           .mn-script so the brand mark is identical everywhere. */
+        .footer-coming .script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 800;
+            font-size: 1.32em;
+            line-height: 1;
+            vertical-align: 0.02em;
+        }
 </style>
 </head>
 <body class="page-toggle-london">
@@ -327,22 +351,6 @@
                 <div class="nav-tier-1">
                     <a href="_toggle-london-v2.html" class="logo"><span class="logo-main">Oliver's</span></a>
                     <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-                    <div class="location-switch">
-                        <a href="_toggle-london-v2.html" class="loc-fork active" aria-label="London Road — current location">
-                            <svg viewBox="0 0 1122 184" aria-hidden="true">
-                                <path class="f-body" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
-                                <path class="f-wash" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
-                                <text class="f-label" x="578" y="115">LONDON ROAD</text>
-                            </svg>
-                        </a>
-                        <a href="_toggle-town-v2.html" class="loc-fork" aria-label="Switch to Festival Place">
-                            <svg viewBox="0 0 1122 184" aria-hidden="true">
-                                <path class="f-body" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
-                                <path class="f-wash" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
-                                <text class="f-label" x="578" y="115">FESTIVAL PLACE</text>
-                            </svg>
-                        </a>
-                    </div>
                 </div><!-- /.nav-tier-1 -->
                 <ul class="nav-menu">
                     <li><a href="_toggle-london-v2.html">Home</a></li>
@@ -362,7 +370,6 @@
                         <a href="_toggle-london-v2.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
                         <ul class="nav-dropdown">
                             <li><a href="_toggle-london-v2.html">London Road</a></li>
-                            <li><a href="_toggle-town-v2.html">Festival Place</a></li>
                         </ul>
                     </li>
 
@@ -402,9 +409,7 @@
                 <p>39 London Road, Old Basing, RG24 7JE</p>
             </div>
             <div class="footer-section">
-                <h4 class="footer-title">Festival Place</h4>
-                <p><img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too" class="brand-logo"> ... coming soon!</p>
-                <p>Unit 6A, Festival Place, Basingstoke, RG21 7LJ</p>
+                <p class="footer-coming">Another <span class="script">Oliver's</span> is on its way — and that's all we're saying for now!</p>
             </div>
         </div>
         <div class="footer-bottom">
