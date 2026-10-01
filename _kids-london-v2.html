@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Takeaway — Oliver's London Road (mockup)</title>
+    <title>Oliver's for Kids — London Road (mockup)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=16">
+    <!-- PREVIEW-ONLY overrides (never linked by production pages) -->
     <link rel="stylesheet" href="css/_preview-scope.css?v=1">
     <style>
         /* ==================================================================
-           MOCKUP PAGE — London Road "Takeaway".
-           Based on the Restaurant mockup. Ghosted interior photo, same
-           two-tier header and nav. Never linked from production.
+           MOCKUP PAGE — London Road "Oliver's for Kids".
+           Content copied VERBATIM from the live kids.html (two cards, the
+           three Minnows' boxes, the price lines, the facilities note and the
+           link to the restaurant menu). Only the presentation is new: the
+           two-tier header, the hero band and the card grid used by the other
+           redesign pages. css/style.css is NOT modified.
            ================================================================== */
 
         /* ---- Typography: Montserrat headings + Inter body ---- */
@@ -34,36 +38,21 @@
             text-transform: uppercase;
         }
 
+        /* ---- Chip-fork location toggles (user's CapCut fork asset) ---- */
         :root {
             --cream: #F8F9FA;
             --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
             --forest-hover: #A9CDB3; --slate: #1C2526;
             --fork-h: clamp(20px, 2.4vw, 26px);
             --fork-w: calc(var(--fork-h) * 1122 / 184);
+            /* page-local design tokens */
+            --rst-ink: #46505c;
+            --rst-mute: #8b95a1;
+            --rst-line: rgba(11, 27, 43, 0.08);
+            --rst-lift: 0 14px 32px rgba(11, 27, 43, 0.13);
         }
-        .location-switch {
-            display: flex; gap: 12px; align-items: center;
-            position: absolute; top: 14px; right: 20px; z-index: 101;
-        }
-        .loc-fork { display: block; height: var(--fork-h); width: var(--fork-w); text-decoration: none; }
-        .loc-fork svg { display: block; width: 100%; height: 100%; overflow: visible; }
-        .f-body { fill: url(#woodpat); stroke: #000000; stroke-width: 5;
-                  stroke-linejoin: round; stroke-linecap: round;
-                  transition: fill .2s ease, stroke .2s ease; }
-        .f-wash { fill: rgba(47, 140, 74, 0.33); opacity: 0; transition: opacity .2s ease; }
-        .f-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 57px;
-                   letter-spacing: 2px; text-anchor: middle; fill: var(--slate);
-                   transition: fill .2s ease; }
-        .loc-fork:not(.active):hover .f-wash { opacity: 1; }
-        .loc-fork:hover .f-label { fill: #14191A; }
-        .loc-fork.active .f-body { fill: var(--forest); stroke: var(--slate); }
-        .loc-fork.active .f-label { fill: #ffffff; }
-        .loc-fork.active:hover .f-body { fill: var(--forest-dark); }
 
-        /* ==================================================================
-           HERO — navy, ghosted interior photo (takeaway-2.jpg) at 0.85 opacity
-           with gradient wash for text contrast.
-           ================================================================== */
+        /* ---- Hero band: eyebrow → title → gold hairline → lede ---- */
         .site-banner.rst-hero {
             position: relative;
             overflow: hidden;
@@ -71,15 +60,7 @@
             background: var(--navy);
             min-height: 0;
             padding: 56px 20px 54px;
-        }
-        .site-banner.rst-hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: url("images/takeaway-2.jpg");
-            background-size: cover;
-            background-position: center 45%;
-            opacity: 0.85;
+            text-align: center;
         }
         .site-banner.rst-hero::after {
             content: "";
@@ -101,6 +82,7 @@
             color: var(--gold);
             margin-bottom: 14px;
         }
+        /* 0,2,0 so it beats style.css's own .menu-page-title rule */
         .site-banner .menu-page-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
@@ -108,6 +90,14 @@
             font-size: clamp(2.6rem, 6vw, 4.05rem);
             line-height: 1.04;
             margin: 0 0 20px;
+        }
+        /* "Oliver's" in the brand script, as on the two menu pages */
+        .site-banner .menu-page-title .kids-script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 800;
+            font-size: 1.32em;
+            line-height: 1;
+            vertical-align: 0.02em;
         }
         .rst-rule {
             width: 64px; height: 3px; border-radius: 2px;
@@ -122,110 +112,35 @@
             max-width: 66ch;
             margin: 0 auto;
         }
-        /* ---- Gift vouchers: header footnote
-           Option 3 from _gift-voucher-header-options.html — a gold rule and one
-           line at the foot of the hero, so the mention lives in the header
-           without competing with the page title. */
-        .rst-gv {
-            margin: 26px auto 0;
-            max-width: 620px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(224, 169, 109, 0.4);
-            font-size: 0.92rem;
-            color: rgba(255, 255, 255, 0.72);
-        }
-        .rst-gv b {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            color: var(--gold);
-        }
 
         /* ---- Section rhythm ---- */
         .rst-section { padding: 66px 0; }
-        .rst-head { margin-bottom: 26px; }
         @media (max-width: 860px) {
             .site-banner.rst-hero { padding: 40px 20px 38px; }
             .rst-section { padding: 44px 0; }
-            .rst-band { padding: 48px 0 0; }
-            .rst-box { border-radius: 18px; box-shadow: 0 0 0 8px #ffffff, 0 20px 44px rgba(0, 0, 0, 0.42); }
-            .rst-wave { margin-top: 48px; }
         }
 
-        /* ---- Cards: three across ---- */
-        .rst-grid {
+        /* ---- Cards ----
+           Two columns, not the three-across used elsewhere: this page has two
+           content cards and the Minnows' boxes need the room. minmax(420px)
+           resolves to 2 columns inside the 1200px container. */
+        .kids-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
             gap: 24px;
+            align-items: stretch;
         }
-
-        /* ---- Photo box ---- */
-        .rst-band {
-            position: relative;
-            background: var(--navy);
-            padding: 74px 0 0;
-            overflow: visible;
-        }
-        .rst-band .container { position: relative; z-index: 1; }
-        .rst-box {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            border-radius: 26px;
-            box-shadow: 0 0 0 12px #ffffff, 0 30px 64px rgba(0, 0, 0, 0.42);
-        }
-        .rst-slide {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            animation: rst-fade 15s infinite;
-        }
-        .rst-slide:nth-child(1) { animation-delay: 0s; }
-        .rst-slide:nth-child(2) { animation-delay: -3s; }
-        .rst-slide:nth-child(3) { animation-delay: -6s; }
-        .rst-slide:nth-child(4) { animation-delay: -9s; }
-        .rst-slide:nth-child(5) { animation-delay: -12s; }
-        @keyframes rst-fade {
-            0%   { opacity: 0; }
-            4%   { opacity: 1; }
-            20%  { opacity: 1; }
-            24%  { opacity: 0; }
-            100% { opacity: 0; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .rst-slide { animation: none; }
-            .rst-slide:first-child { opacity: 1; }
-        }
-        .rst-wave {
-            display: block;
-            width: 100%;
-            height: auto;
-            margin-top: 74px;
-            margin-bottom: -30px;
-        }
+        @media (max-width: 900px) { .kids-grid { grid-template-columns: 1fr; } }
         .rst-card {
-            background: var(--cream);
-            border: 1px solid rgba(11, 27, 43, 0.08);
-            border-radius: 18px;
-            padding: 32px 30px;
-            box-shadow: 0 2px 14px rgba(11, 27, 43, 0.05);
+            background: #ffffff;
+            border-top: 4px solid var(--forest);
+            border-radius: 14px;
+            box-shadow: 0 10px 26px rgba(11, 27, 43, 0.07);
+            padding: 30px 28px 32px;
+            position: relative;
             transition: transform .2s ease, box-shadow .2s ease;
         }
-        .rst-card::before {
-            content: "";
-            display: block;
-            width: 46px;
-            height: 3px;
-            border-radius: 2px;
-            background: var(--gold);
-            margin-bottom: 18px;
-        }
-        .rst-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(11, 27, 43, 0.10); }
+        .rst-card:hover { transform: translateY(-3px); box-shadow: var(--rst-lift); }
         .rst-card h3 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
@@ -233,92 +148,48 @@
             color: var(--navy);
             margin: 0 0 14px;
         }
-        .rst-card p { font-size: 1.06rem; line-height: 1.72; color: #46505c; margin: 0 0 12px; }
+        .rst-card p { font-size: 1.06rem; line-height: 1.72; color: var(--rst-ink); margin: 0 0 12px; }
         .rst-card p:last-child { margin-bottom: 0; }
-        .rst-muted { display: block; color: #8b95a1; font-size: 0.95rem; margin-top: 6px; }
 
-        /* ---- Facilities: SVG ticks ---- */
-        .rst-ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 15px; }
-        .rst-ticks li {
-            display: flex; gap: 13px; align-items: flex-start;
-            font-size: 1.06rem; line-height: 1.6; color: #46505c;
+        /* ---- Minnows' boxes: three across, emoji + label ---- */
+        .minnow-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
         }
-        .rst-tick {
-            flex: 0 0 auto;
-            width: 26px; height: 26px; margin-top: 2px;
-            border-radius: 50%;
-            background: rgba(47, 140, 74, 0.12);
-            color: var(--green);
-            display: grid; place-items: center;
-        }
-        .rst-tick svg { width: 14px; height: 14px; display: block; }
-
-        /* ---- Menu CTA ---- */
-        .rst-menu-head { text-align: center; margin-bottom: 6px; }
-        .rst-menu-head h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 1.6rem;
-            color: var(--navy);
-            margin: 8px 0 0;
-        }
-        .rst-menu-sub {
-            display: block;
+        .minnow-box {
+            background: var(--forest-pale);
+            border: 2px solid rgba(47, 140, 74, 0.28);
+            border-radius: 10px;
+            padding: 16px 14px;
             text-align: center;
-            color: var(--navy);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0 auto 24px;
-            max-width: 380px;
-        }
-        .rst-menu-wrap { text-align: center; }
-        .rst-menu-card {
-            background: rgb(39, 55, 70);
-            border-radius: 22px;
-            box-shadow: 0 18px 42px rgba(11, 27, 43, 0.12);
-            padding: 36px 32px 40px;
-            max-width: 520px;
-            margin: 0 auto;
-            text-align: center;
-            color: #ffffff;
-            position: relative;
-        }
-        .rst-menu-card::before {
-            content: '';
-            position: absolute;
-            top: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 34%;
-            height: 3px;
-            background: var(--gold);
-            border-radius: 2px;
-        }
-        .rst-menu-head h2 { color: var(--cream); }
-        .rst-menu-sub { color: var(--cream); }
-        .rst-menu-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--navy);
-            background: var(--cream);
-            border: 1px solid #e6e3da;
-            text-decoration: none;
-            padding: 22px 54px;
-            border-radius: 999px;
-            box-shadow: 0 10px 26px rgba(47, 140, 74, 0.28);
-            transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+            color: var(--forest-dark);
+            font-size: 0.88rem;
+            line-height: 1.35;
         }
-        .rst-menu-cta:hover { background: #ffffff; transform: translateY(-2px); box-shadow: 0 16px 34px rgba(47, 140, 74, 0.36); }
-        .rst-menu-cta:focus-visible { outline: 3px solid var(--gold); outline-offset: 6px; }
-        .rst-menu-cta svg { width: 22px; height: 22px; flex: 0 0 auto; }
-        .rst-menu-inner { display: inline-flex; align-items: center; gap: 10px; line-height: 1; }
-        .rst-menu-oliver { font-family: 'Dancing Script', cursive; font-weight: 700; font-size: 1.6rem; letter-spacing: 0; color: var(--navy); display: inline; position: relative; top: 1px; }
+        .minnow-box .emoji { font-size: 1.7rem; display: block; margin-bottom: 6px; }
+        .minnow-box .sausage-icon { height: 15px; width: auto; display: block; margin: 24px auto 12px; }
 
-        /* ---- Footer address cards ---- */
+        /* ---- Facilities note: gold accent panel, matching the site's callouts ---- */
+        .kids-note {
+            margin-top: 26px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(224, 169, 109, 0.18), rgba(224, 169, 109, 0.07));
+            border: 1px solid rgba(224, 169, 109, 0.45);
+            border-radius: 14px;
+            padding: 20px 24px;
+            font-size: 1.02rem;
+            color: var(--rst-ink);
+        }
+        .kids-note strong { color: var(--navy); }
+        .kids-note .ic { font-size: 1.25rem; margin-right: 8px; }
+
+        .rst-card a { color: var(--forest-dark); font-weight: 600; }
+
+        /* ---- Footer address cards (matching the other mockups) ---- */
         .site-footer .footer-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -423,14 +294,6 @@
             body.page-toggle-london .nav-menu { flex-wrap: wrap; }
             body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
         }
-
-        /* Seam fix — same as restaurant page */
-        section.rst-section#takeaway-menu {
-            position: relative;
-            z-index: 1;
-            background: var(--cream);
-            margin-top: -4px;
-        }
     </style>
 </head>
 <body class="page-toggle-london">
@@ -468,7 +331,7 @@
                     <li><a href="_toggle-london-v2.html">Home</a></li>
                     <li><a href="_about-london-v2.html">About Us</a></li>
                     <li><a href="_restaurant-london-v2.html">Restaurant</a></li>
-                    <li><a href="_takeaway-london-v2.html" class="nav-active">Takeaway</a></li>
+                    <li><a href="_takeaway-london-v2.html">Takeaway</a></li>
                     <li class="has-dropdown">
                         <a href="_restaurant-london-v2.html#menu" aria-haspopup="true">Menus<span class="nav-caret" aria-hidden="true">▾</span></a>
                         <ul class="nav-dropdown">
@@ -476,7 +339,7 @@
                             <li><a href="_takeaway-menu-london-v2.html">Takeaway menu</a></li>
                         </ul>
                     </li>
-                    <li><a href="_kids-london-v2.html">Oliver's for Kids</a></li>
+                    <li><a href="_kids-london-v2.html" class="nav-active">Oliver's for Kids</a></li>
                     <li><a href="catered-packages.html">Catered Packages</a></li>
                     <li class="has-dropdown">
                         <a href="_toggle-london-v2.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
@@ -493,58 +356,40 @@
 
     <section class="site-banner rst-hero">
         <span class="rst-eyebrow">London Road</span>
-        <h1 class="menu-page-title">Takeaway</h1>
+        <h1 class="menu-page-title"><span class="kids-script">Oliver's</span> for Kids</h1>
         <div class="rst-rule" aria-hidden="true"></div>
-        <p class="rst-lede">Award-winning Fish &amp; Chips — cooked fresh to order. Choose from our full menu of classic favourites, daily specials and seasonal deals.</p>
-        <p class="rst-gv"><b>GIFT VOUCHERS</b> &nbsp;·&nbsp; £5 denominations, redeemable here or in the restaurant</p>
+        <p class="rst-lede">Delicious meals for our younger guests</p>
     </section>
 
     <section class="rst-section">
         <div class="container">
-            <div class="rst-grid">
+            <div class="kids-grid">
                 <article class="rst-card">
-                    <h3>Opening hours</h3>
-                    <p>Open every day, except Christmas day, Boxing day and New Year's day</p>
-                    <p>Monday – Sunday 12pm–9pm</p>
+                    <h3>Kids' meals to Takeaway</h3>
+                    <p>If you're on the go, choose from three animal-themed <strong>Minnows' Meals</strong>… served in a box with chips, ketchup and a drink (Fruit Shoot or water), priced from <strong>£4.95</strong>.</p>
+
+                    <div class="minnow-boxes">
+                        <div class="minnow-box">
+                            <img src="images/sausage-icon.png?v=5" alt="Sausage" class="sausage-icon">Sausage Minnows' Box
+                        </div>
+                        <div class="minnow-box">
+                            <span class="emoji">🍗</span>Chicken Nuggets Minnows' Box
+                        </div>
+                        <div class="minnow-box">
+                            <span class="emoji">🐟</span>Cod Bites Minnows' Box
+                        </div>
+                    </div>
                 </article>
+
                 <article class="rst-card">
-                    <h3>Menu</h3>
-                    <p>In addition to all of our regular menu items, check out our daily board for <strong>"Catch of the Day"</strong>!</p>
+                    <h3>Kids' meals in our Restaurant</h3>
+                    <p>Children can choose from our <strong>"Oliver's for Kids"</strong> menu (under 12s only).</p>
+                    <p>Priced from just <strong>£6.70</strong>, all meals include chips plus garden peas, mushy peas or Heinz baked beans, as well as a drink and an ice-cream or lolly. In addition, macaroni cheese and spaghetti bolognese alternatives are available.</p>
+                    <p>You can see the Kids restaurant menu on the <a href="_restaurant-menu-london-v2.html">main restaurant menu</a>.</p>
                 </article>
             </div>
-        </div>
-    </section>
 
-    <section class="rst-band">
-        <div class="container">
-            <div class="rst-box">
-                <img class="rst-slide" src="images/takeaway-1.jpg" alt="Oliver's takeaway">
-                <img class="rst-slide" src="images/takeaway-2.jpg" alt="Oliver's takeaway counter and interior">
-                <img class="rst-slide" src="images/OLIVERS%20OUTSIDE%20SIGN.jpg" alt="Oliver's Fish & Chips shopfront on London Road">
-                <img class="rst-slide" src="images/customer%20fishchipimage.jpg" alt="Customer photo of Oliver's fish &amp; chips">
-            </div>
-        </div>
-        <svg class="rst-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path d="M0,40 C150,10 300,70 470,42 C620,18 780,72 960,46 C1120,22 1300,66 1440,38 L1440,80 L0,80 Z" fill="#ffffff"/>
-        </svg>
-    </section>
-
-    <section class="rst-section" id="takeaway-menu">
-        <div class="container">
-            <div class="rst-menu-card">
-                <div class="rst-menu-head">
-                    <h2>Takeaway Menu</h2>
-                    <span class="rst-menu-sub">View our full menu here...</span>
-                </div>
-                <div class="rst-menu-wrap">
-                    <a class="rst-menu-cta" href="_takeaway-menu-london-v2.html" title="View the full takeaway menu">
-                        <span class="rst-menu-inner">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8.5 9.5h7"/><path d="M8.5 13h4.5"/></svg>
-                            <span class="rst-menu-oliver">Oliver's</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
+            <p class="kids-note"><span class="ic">👶</span>For our tiniest guests we have <strong>high-chairs</strong> and <strong>baby-changing facilities</strong>.</p>
         </div>
     </section>
 
