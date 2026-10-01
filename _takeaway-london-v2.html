@@ -348,7 +348,16 @@
         .footer-section p { color: #D1D5DB; }
         .footer-section a { color: #ffffff; }
         .footer-section a:hover { color: var(--gold); }
-        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+        /* The copyright paragraph needs its own colour. The typography block near the
+           top of this page sets `p { color: var(--navy) }`, and that targets the <p>
+           DIRECTLY — so it beats the light grey this div passes down by inheritance,
+           leaving NAVY TEXT ON THE NAVY FOOTER. Contrast measured 1.00:1: invisible.
+           (Same trap the handover brief records for the homepage.) */
+        .footer-bottom p { color: inherit; }
+        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12);
+            /* clears the fixed "All mockups" button that floats over the footer's
+               bottom-right in mockups only — it does not exist on the live site */
+            padding-bottom: 46px; }
 
         /* ==================================================================
            TWO-TIER HEADER — identical to other mockups.
@@ -454,6 +463,46 @@
             font-size: 1.32em;
             line-height: 1;
             vertical-align: 0.02em;
+        }
+/* ---- Nav centring ---- */
+        /* The items were left-aligned in a full-width box, so with Gift Vouchers
+           gone the row read left-heavy with ~250px of dead space at the right.
+           Centre them instead.
+           These rules sit LAST in the block on purpose: the base .nav-menu rule
+           above sets width/justify/margin at the same specificity, so only a
+           later rule can override it. */
+        @media (min-width: 861px) {
+            body.page-toggle-london .nav-menu {
+                flex: 1 1 auto;
+                width: auto;
+                justify-content: center;
+                margin-left: 0;
+            }
+            /* The logo is pinned 130-301px from the PAGE edge, while the nav
+               lives in the centred 1200px container — so the narrower the
+               viewport, the further the logo intrudes into the container and
+               the more of the nav's left side it would sit on top of.
+               The needed reservation is exactly linear:
+                   reserve = min(309px, (1822px - 100vw) / 2)
+               which clamps to 0 once the container starts clear of the logo
+               (~1832px) and to 309px once the container hits the page edge.
+               Replaces an earlier flat margin-left:310px that never applied —
+               it was overridden by the base rule further down the block. */
+            body.page-toggle-london .nav-menu {
+                /* margin, NOT padding: padding would shift the centring box's
+                   interior and push the items right by the full reserve, so the
+                   nav would sit off-centre. Margin moves the box itself, and
+                   justify-content then centres inside what's left. */
+                margin-left: clamp(0px, (1822px - 100vw) / 2, 309px);
+            }
+        }
+        /* At the tight end the reserved column leaves under ~950px for ~950px of
+           items, so shrink them rather than let the row overflow. */
+        @media (min-width: 861px) and (max-width: 1400px) {
+            body.page-toggle-london .nav-menu a { font-size: 0.82rem; padding: 8px 7px; }
+        }
+        @media (min-width: 861px) and (max-width: 1150px) {
+            body.page-toggle-london .nav-menu a { font-size: 0.75rem; padding: 8px 6px; }
         }
 </style>
 </head>
