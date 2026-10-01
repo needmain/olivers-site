@@ -491,6 +491,21 @@
             z-index: 3;
         }
 
+        /* ---- Starburst: stack it above the title on narrow screens ----
+           The burst is absolutely positioned in the hero's left gutter. That works
+           while the centred title's left edge clears it (measured clear at 1065px
+           and above), but below that the title runs under it: 17px of overlap at a
+           733px hero, 139px at 355px - i.e. the phone view, where it covers the
+           start of "Oliver's Restaurant Menu". Below the desktop range it now sits
+           in flow, centred, after the title. Desktop is untouched. */
+        @media (max-width: 1099px){
+            .mn-burst {
+                position: static;
+                transform: none;
+                margin: 16px auto 0;
+            }
+        }
+
         /* Footer address cards — the markup was already here, but this page
            never carried the card styling, so the two addresses rendered as
            bare unstyled blocks. Copied from the Takeaway Menu page so all the
@@ -633,9 +648,9 @@
             <!-- The band lives INSIDE the frame, so the frame's border runs around it and
                  band + menu read as one board (Poppies build theirs this way). -->
             <section class="mn-hero">
-                <div class="mn-burst">All mains come with chips, mash or wedges, plus peas or beans</div>
                 <span class="mn-eyebrow">London Road</span>
                 <h1><span class="mn-script">Oliver&#39;s</span> Restaurant Menu</h1>
+                <div class="mn-burst">All mains come with chips, mash or wedges, plus peas or beans</div>
             </section>
             <div class="mn-wrap">
                 <section class="mn-sec"><h3>Starters</h3><p class="mn-note">Please see the chalkboards for the Specials and Catch of the Day.</p>
