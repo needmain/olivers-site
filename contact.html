@@ -4,65 +4,447 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Oliver's Fish & Chips</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=16">
-    <script src="js/nav.js"></script>
     <style>
-        .contact-section { padding: 40px 0 30px; }
-        .contact-container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
-        .contact-card { background: #ffffff; border: 2px solid #e5e7eb; border-radius: 14px; padding: 22px 24px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .contact-card p { color: #374151; font-size: 0.9rem; line-height: 1.7; margin: 0 0 8px 0; }
-        .contact-card p:last-child { margin-bottom: 0; }
-        .map-wrap { border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 18px; }
-        .map-wrap iframe { width: 100%; height: 400px; border: 0; display: block; }
-        .address-block { text-align: center; margin-bottom: 10px; }
-        .address-block p { font-size: 0.9rem; color: #374151; line-height: 1.7; }
-    </style>
+        /* ==================================================================
+           PRODUCTION PAGE — London Road "Contact Us".
+           Every sentence is copied VERBATIM from the live contact.html. The
+           live page gives the first card no heading, so "Call or email" below
+           is a STRUCTURAL LABEL added to balance the grid — it makes no factual
+           claim. The second card's heading ("How to find us") is the live
+           page's own wording. The phone number is now also a tel: link.
+           css/style.css is NOT modified.
+           ================================================================== */
+
+        /* ---- Typography: Montserrat headings + Inter body ---- */
+        .section-title, h1, h2, h3, .nav-menu a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        body, p, .footer-section p, .footer-bottom, .footer-section a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: var(--navy);
+        }
+        .logo-sub, .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* ---- Chip-fork location toggles (user's CapCut fork asset) ---- */
+        :root {
+            --cream: #F8F9FA;
+            --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
+            --forest-hover: #A9CDB3; --slate: #1C2526;
+            --fork-h: clamp(20px, 2.4vw, 26px);
+            --fork-w: calc(var(--fork-h) * 1122 / 184);
+            /* page-local design tokens */
+            --rst-ink: #46505c;
+            --rst-mute: #8b95a1;
+            --rst-line: rgba(11, 27, 43, 0.08);
+            --rst-lift: 0 14px 32px rgba(11, 27, 43, 0.13);
+        }
+
+        /* ---- Hero band: eyebrow → title → gold hairline → lede ---- */
+        .site-banner.rst-hero {
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+            background: var(--navy);
+            min-height: 0;
+            padding: 56px 20px 54px;
+            text-align: center;
+        }
+        .site-banner.rst-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                rgba(11, 27, 43, 0.55) 0%,
+                rgba(11, 27, 43, 0.68) 50%,
+                rgba(11, 27, 43, 0.82) 100%);
+        }
+        .site-banner.rst-hero > * { position: relative; z-index: 1; }
+        .rst-eyebrow {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+        /* 0,2,0 so it beats style.css's own .menu-page-title rule */
+        .site-banner .menu-page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: clamp(2.6rem, 6vw, 4.05rem);
+            line-height: 1.04;
+            margin: 0 0 20px;
+        }
+        .rst-rule {
+            width: 64px; height: 3px; border-radius: 2px;
+            background: var(--gold);
+            margin: 0 auto 24px;
+        }
+        .rst-lede {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.86);
+            max-width: 66ch;
+            margin: 0 auto;
+        }
+
+        /* ---- Section rhythm ---- */
+        .rst-section { padding: 66px 0; }
+        @media (max-width: 860px){
+            .site-banner.rst-hero { padding: 40px 20px 38px; }
+            .rst-section { padding: 44px 0; }
+        }
+
+        /* ---- Cards: two across ---- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 24px;
+            align-items: stretch;
+        }
+        @media (max-width: 860px){ .contact-grid { grid-template-columns: 1fr; } }
+        .rst-card {
+            background: #ffffff;
+            border-top: 4px solid var(--forest);
+            border-radius: 14px;
+            box-shadow: 0 10px 26px rgba(11, 27, 43, 0.07);
+            padding: 30px 28px 32px;
+            position: relative;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .rst-card:hover { transform: translateY(-3px); box-shadow: var(--rst-lift); }
+        .rst-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin: 0 0 14px;
+        }
+        .rst-card p { font-size: 1.06rem; line-height: 1.72; color: var(--rst-ink); margin: 0 0 12px; }
+        .rst-card p:last-child { margin-bottom: 0; }
+        .rst-card a { color: var(--forest-dark); font-weight: 600; text-decoration: none; }
+        .rst-card a:hover { text-decoration: underline; }
+
+        /* Contact rows: icon + detail, so the phone and email read as actions */
+        .contact-rows { display: grid; gap: 12px; margin: 0 0 18px; }
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 16px;
+            background: var(--forest-pale);
+            border: 1px solid rgba(47, 140, 74, 0.22);
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.02rem;
+        }
+        .contact-row svg { width: 19px; height: 19px; flex: 0 0 auto; color: var(--forest-dark); }
+        .contact-row a { color: var(--forest-dark); }
+        /* The email is a single unbreakable string. At narrow widths it forced the
+           card's min-content to 315px inside a 265px grid column, so the whole page
+           scrolled sideways at 320px. Let it break rather than push the layout wider. */
+        .contact-row a { overflow-wrap: anywhere; }
+
+
+        /* ---- Map ----
+           Lives INSIDE the "How to find us" card. That card carries one line
+           where its neighbour carries five, so as a grid sibling it was
+           stretched to match and left ~150px of dead space. Giving the map
+           flex:1 makes it absorb that slack, so the cards match with no hole. */
+        .rst-card--map { display: flex; flex-direction: column; }
+        .rst-card--map .contact-map {
+            position: relative;
+            flex: 1 1 auto;
+            margin-top: 18px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--rst-line);
+        }
+        .rst-card--map .contact-map iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+        @media (max-width: 860px){ .rst-card--map .contact-map { min-height: 300px; } }
+
+        /* ---- Footer address cards (matching the other mockups) ---- */
+        .site-footer .footer-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        .site-footer .footer-section {
+            background: rgba(255, 255, 255, 0.14);
+            border-top: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 18px 20px 20px;
+            text-align: center;
+        }
+        .site-footer .footer-section::before {
+            content: "";
+            display: block;
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 9px;
+            background: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cellipse%20cx%3D%2726%27%20cy%3D%2732%27%20rx%3D%2718%27%20ry%3D%2710%27%20fill%3D%27%23E0A96D%27/%3E%3Cpolygon%20points%3D%2744%2C32%2056%2C20%2056%2C44%27%20fill%3D%27%23E0A96D%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%2732%27%20r%3D%273.5%27%20fill%3D%27%230b3d2e%27/%3E%3Ccircle%20cx%3D%2719.2%27%20cy%3D%2731.2%27%20r%3D%271.2%27%20fill%3D%27%23ffffff%27/%3E%3C/svg%3E") center/contain no-repeat;
+        }
+        .site-footer { background: var(--navy); color: #ffffff; }
+        .footer-title { color: #ffffff; }
+        .footer-section p { color: #D1D5DB; }
+        .footer-section a { color: #ffffff; }
+        .footer-section a:hover { color: var(--gold); }
+        /* The copyright paragraph needs its own colour. The typography block near the
+           top of this page sets `p { color: var(--navy) }`, and that targets the <p>
+           DIRECTLY — so it beats the light grey this div passes down by inheritance,
+           leaving NAVY TEXT ON THE NAVY FOOTER. Contrast measured 1.00:1: invisible.
+           (Same trap the handover brief records for the homepage.) */
+        .footer-bottom p { color: inherit; }
+        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+        /* Festival Place footer card — the second site is not announced yet,
+           so the card names no location. Reinstate the heading + address when
+           the opening is public. */
+        .footer-coming {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #ffffff;
+            margin: 0;
+        }
+        /* The trademark script on "Oliver's" — same values as the menu pages'
+           .mn-script so the brand mark is identical everywhere. */
+        .footer-coming .script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 800;
+            font-size: 1.32em;
+            line-height: 1;
+            vertical-align: 0.02em;
+        }
+
+        /* ==================================================================
+           TWO-TIER HEADER — identical to other mockups.
+           ================================================================== */
+        body.page-toggle-london { padding-top: 102px; }
+        body.page-toggle-london .nav-container {
+            flex-direction: column;
+            align-items: stretch;
+            flex-wrap: nowrap;
+            gap: 0;
+            padding-right: 20px;
+        }
+        body.page-toggle-london .navbar { padding: 0; }
+        body.page-toggle-london .nav-tier-1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px 0 8px;
+        }
+        body.page-toggle-london .nav-tier-1 .location-switch {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 101;
+            width: auto;
+            padding: 0;
+        }
+        body.page-toggle-london .nav-tier-1 .logo {
+            flex-shrink: 0;
+        }
+        @media (min-width: 1100px){
+            body.page-toggle-london .nav-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 30px;
+                padding: 12px 0;
+                min-height: 86px;
+            }
+            @media (max-width: 1620px) {
+                body.page-toggle-london .nav-menu { margin-left: 310px; }
+            }
+            body.page-toggle-london .nav-tier-1 { display: contents; }
+            body.page-toggle-london .nav-container { position: static; }
+            body.page-toggle-london .nav-tier-1 .logo {
+                order: 1;
+                position: absolute;
+                left: 130px;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-left: 0;
+            }
+            body.page-toggle-london .nav-menu { order: 2; flex-wrap: nowrap; white-space: nowrap; }
+            body.page-toggle-london .location-switch { order: 3; margin-left: auto; }
+        }
+        body.page-toggle-london .nav-tier-1 .logo-main { font-size: 62px; }
+        body.page-toggle-london .nav-menu {
+            flex: 0 0 auto;
+            width: 100%;
+            justify-content: flex-start;
+            margin-left: -12px;
+            gap: 6px;
+            padding: 0 0 15px;
+        }
+        body.page-toggle-london .nav-menu a {
+            font-size: 0.9rem;
+            padding: 8px 12px;
+        }
+        @media (max-width: 1099px){
+            body.page-toggle-london .nav-tier-1 { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            body.page-toggle-london .nav-tier-1 .location-switch {
+                position: static; width: 100%; justify-content: center; padding: 8px 0 2px;
+            }
+            body.page-toggle-london .nav-menu { flex-wrap: wrap; }
+            body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
+        }
+    /* ---- Nav centring ---- */
+        /* The items were left-aligned in a full-width box, so with Gift Vouchers
+           gone the row read left-heavy with ~250px of dead space at the right.
+           Centre them instead.
+           These rules sit LAST in the block on purpose: the base .nav-menu rule
+           above sets width/justify/margin at the same specificity, so only a
+           later rule can override it. */
+        @media (min-width: 1100px){
+            body.page-toggle-london .nav-menu {
+                flex: 1 1 auto;
+                width: auto;
+                justify-content: center;
+                margin-left: 0;
+            }
+            /* The logo is pinned 130-301px from the PAGE edge, while the nav
+               lives in the centred 1200px container — so the narrower the
+               viewport, the further the logo intrudes into the container and
+               the more of the nav's left side it would sit on top of.
+               The needed reservation is exactly linear:
+                   reserve = min(309px, (1822px - 100vw) / 2)
+               which clamps to 0 once the container starts clear of the logo
+               (~1832px) and to 309px once the container hits the page edge.
+               Replaces an earlier flat margin-left:310px that never applied —
+               it was overridden by the base rule further down the block. */
+            body.page-toggle-london .nav-menu {
+                /* margin, NOT padding: padding would shift the centring box's
+                   interior and push the items right by the full reserve, so the
+                   nav would sit off-centre. Margin moves the box itself, and
+                   justify-content then centres inside what's left. */
+                margin-left: clamp(0px, (1822px - 100vw) / 2, 309px);
+            }
+        }
+        /* At the tight end the reserved column leaves under ~950px for ~950px of
+           items, so shrink them rather than let the row overflow. */
+        @media (min-width: 1100px) and (max-width: 1400px){
+            body.page-toggle-london .nav-menu a { font-size: 0.82rem; padding: 8px 7px; }
+        }
+        @media (min-width: 1100px) and (max-width: 1150px){
+            body.page-toggle-london .nav-menu a { font-size: 0.75rem; padding: 8px 6px; }
+        }</style>
 </head>
-<body>
+<body class="page-toggle-london">
     <header class="site-header">
         <nav class="navbar">
             <div class="container nav-container">
-                <a href="index.html" class="logo"><span class="logo-main">Oliver's</span><span class="logo-sub">Fish & Chips</span></a>
-                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                <div class="nav-tier-1">
+                    <a href="index.html" class="logo"><span class="logo-main">Oliver's</span></a>
+                    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                </div>
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="restaurant.html">Restaurant</a></li>
                     <li><a href="takeaway.html">Takeaway</a></li>
+                    <li class="has-dropdown">
+                        <a href="restaurant.html#menu" aria-haspopup="true">Menus<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="restaurant-menu.html">Restaurant menu</a></li>
+                            <li><a href="takeaway-menu.html">Takeaway menu</a></li>
+                        </ul>
+                    </li>
                     <li><a href="kids.html">Oliver's for Kids</a></li>
                     <li><a href="catered-packages.html">Catered Packages</a></li>
-                    <li><a href="giftvouchers.html">Gift Vouchers</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li class="has-dropdown">
+                        <a href="index.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="index.html">London Road</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html" class="nav-active">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <section class="site-banner">
-        <h1 class="section-title">Contact Us</h1>
-        <p>We'd love to hear from you!</p>
+    <section class="site-banner rst-hero">
+        <span class="rst-eyebrow">London Road</span>
+        <h1 class="menu-page-title">Contact Us</h1>
+        <div class="rst-rule" aria-hidden="true"></div>
+        <p class="rst-lede">We'd love to hear from you!</p>
     </section>
 
-    <section class="contact-section">
-        <div class="contact-container">
+    <section class="rst-section">
+        <div class="container">
+            <div class="contact-grid">
+                <article class="rst-card">
+                    <h3>Call or email</h3>
+                    <div class="contact-rows">
+                        <div class="contact-row">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.2 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:01256321018">01256 321018</a>
+                        </div>
+                        <div class="contact-row">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M3.4 6.6L12 13l8.6-6.4"/></svg>
+                            <a href="mailto:info@olivers4fish.co.uk">info@olivers4fish.co.uk</a>
+                        </div>
+                    </div>
+                    <p>You can call us on <a href="tel:01256321018">01256 321018</a> or email us at <a href="mailto:info@olivers4fish.co.uk">info@olivers4fish.co.uk</a> — but please note we can't monitor emails during our busier periods.</p>
+                    <p>For restaurant reservations, please call us during our opening hours. Please do <strong>not</strong> email us to make a reservation.</p>
+                </article>
 
-            <div class="contact-card">
-                <p>You can call us on <strong>01256 321018</strong> or email us at <a href="mailto:info@olivers4fish.co.uk">info@olivers4fish.co.uk</a> — but please note we can't monitor emails during our busier periods.</p>
-                <p>For restaurant reservations, please call us during our opening hours. Please do <strong>not</strong> email us to make a reservation.</p>
+                <article class="rst-card rst-card--map">
+                    <h3>How to find us</h3>
+                    <p>It's easy! We're on the A30 in Old Basing, just a 5-minute drive from the centre of Basingstoke, with our own <strong>FREE private car park</strong>.</p>
+                    <div class="contact-map">
+                        <iframe src="https://www.google.com/maps?q=Oliver's+Fish+%26+Chip+Restaurant+39+London+Rd+Old+Basing+Basingstoke+RG24+7JE&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Oliver's location map"></iframe>
+                    </div>
+                </article>
             </div>
-
-            <div class="contact-card">
-                <p><strong>How to find us</strong></p>
-                <p>It's easy! We're on the A30 in Old Basing, just a 5-minute drive from the centre of Basingstoke, with our own <strong>FREE private car park</strong>.</p>
-            </div>
-
-            <div class="map-wrap">
-                <iframe src="https://www.google.com/maps?q=Oliver's+Fish+%26+Chip+Restaurant+39+London+Rd+Old+Basing+Basingstoke+RG24+7JE&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Oliver's location map"></iframe>
-            </div>
-
         </div>
     </section>
 
-    <footer class="site-footer"><div class="footer-bottom"><p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p></div></footer>
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">London Road</h4>
+                <p>01256 321018</p>
+                <p>39 London Road, Old Basing, RG24 7JE</p>
+            </div>
+            <div class="footer-section">
+                <p class="footer-coming">Another <span class="script">Oliver's</span> is on its way — and that's all we're saying for now!</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
+        </div>
+    </footer>
+    <script src="js/nav.js"></script>
 </body>
 </html>

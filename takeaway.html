@@ -4,166 +4,609 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Takeaway - Oliver's Fish &amp; Chips</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=16">
-    <script src="js/nav.js"></script>
     <style>
-        .menu-page-title { color: #1f5c28; font-size: 2.8rem; font-weight: 800; margin-bottom: 6px; text-align: center; }
-        .menu-page-subtitle { color: #6b7280; text-align: center; margin-bottom: 30px; font-size: 0.9rem; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
-        .menu-col { display: flex; flex-direction: column; gap: 16px; }
-        .menu-category { background: #ffffff; border: 2px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 0.3s ease; }
-        .menu-category:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-color: #d1d5db; }
-        .menu-category h3 { color: #1f5c28; font-size: 1.05rem; font-weight: 700; margin: 0 0 14px 0; padding-bottom: 8px; border-bottom: 3px solid #2d7d3a; display: inline-block; }
-        .menu-item { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; padding-bottom: 7px; border-bottom: 1px dotted #d1d5db; }
-        .menu-item:last-child { border-bottom: none; margin-bottom: 0; }
-        .menu-item-name { font-weight: 600; color: #1f2937; flex: 1; padding-right: 12px; font-size: 0.85rem; }
-        .menu-item-price { font-weight: 700; color: #2d7d3a; white-space: nowrap; font-size: 0.85rem; }
-        .menu-item-note { font-size: 0.75rem; color: #6b7280; font-style: italic; margin-top: 2px; }
-        .info-box { background: #f0fdf4; border-left: 5px solid #2d7d3a; border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 0.85rem; }
-        .info-box strong { color: #1f5c28; }
-        .site-banner .menu-page-title { color: white; margin-bottom: 6px; }
-        .site-banner .menu-page-subtitle { color: rgba(255,255,255,0.92); max-width: 700px; margin: 0 auto; }
-        @media (max-width: 640px) { .menu-grid { grid-template-columns: 1fr; } }
-    </style>
+        /* ==================================================================
+           PRODUCTION PAGE — London Road "Takeaway".
+           Based on the Restaurant mockup. Ghosted interior photo, same
+           two-tier header and nav. Never linked from production.
+           ================================================================== */
+
+        /* ---- Typography: Montserrat headings + Inter body ---- */
+        .section-title, h1, h2, h3, .nav-menu a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        body, p, .footer-section p, .footer-bottom, .footer-section a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: var(--navy);
+        }
+        .logo-sub, .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        :root {
+            --cream: #F8F9FA;
+            --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
+            --forest-hover: #A9CDB3; --slate: #1C2526;
+            --fork-h: clamp(20px, 2.4vw, 26px);
+            --fork-w: calc(var(--fork-h) * 1122 / 184);
+        }
+        .location-switch {
+            display: flex; gap: 12px; align-items: center;
+            position: absolute; top: 14px; right: 20px; z-index: 101;
+        }
+        .loc-fork { display: block; height: var(--fork-h); width: var(--fork-w); text-decoration: none; }
+        .loc-fork svg { display: block; width: 100%; height: 100%; overflow: visible; }
+        .f-body { fill: url(#woodpat); stroke: #000000; stroke-width: 5;
+                  stroke-linejoin: round; stroke-linecap: round;
+                  transition: fill .2s ease, stroke .2s ease; }
+        .f-wash { fill: rgba(47, 140, 74, 0.33); opacity: 0; transition: opacity .2s ease; }
+        .f-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 57px;
+                   letter-spacing: 2px; text-anchor: middle; fill: var(--slate);
+                   transition: fill .2s ease; }
+        .loc-fork:not(.active):hover .f-wash { opacity: 1; }
+        .loc-fork:hover .f-label { fill: #14191A; }
+        .loc-fork.active .f-body { fill: var(--forest); stroke: var(--slate); }
+        .loc-fork.active .f-label { fill: #ffffff; }
+        .loc-fork.active:hover .f-body { fill: var(--forest-dark); }
+
+        /* ==================================================================
+           HERO — navy, ghosted interior photo (takeaway-2.jpg) at 0.85 opacity
+           with gradient wash for text contrast.
+           ================================================================== */
+        .site-banner.rst-hero {
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+            background: var(--navy);
+            min-height: 0;
+            padding: 56px 20px 54px;
+        }
+        .site-banner.rst-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("images/takeaway-2.jpg");
+            background-size: cover;
+            background-position: center 45%;
+            opacity: 0.85;
+        }
+        .site-banner.rst-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                rgba(11, 27, 43, 0.55) 0%,
+                rgba(11, 27, 43, 0.68) 50%,
+                rgba(11, 27, 43, 0.82) 100%);
+        }
+        .site-banner.rst-hero > * { position: relative; z-index: 1; }
+        .rst-eyebrow {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+        .site-banner .menu-page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: clamp(2.6rem, 6vw, 4.05rem);
+            line-height: 1.04;
+            margin: 0 0 20px;
+        }
+        .rst-rule {
+            width: 64px; height: 3px; border-radius: 2px;
+            background: var(--gold);
+            margin: 0 auto 24px;
+        }
+        .rst-lede {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.86);
+            max-width: 66ch;
+            margin: 0 auto;
+        }
+        /* ---- Gift vouchers: header footnote
+           Option 3 from _gift-voucher-header-options.html — a gold rule and one
+           line at the foot of the hero, so the mention lives in the header
+           without competing with the page title. */
+        .rst-gv {
+            margin: 26px auto 0;
+            max-width: 620px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(224, 169, 109, 0.4);
+            font-size: 0.92rem;
+            color: rgba(255, 255, 255, 0.72);
+        }
+        .rst-gv b {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--gold);
+        }
+
+        /* ---- Section rhythm ---- */
+        .rst-section { padding: 66px 0; }
+        .rst-head { margin-bottom: 26px; }
+        @media (max-width: 860px){
+            .site-banner.rst-hero { padding: 40px 20px 38px; }
+            .rst-section { padding: 44px 0; }
+            .rst-band { padding: 48px 0 0; }
+            .rst-box { border-radius: 18px; box-shadow: 0 0 0 8px #ffffff, 0 20px 44px rgba(0, 0, 0, 0.42); }
+            .rst-wave { margin-top: 48px; }
+        }
+
+        /* ---- Cards: three across ---- */
+        .rst-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        /* ---- Photo box ---- */
+        .rst-band {
+            position: relative;
+            background: var(--navy);
+            padding: 74px 0 0;
+            overflow: visible;
+        }
+        .rst-band .container { position: relative; z-index: 1; }
+        .rst-box {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 26px;
+            box-shadow: 0 0 0 12px #ffffff, 0 30px 64px rgba(0, 0, 0, 0.42);
+        }
+        .rst-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: rst-fade 15s infinite;
+        }
+        .rst-slide:nth-child(1) { animation-delay: 0s; }
+        .rst-slide:nth-child(2) { animation-delay: -3s; }
+        .rst-slide:nth-child(3) { animation-delay: -6s; }
+        .rst-slide:nth-child(4) { animation-delay: -9s; }
+        .rst-slide:nth-child(5) { animation-delay: -12s; }
+        @keyframes rst-fade {
+            0%   { opacity: 0; }
+            4%   { opacity: 1; }
+            20%  { opacity: 1; }
+            24%  { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        @media (prefers-reduced-motion: reduce){
+            .rst-slide { animation: none; }
+            .rst-slide:first-child { opacity: 1; }
+        }
+        .rst-wave {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 74px;
+            margin-bottom: -30px;
+        }
+        .rst-card {
+            background: var(--cream);
+            border: 1px solid rgba(11, 27, 43, 0.08);
+            border-radius: 18px;
+            padding: 32px 30px;
+            box-shadow: 0 2px 14px rgba(11, 27, 43, 0.05);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .rst-card::before {
+            content: "";
+            display: block;
+            width: 46px;
+            height: 3px;
+            border-radius: 2px;
+            background: var(--gold);
+            margin-bottom: 18px;
+        }
+        .rst-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(11, 27, 43, 0.10); }
+        .rst-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin: 0 0 14px;
+        }
+        .rst-card p { font-size: 1.06rem; line-height: 1.72; color: #46505c; margin: 0 0 12px; }
+        .rst-card p:last-child { margin-bottom: 0; }
+        .rst-muted { display: block; color: #8b95a1; font-size: 0.95rem; margin-top: 6px; }
+
+        /* ---- Facilities: SVG ticks ---- */
+        .rst-ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 15px; }
+        .rst-ticks li {
+            display: flex; gap: 13px; align-items: flex-start;
+            font-size: 1.06rem; line-height: 1.6; color: #46505c;
+        }
+        .rst-tick {
+            flex: 0 0 auto;
+            width: 26px; height: 26px; margin-top: 2px;
+            border-radius: 50%;
+            background: rgba(47, 140, 74, 0.12);
+            color: var(--green);
+            display: grid; place-items: center;
+        }
+        .rst-tick svg { width: 14px; height: 14px; display: block; }
+
+        /* ---- Menu CTA ---- */
+        .rst-menu-head { text-align: center; margin-bottom: 6px; }
+        .rst-menu-head h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+            color: var(--navy);
+            margin: 8px 0 0;
+        }
+        .rst-menu-sub {
+            display: block;
+            text-align: center;
+            color: var(--navy);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 auto 24px;
+            max-width: 380px;
+        }
+        .rst-menu-wrap { text-align: center; }
+        .rst-menu-card {
+            background: rgb(39, 55, 70);
+            border-radius: 22px;
+            box-shadow: 0 18px 42px rgba(11, 27, 43, 0.12);
+            padding: 36px 32px 40px;
+            max-width: 520px;
+            margin: 0 auto;
+            text-align: center;
+            color: #ffffff;
+            position: relative;
+        }
+        .rst-menu-card::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 34%;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        .rst-menu-head h2 { color: var(--cream); }
+        .rst-menu-sub { color: var(--cream); }
+        .rst-menu-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--navy);
+            background: var(--cream);
+            border: 1px solid #e6e3da;
+            text-decoration: none;
+            padding: 22px 54px;
+            border-radius: 999px;
+            box-shadow: 0 10px 26px rgba(47, 140, 74, 0.28);
+            transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+        }
+        .rst-menu-cta:hover { background: #ffffff; transform: translateY(-2px); box-shadow: 0 16px 34px rgba(47, 140, 74, 0.36); }
+        .rst-menu-cta:focus-visible { outline: 3px solid var(--gold); outline-offset: 6px; }
+        .rst-menu-cta svg { width: 22px; height: 22px; flex: 0 0 auto; }
+        .rst-menu-inner { display: inline-flex; align-items: center; gap: 10px; line-height: 1; }
+        .rst-menu-oliver { font-family: 'Dancing Script', cursive; font-weight: 700; font-size: 1.6rem; letter-spacing: 0; color: var(--navy); display: inline; position: relative; top: 1px; }
+
+        /* ---- Footer address cards ---- */
+        .site-footer .footer-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        .site-footer .footer-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;   /* centre the content in the stretched card */
+            background: rgba(255, 255, 255, 0.14);
+            border-top: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 18px 20px 20px;
+            text-align: center;
+        }
+        .site-footer .footer-section::before {
+            content: "";
+            display: block;
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 9px;
+            background: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cellipse%20cx%3D%2726%27%20cy%3D%2732%27%20rx%3D%2718%27%20ry%3D%2710%27%20fill%3D%27%23E0A96D%27/%3E%3Cpolygon%20points%3D%2744%2C32%2056%2C20%2056%2C44%27%20fill%3D%27%23E0A96D%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%2732%27%20r%3D%273.5%27%20fill%3D%27%230b3d2e%27/%3E%3Ccircle%20cx%3D%2719.2%27%20cy%3D%2731.2%27%20r%3D%271.2%27%20fill%3D%27%23ffffff%27/%3E%3C/svg%3E") center/contain no-repeat;
+        }
+        .site-footer { background: var(--navy); color: #ffffff; }
+        .footer-title { color: #ffffff; }
+        .footer-section p { color: #D1D5DB; }
+        .footer-section a { color: #ffffff; }
+        .footer-section a:hover { color: var(--gold); }
+        /* The copyright paragraph needs its own colour. The typography block near the
+           top of this page sets `p { color: var(--navy) }`, and that targets the <p>
+           DIRECTLY — so it beats the light grey this div passes down by inheritance,
+           leaving NAVY TEXT ON THE NAVY FOOTER. Contrast measured 1.00:1: invisible.
+           (Same trap the handover brief records for the homepage.) */
+        .footer-bottom p { color: inherit; }
+        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+
+        /* ==================================================================
+           TWO-TIER HEADER — identical to other mockups.
+           ================================================================== */
+        body.page-toggle-london { padding-top: 102px; }
+        body.page-toggle-london .nav-container {
+            flex-direction: column;
+            align-items: stretch;
+            flex-wrap: nowrap;
+            gap: 0;
+            padding-right: 20px;
+        }
+        body.page-toggle-london .navbar { padding: 0; }
+        body.page-toggle-london .nav-tier-1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px 0 8px;
+        }
+        body.page-toggle-london .nav-tier-1 .location-switch {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 101;
+            width: auto;
+            padding: 0;
+        }
+        body.page-toggle-london .nav-tier-1 .logo {
+            flex-shrink: 0;
+        }
+        @media (min-width: 1100px){
+            body.page-toggle-london .nav-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 30px;
+                padding: 12px 0;
+                min-height: 86px;
+            }
+            @media (max-width: 1620px) {
+                body.page-toggle-london .nav-menu { margin-left: 310px; }
+            }
+            body.page-toggle-london .nav-tier-1 { display: contents; }
+            body.page-toggle-london .nav-container { position: static; }
+            body.page-toggle-london .nav-tier-1 .logo {
+                order: 1;
+                position: absolute;
+                left: 130px;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-left: 0;
+            }
+            body.page-toggle-london .nav-menu { order: 2; flex-wrap: nowrap; white-space: nowrap; }
+            body.page-toggle-london .location-switch { order: 3; margin-left: auto; }
+        }
+        body.page-toggle-london .nav-tier-1 .logo-main { font-size: 62px; }
+        body.page-toggle-london .nav-menu {
+            flex: 0 0 auto;
+            width: 100%;
+            justify-content: flex-start;
+            margin-left: -12px;
+            gap: 6px;
+            padding: 0 0 15px;
+        }
+        body.page-toggle-london .nav-menu a {
+            font-size: 0.9rem;
+            padding: 8px 12px;
+        }
+        @media (max-width: 1099px){
+            body.page-toggle-london .nav-tier-1 { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            body.page-toggle-london .nav-tier-1 .location-switch {
+                position: static; width: 100%; justify-content: center; padding: 8px 0 2px;
+            }
+            body.page-toggle-london .nav-menu { flex-wrap: wrap; }
+            body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
+        }
+
+        /* Seam fix — same as restaurant page */
+        section.rst-section#takeaway-menu {
+            position: relative;
+            z-index: 1;
+            background: var(--cream);
+            margin-top: -4px;
+        }
+    
+        /* Festival Place footer card — the second site is not announced yet,
+           so the card names no location. Reinstate the heading + address when
+           the opening is public. */
+        .footer-coming {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #ffffff;
+            margin: 0;
+        }
+        /* The trademark script on "Oliver's" — same values as the menu pages'
+           .mn-script so the brand mark is identical everywhere. */
+        .footer-coming .script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 800;
+            font-size: 1.32em;
+            line-height: 1;
+            vertical-align: 0.02em;
+        }
+/* ---- Nav centring ---- */
+        /* The items were left-aligned in a full-width box, so with Gift Vouchers
+           gone the row read left-heavy with ~250px of dead space at the right.
+           Centre them instead.
+           These rules sit LAST in the block on purpose: the base .nav-menu rule
+           above sets width/justify/margin at the same specificity, so only a
+           later rule can override it. */
+        @media (min-width: 1100px){
+            body.page-toggle-london .nav-menu {
+                flex: 1 1 auto;
+                width: auto;
+                justify-content: center;
+                margin-left: 0;
+            }
+            /* The logo is pinned 130-301px from the PAGE edge, while the nav
+               lives in the centred 1200px container — so the narrower the
+               viewport, the further the logo intrudes into the container and
+               the more of the nav's left side it would sit on top of.
+               The needed reservation is exactly linear:
+                   reserve = min(309px, (1822px - 100vw) / 2)
+               which clamps to 0 once the container starts clear of the logo
+               (~1832px) and to 309px once the container hits the page edge.
+               Replaces an earlier flat margin-left:310px that never applied —
+               it was overridden by the base rule further down the block. */
+            body.page-toggle-london .nav-menu {
+                /* margin, NOT padding: padding would shift the centring box's
+                   interior and push the items right by the full reserve, so the
+                   nav would sit off-centre. Margin moves the box itself, and
+                   justify-content then centres inside what's left. */
+                margin-left: clamp(0px, (1822px - 100vw) / 2, 309px);
+            }
+        }
+        /* At the tight end the reserved column leaves under ~950px for ~950px of
+           items, so shrink them rather than let the row overflow. */
+        @media (min-width: 1100px) and (max-width: 1400px){
+            body.page-toggle-london .nav-menu a { font-size: 0.82rem; padding: 8px 7px; }
+        }
+        @media (min-width: 1100px) and (max-width: 1150px){
+            body.page-toggle-london .nav-menu a { font-size: 0.75rem; padding: 8px 6px; }
+        }</style>
 </head>
-<body>
+<body class="page-toggle-london">
     <header class="site-header">
         <nav class="navbar">
             <div class="container nav-container">
-                <a href="index.html" class="logo"><span class="logo-main">Oliver's</span><span class="logo-sub">Fish & Chips</span></a>
-                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                <div class="nav-tier-1">
+                    <a href="index.html" class="logo"><span class="logo-main">Oliver's</span></a>
+                    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                </div>
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="restaurant.html">Restaurant</a></li>
-                    <li><a href="takeaway.html">Takeaway</a></li>
+                    <li><a href="takeaway.html" class="nav-active">Takeaway</a></li>
+                    <li class="has-dropdown">
+                        <a href="restaurant.html#menu" aria-haspopup="true">Menus<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="restaurant-menu.html">Restaurant menu</a></li>
+                            <li><a href="takeaway-menu.html">Takeaway menu</a></li>
+                        </ul>
+                    </li>
                     <li><a href="kids.html">Oliver's for Kids</a></li>
                     <li><a href="catered-packages.html">Catered Packages</a></li>
-                    <li><a href="giftvouchers.html">Gift Vouchers</a></li>
+                    <li class="has-dropdown">
+                        <a href="index.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="index.html">London Road</a></li>
+                        </ul>
+                    </li>
                     <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <section class="menu-section">
-        <div class="site-banner">
-            <h1 class="menu-page-title">Takeaway</h1>
-            <p class="menu-page-subtitle">Award-winning Fish &amp; Chips.</p>
+    <section class="site-banner rst-hero">
+        <span class="rst-eyebrow">London Road</span>
+        <h1 class="menu-page-title">Takeaway</h1>
+        <div class="rst-rule" aria-hidden="true"></div>
+        <p class="rst-lede">Award-winning Fish &amp; Chips — cooked fresh to order. Choose from our full menu of classic favourites, daily specials and seasonal deals.</p>
+        <p class="rst-gv"><b>GIFT VOUCHERS</b> &nbsp;·&nbsp; £5 denominations, redeemable here or in the restaurant</p>
+    </section>
+
+    <section class="rst-section">
+        <div class="container">
+            <div class="rst-grid">
+                <article class="rst-card">
+                    <h3>Opening hours</h3>
+                    <p>Open every day, except Christmas day, Boxing day and New Year's day</p>
+                    <p>Monday – Sunday 12pm–9pm</p>
+                </article>
+                <article class="rst-card">
+                    <h3>Menu</h3>
+                    <p>In addition to all of our regular menu items, check out our daily board for <strong>"Catch of the Day"</strong>!</p>
+                </article>
+            </div>
         </div>
-        <div class="menu-container">
+    </section>
 
-            <div class="menu-grid">
+    <section class="rst-band">
+        <div class="container">
+            <div class="rst-box">
+                <img class="rst-slide" src="images/takeaway-1.jpg" alt="Oliver's takeaway">
+                <img class="rst-slide" src="images/takeaway-2.jpg" alt="Oliver's takeaway counter and interior">
+                <img class="rst-slide" src="images/OLIVERS%20OUTSIDE%20SIGN.jpg" alt="Oliver's Fish & Chips shopfront on London Road">
+                <img class="rst-slide" src="images/customer%20fishchipimage.jpg" alt="Customer photo of Oliver's fish &amp; chips">
+            </div>
+        </div>
+        <svg class="rst-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0,40 C150,10 300,70 470,42 C620,18 780,72 960,46 C1120,22 1300,66 1440,38 L1440,80 L0,80 Z" fill="#ffffff"/>
+        </svg>
+    </section>
 
-                <div class="menu-col">
-
-                    <div class="menu-category">
-                        <h3>Fish</h3>
-                        <div class="menu-item"><div class="menu-item-name">Standard Cod</div><div class="menu-item-price">£6.35</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Large Cod</div><div class="menu-item-price">£8.40</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Standard Haddock</div><div class="menu-item-price">£6.65</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Large Haddock</div><div class="menu-item-price">£8.70</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Huss (Rock)</div><div class="menu-item-price">£7.45</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Standard Plaice</div><div class="menu-item-price">£6.35</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Large Plaice</div><div class="menu-item-price">£9.50</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Cod Roe</div><div class="menu-item-price">£2.75</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Wholetail Scampi</div><div class="menu-item-price">£7.80</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Homemade Fishcake</div><div class="menu-item-price">£3.00</div></div>
-                    </div>
-
-                    <div class="menu-category">
-                        <h3>Chips</h3>
-                        <div class="menu-item"><div class="menu-item-name">Regular Chips</div><div class="menu-item-price">£3.15</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Large Chips</div><div class="menu-item-price">£5.10</div></div>
-                    </div>
-
-                    <div class="menu-category">
-                        <h3>Meat</h3>
-                        <div class="menu-item"><div class="menu-item-name">Chicken & Mushroom Pie</div><div class="menu-item-price">£4.35</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Steak & Kidney Pie</div><div class="menu-item-price">£4.35</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Steak & Ale Pie</div><div class="menu-item-price">£4.35</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Beef & Onion Pie</div><div class="menu-item-price">£4.35</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Burger ¼ pounder</div><div class="menu-item-price">£4.50</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Cheeseburger ¼ pounder</div><div class="menu-item-price">£4.85</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Chicken Burger</div><div class="menu-item-price">£4.95</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Chicken Burger w/Cheese</div><div class="menu-item-price">£5.40</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Chicken Nuggets</div><div class="menu-item-price">£4.25</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Small Sausage (plain/batt)</div><div class="menu-item-price">£1.85</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Jumbo Sausage (plain/batt)</div><div class="menu-item-price">£3.40</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Saveloy</div><div class="menu-item-price">£3.40</div></div>
-                        <div class="menu-item"><div class="menu-item-name">¼ Chicken Leg</div><div class="menu-item-price">£5.25</div></div>
-                        <div class="menu-item"><div class="menu-item-name">¼ Chicken Breast</div><div class="menu-item-price">£5.85</div></div>
-                        <div class="menu-item"><div class="menu-item-name">½ Chicken</div><div class="menu-item-price">£10.50</div></div>
-                    </div>
-
-                    <div class="menu-category">
-                        <h3>Vegetarian</h3>
-                        <div class="menu-item"><div class="menu-item-name">Veggie Burger</div><div class="menu-item-price">£4.55</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Veggie Burger w/Cheese</div><div class="menu-item-price">£5.00</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Onion Rings</div><div class="menu-item-price">£2.95</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Homemade Halloumi Fries</div><div class="menu-item-price">£4.85</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Homemade Mozzarella Dippers</div><div class="menu-item-price">£4.75</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Garlic Breaded Mushrooms w/ garlic mayo dip</div><div class="menu-item-price">£4.25</div></div>
-                    </div>
-
+    <section class="rst-section" id="takeaway-menu">
+        <div class="container">
+            <div class="rst-menu-card">
+                <div class="rst-menu-head">
+                    <h2>Takeaway Menu</h2>
+                    <span class="rst-menu-sub">View our full menu here...</span>
                 </div>
-
-                <div class="menu-col">
-
-                    <div class="menu-category">
-                        <h3>Sides</h3>
-                        <div class="menu-item"><div class="menu-item-name">Homemade Mushy Peas</div><div class="menu-item-price">£2.45</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Curry Sauce</div><div class="menu-item-price">£2.45</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Heinz Baked Beans</div><div class="menu-item-price">£2.45</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Gravy</div><div class="menu-item-price">£2.30</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Cheese Sauce pot</div><div class="menu-item-price">£2.30</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Pea Fritter</div><div class="menu-item-price">£2.95</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Beanie (baked beans)</div><div class="menu-item-price">£2.95</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Bread Roll</div><div class="menu-item-price">£1.10</div></div>
-                    </div>
-
-                    <div class="menu-category">
-                        <h3>Pickles</h3>
-                        <div class="menu-item"><div class="menu-item-name">Gherkin</div><div class="menu-item-price">£0.95</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Pickled Egg</div><div class="menu-item-price">£1.25</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Pickled Onion</div><div class="menu-item-price">£0.70</div></div>
-                    </div>
-
-                    <div class="menu-category">
-                        <h3>Drinks</h3>
-                        <div class="menu-item"><div class="menu-item-name">Cans (Red Coke & Rio 20p extra)</div><div class="menu-item-price">£1.35</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Mineral Water 500ml</div><div class="menu-item-price">£1.35</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Fruit Shoot 200ml</div><div class="menu-item-price">£1.30</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Tea / Freshly Ground Coffee</div><div class="menu-item-price">Ask in-store</div></div>
-                    </div>
-
-                    <div class="menu-category">
-                        <h3>Desserts</h3>
-                        <div class="menu-item"><div class="menu-item-name">Banana Fritters (1)</div><div class="menu-item-price">£3.15</div></div>
-                        <div class="menu-item"><div class="menu-item-name">Pineapple Fritters (2)</div><div class="menu-item-price">£3.15</div></div>
-                        <div class="menu-item"><div class="menu-item-name">New Forest Ice Cream tub (vanilla, chocolate ripple, strawberry ripple)</div><div class="menu-item-price">£2.95</div></div>
-                    </div>
-
+                <div class="rst-menu-wrap">
+                    <a class="rst-menu-cta" href="takeaway-menu.html" title="View the full takeaway menu">
+                        <span class="rst-menu-inner">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8.5 9.5h7"/><path d="M8.5 13h4.5"/></svg>
+                            <span class="rst-menu-oliver">Oliver's</span>
+                        </span>
+                    </a>
                 </div>
             </div>
-
-            <p style="text-align:center; margin: 18px 0 22px;">
-                <a href="takeaway-menu.html" class="menu-download-btn" title="Download or print the takeaway menu" target="_blank">
-                    <span aria-hidden="true">🖨️</span> <span class="menu-download-text">Download / Print Takeaway Menu</span>
-                </a>
-            </p>
-
-            <div class="info-box" style="margin-top:35px;">
-                <strong>Catch of the Day</strong> available daily with chips £13.35 — please ask about today's fresh fish specials. Subject to market availability.
-            </div>
-            <p class="menu-item-note" style="text-align:center; margin-top:16px;">Food Allergies &amp; Intolerances: full details on request.</p>
         </div>
     </section>
 
     <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">London Road</h4>
+                <p>01256 321018</p>
+                <p>39 London Road, Old Basing, RG24 7JE</p>
+            </div>
+            <div class="footer-section">
+                <p class="footer-coming">Another <span class="script">Oliver's</span> is on its way — and that's all we're saying for now!</p>
+            </div>
+        </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
         </div>
     </footer>
+    <script src="js/nav.js"></script>
 </body>
 </html>

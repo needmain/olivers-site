@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oliver's Restaurant Menu (printable) — Oliver's Fish &amp; Chips</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@800&family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+        /* Print-first stylesheet. This page's ONLY job is to come out well on paper
+           (and via Save as PDF), so it is black on white with no brand chrome.
+           Everything screen-only is stripped in @media print. */
+        @page { size: A4; margin: 14mm 12mm; }
+        * { box-sizing: border-box; }
+        html, body { background: #ffffff; color: #000000; }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 24px 20px 40px; }
+        .pm-wrap { max-width: 900px; margin: 0 auto; }
+
+        .pm-bar { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px;
+                  padding-bottom: 12px; border-bottom: 3px solid #000000; margin-bottom: 20px; }
+        .pm-bar h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.35rem;
+                     margin: 2px 0 0; letter-spacing: 0.01em; }
+        .pm-bar address { font-style: normal; font-size: 0.78rem; line-height: 1.5; text-align: right; }
+
+        .pm-actions { text-align: center; margin: 16px 0 24px; }
+        .pm-script { font-family: 'Dancing Script', cursive; font-weight: 800; font-size: 1.32em; line-height: 1; }
+        .pm-btn { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem;
+                  color: #ffffff; background: #2F8C4A; border: 0; border-radius: 999px;
+                  padding: 13px 32px; cursor: pointer; }
+        .pm-btn:hover { background: #26713C; }
+        .pm-hint { display: block; margin-top: 8px; font-size: 0.76rem; color: #555555; }
+
+        /* the menu: two columns, as on screen.
+           MULTI-COLUMN, not a grid. A grid makes every row as tall as its tallest
+           block, so a short block (Early Bird) left a large gap beneath/beside it even
+           after the stretch was stopped. Multi-column packs the blocks tightly down one
+           column and then the next, with break-inside: avoid keeping each section whole.
+           This is the same approach the screen menu page uses. */
+        .pm-menu { columns: 2; column-gap: 38px; }
+        .pm-sec { break-inside: avoid; page-break-inside: avoid; margin: 0 0 16px; }
+        .pm-sec h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem;
+                     letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 8px;
+                     padding-top: 9px; border-top: 2px solid #000000; }
+        .pm-sec h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem;
+                     letter-spacing: 0.12em; text-transform: uppercase; margin: 13px 0 6px;
+                     padding-top: 7px; border-top: 1px solid #B8BFC6; }
+        .pm-note { font-size: 0.78rem; color: #333333; margin: 0 0 8px; }
+        .pm-list { display: grid; grid-template-columns: minmax(0, 1fr); }
+        .pm-row { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline;
+                  gap: 8px; padding: 3px 0; }
+        .pm-row.two { grid-template-columns: auto 1fr auto auto; }
+        .pm-row.three { grid-template-columns: auto 1fr auto auto auto; }
+        .pm-nm { font-size: 0.9rem; }
+        .pm-desc { display: block; font-size: 0.74rem; color: #555555; }
+        .pm-dots { border-bottom: 1.5px dotted #A9B0B8; transform: translateY(-3px); }
+        .pm-pr { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.88rem;
+                 min-width: 46px; text-align: right; font-variant-numeric: tabular-nums; }
+        .pm-cols { display: grid; grid-auto-flow: column; justify-content: end; gap: 8px;
+                   font-family: 'Montserrat', sans-serif; font-size: 0.62rem; font-weight: 700;
+                   letter-spacing: 0.08em; text-transform: uppercase; color: #666666; margin-bottom: 4px; }
+        .pm-cols span { width: 46px; text-align: right; }
+        .pm-callout { background: #F2F7F3; border: 1px solid #BFDCC6; border-radius: 10px;
+                      padding: 12px 14px; }
+
+        .pm-fine { margin-top: 24px; border-top: 3px solid #000000; padding-top: 12px; }
+        .pm-fine h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.78rem;
+                      letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 6px; }
+        .pm-fine p { font-size: 0.74rem; color: #333333; margin: 0 0 4px; line-height: 1.5; }
+        .pm-foot { margin-top: 18px; font-size: 0.74rem; color: #333333; text-align: center; }
+
+        @media print {
+            body { padding: 0; }
+            .pm-actions { display: none !important; }   /* the button must never print */
+            .pm-menu { gap: 18px 28px; }
+            .pm-callout { background: #F2F7F3 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            a { color: #000000 !important; text-decoration: none !important; }
+        }
+        @media (max-width: 700px) {
+            .pm-menu { grid-template-columns: 1fr; }
+            .pm-bar { flex-direction: column; align-items: flex-start; }
+            .pm-bar address { text-align: left; }
+        }
+</style>
+</head>
+<body>
+<!--
+    Printable menu. Content is GENERATED from _restaurant-menu-london-v2.html by
+    remapping class names — do not hand-edit the menu here or the two pages will
+    drift apart. Edit _restaurant-menu-london-v2.html, then re-run
+    `python _build-print-menu.py` (project root) to regenerate this file.
+-->
+<div class="pm-wrap">
+
+    <div class="pm-bar">
+        <div>
+            <h1><span class="pm-script">Oliver&#39;s</span> Restaurant Menu</h1>
+        </div>
+        <address>01256 321018<br>39 London Road, Old Basing, RG24 7JE</address>
+    </div>
+
+    <div class="pm-actions">
+        <button type="button" class="pm-btn" onclick="window.print()">Print this menu</button>
+        <span class="pm-hint">Or press Ctrl+P / Cmd+P. Save as PDF to email or download it.</span>
+    </div>
+
+    <div class="pm-menu"><section class="pm-sec"><h3>Starters</h3><p class="pm-note">Please see the chalkboards for the Specials and Catch of the Day.</p>
+<div class="pm-list">
+    <div class="pm-row"><span class="pm-nm">Soup of the Day</span><span class="pm-dots"></span><span class="pm-pr">5.35</span></div>
+                    <div class="pm-row"><span class="pm-nm">Prawn Cocktail</span><span class="pm-dots"></span><span class="pm-pr">7.25</span></div>
+                    <div class="pm-row"><span class="pm-nm">Breaded King Prawns</span><span class="pm-dots"></span><span class="pm-pr">6.95</span></div>
+                    <div class="pm-row"><span class="pm-nm">Wholetail Scampi</span><span class="pm-dots"></span><span class="pm-pr">7.45</span></div>
+                    <div class="pm-row"><span class="pm-nm">Whitebait</span><span class="pm-dots"></span><span class="pm-pr">7.25</span></div>
+                    <div class="pm-row"><span class="pm-nm">Oliver's Homemade Fishcake</span><span class="pm-dots"></span><span class="pm-pr">6.15</span></div>
+                    <div class="pm-row"><span class="pm-nm">Breaded Cod Goujons</span><span class="pm-dots"></span><span class="pm-pr">6.75</span></div>
+                    <div class="pm-row"><span class="pm-nm">Mozzarella Sticks</span><span class="pm-dots"></span><span class="pm-pr">6.75</span></div>
+                    <div class="pm-row"><span class="pm-nm">Chicken Dippers</span><span class="pm-dots"></span><span class="pm-pr">6.35</span></div>
+                    <div class="pm-row"><span class="pm-nm">Breaded Garlic Mushrooms</span><span class="pm-dots"></span><span class="pm-pr">6.35</span></div>
+                    <div class="pm-row"><span class="pm-nm">Halloumi &quot;Fries&quot;</span><span class="pm-dots"></span><span class="pm-pr">6.75</span></div>
+</div></section>
+            <section class="pm-sec"><h3>From the Ocean to the Fryer</h3><div class="pm-cols"><span>Reg</span><span>Lrg</span></div>
+<div class="pm-list">
+    <div class="pm-row two"><span class="pm-nm">Cod</span><span class="pm-dots"></span><span class="pm-pr">12.85</span><span class="pm-pr">15.25</span></div>
+                    <div class="pm-row two"><span class="pm-nm">Haddock</span><span class="pm-dots"></span><span class="pm-pr">13.15</span><span class="pm-pr">15.60</span></div>
+                    <div class="pm-row two"><span class="pm-nm">Plaice</span><span class="pm-dots"></span><span class="pm-pr">12.85</span><span class="pm-pr">15.25</span></div>
+                    <div class="pm-row two"><span class="pm-nm">Huss</span><span class="pm-dots"></span><span class="pm-pr">13.65</span><span class="pm-pr">16.00</span></div>
+                    <div class="pm-row"><span class="pm-nm">Wholetail Scampi</span><span class="pm-dots"></span><span class="pm-pr">15.95</span></div>
+                    <div class="pm-row"><span class="pm-nm">Oliver's Homemade Fishcakes (2)</span><span class="pm-dots"></span><span class="pm-pr">13.65</span></div>
+</div></section>
+            <section class="pm-sec"><h3>From the Grill</h3>
+<div class="pm-list">
+    <div class="pm-row"><span class="pm-nm">Cod</span><span class="pm-dots"></span><span class="pm-pr">15.95</span></div>
+                    <div class="pm-row"><span class="pm-nm">Cod Rarebit<span class="pm-desc">topped with cheese</span></span><span class="pm-dots"></span><span class="pm-pr">16.85</span></div>
+                    <div class="pm-row"><span class="pm-nm">Haddock</span><span class="pm-dots"></span><span class="pm-pr">16.35</span></div>
+                    <div class="pm-row"><span class="pm-nm">Salmon</span><span class="pm-dots"></span><span class="pm-pr">16.45</span></div>
+</div></section>
+            <section class="pm-sec"><h3>From the Land</h3>
+                <div class="pm-list">
+                    <div class="pm-row"><span class="pm-nm">Oliver's Burger</span><span class="pm-dots"></span><span class="pm-pr">15.25</span></div>
+                    <div class="pm-row"><span class="pm-nm">Oliver's Double Chicken Burger</span><span class="pm-dots"></span><span class="pm-pr">15.35</span></div>
+                    <div class="pm-row"><span class="pm-nm">Pukka Pie</span><span class="pm-dots"></span><span class="pm-pr">12.85</span></div>
+                    <div class="pm-row"><span class="pm-nm">Two Small Sausages<span class="pm-desc">battered or plain</span></span><span class="pm-dots"></span><span class="pm-pr">11.15</span></div>
+                    <div class="pm-row"><span class="pm-nm">Go jumbo for extra</span><span class="pm-dots"></span><span class="pm-pr">2.75</span></div>
+                </div>
+                <h4 class="mn-sub">Chicken</h4>
+                <div class="pm-list">
+                    <div class="pm-row"><span class="pm-nm">Leg</span><span class="pm-dots"></span><span class="pm-pr">12.35</span></div>
+                    <div class="pm-row"><span class="pm-nm">Breast</span><span class="pm-dots"></span><span class="pm-pr">12.85</span></div>
+                    <div class="pm-row"><span class="pm-nm">Half</span><span class="pm-dots"></span><span class="pm-pr">15.95</span></div>
+                </div>
+                </section>
+            <section class="pm-sec"><h3>Alternatives</h3>
+<div class="pm-list">
+    <div class="pm-row"><span class="pm-nm">Macaroni Cheese</span><span class="pm-dots"></span><span class="pm-pr">13.95</span></div>
+                    <div class="pm-row"><span class="pm-nm">Halloumi &quot;Fries&quot;<span class="pm-desc">deep fried plain or battered, with sweet chilli sauce</span></span><span class="pm-dots"></span><span class="pm-pr">13.65</span></div>
+                    <div class="pm-row"><span class="pm-nm">Vegetable Burger<span class="pm-desc">in a white bun with cheese, lettuce, tomato &amp; onion</span></span><span class="pm-dots"></span><span class="pm-pr">12.85</span></div>
+</div></section>
+            <section class="pm-sec"><h3>Sides</h3>
+<div class="pm-list">
+    <div class="pm-row"><span class="pm-nm">Salad</span><span class="pm-dots"></span><span class="pm-pr">4.85</span></div>
+                    <div class="pm-row"><span class="pm-nm">Chips</span><span class="pm-dots"></span><span class="pm-pr">3.75</span></div>
+                    <div class="pm-row"><span class="pm-nm">Seasoned Potato Wedges</span><span class="pm-dots"></span><span class="pm-pr">3.80</span></div>
+                    <div class="pm-row"><span class="pm-nm">Homemade Mushy Peas</span><span class="pm-dots"></span><span class="pm-pr">3.20</span></div>
+                    <div class="pm-row"><span class="pm-nm">Garden Peas</span><span class="pm-dots"></span><span class="pm-pr">3.20</span></div>
+                    <div class="pm-row"><span class="pm-nm">Heinz Beans</span><span class="pm-dots"></span><span class="pm-pr">3.20</span></div>
+                    <div class="pm-row"><span class="pm-nm">Curry sauce</span><span class="pm-dots"></span><span class="pm-pr">3.30</span></div>
+                    <div class="pm-row"><span class="pm-nm">Cheese sauce</span><span class="pm-dots"></span><span class="pm-pr">3.20</span></div>
+                    <div class="pm-row"><span class="pm-nm">Gravy</span><span class="pm-dots"></span><span class="pm-pr">3.20</span></div>
+                    <div class="pm-row"><span class="pm-nm">Spam fritters</span><span class="pm-dots"></span><span class="pm-pr">3.50</span></div>
+                    <div class="pm-row"><span class="pm-nm">Homemade Pea fritter</span><span class="pm-dots"></span><span class="pm-pr">3.35</span></div>
+                    <div class="pm-row"><span class="pm-nm">Homemade Beanie</span><span class="pm-dots"></span><span class="pm-pr">3.35</span></div>
+                    <div class="pm-row"><span class="pm-nm">Bread roll</span><span class="pm-dots"></span><span class="pm-pr">1.00</span></div>
+                    <div class="pm-row"><span class="pm-nm">Cod Roe</span><span class="pm-dots"></span><span class="pm-pr">3.20</span></div>
+                    <div class="pm-row"><span class="pm-nm">Onion rings</span><span class="pm-dots"></span><span class="pm-pr">3.65</span></div>
+                    <div class="pm-row"><span class="pm-nm">Pickled gherkin</span><span class="pm-dots"></span><span class="pm-pr">1.05</span></div>
+                    <div class="pm-row"><span class="pm-nm">Pickled egg</span><span class="pm-dots"></span><span class="pm-pr">1.05</span></div>
+                    <div class="pm-row"><span class="pm-nm">Pickled onion</span><span class="pm-dots"></span><span class="pm-pr">1.05</span></div>
+                    <div class="pm-row"><span class="pm-nm">Garlic Bread</span><span class="pm-dots"></span><span class="pm-pr">3.25</span></div>
+</div></section>
+            <section class="pm-sec pm-callout"><h3>Early Bird</h3>
+                    <p class="pm-note">Available from 12pm until 6pm. Includes a choice of homemade mushy peas,
+                       garden peas or beans &mdash; a smaller portion for smaller appetites.</p>
+                <div class="pm-list">
+                    <div class="pm-row"><span class="pm-nm">Small Cod and chips<span class="pm-desc">Fried only</span></span><span class="pm-dots"></span><span class="pm-pr">10.25</span></div>
+                </div>
+                </section>
+            <section class="pm-sec pm-callout"><h3>Oliver's for Kids</h3>
+                    <p class="pm-note">Under 12's only. Includes a main meal, drink &amp; dessert.</p>
+                <div class="pm-list">
+                    <div class="pm-row"><span class="pm-nm">Cod fillet</span><span class="pm-dots"></span><span class="pm-pr">7.25</span></div>
+                    <div class="pm-row"><span class="pm-nm">Breaded cod bites</span><span class="pm-dots"></span><span class="pm-pr">7.25</span></div>
+                    <div class="pm-row"><span class="pm-nm">Oliver's homemade fishcake</span><span class="pm-dots"></span><span class="pm-pr">6.75</span></div>
+                    <div class="pm-row"><span class="pm-nm">Scampi</span><span class="pm-dots"></span><span class="pm-pr">7.50</span></div>
+                    <div class="pm-row"><span class="pm-nm">Chicken nuggets</span><span class="pm-dots"></span><span class="pm-pr">6.70</span></div>
+                    <div class="pm-row"><span class="pm-nm">Sausage<span class="pm-desc">plain or battered</span></span><span class="pm-dots"></span><span class="pm-pr">6.70</span></div>
+                    <div class="pm-row"><span class="pm-nm">Burger</span><span class="pm-dots"></span><span class="pm-pr">6.80</span></div>
+                    <div class="pm-row"><span class="pm-nm">Cheeseburger</span><span class="pm-dots"></span><span class="pm-pr">7.00</span></div>
+                    <div class="pm-row"><span class="pm-nm">Chicken Burger</span><span class="pm-dots"></span><span class="pm-pr">7.50</span></div>
+                    <div class="pm-row"><span class="pm-nm">Spaghetti Bolognese</span><span class="pm-dots"></span><span class="pm-pr">7.25</span></div>
+                    <div class="pm-row"><span class="pm-nm">Macaroni Cheese</span><span class="pm-dots"></span><span class="pm-pr">7.25</span></div>
+                </div>
+                    <h4 class="mn-sub">Drinks</h4>
+                    <p class="pm-note">Orange juice &middot; Apple juice &middot; Squash &middot; Coke &middot;
+                       Diet coke &middot; Lemonade &middot; Milk</p>
+                    <h4 class="mn-sub">Dessert</h4>
+                    <p class="pm-note">1 scoop of vanilla, chocolate or strawberry ice cream and wafer with an
+                       optional choice of toffee, chocolate or strawberry sauce, or a fruity ice lollipop.</p>
+                </section>
+            <section class="pm-sec"><h3>Drinks</h3>
+                    <div class="pm-cols"><span>&frac12; pint</span><span>Pint</span></div>
+                <h4 class="mn-sub">Fizzy</h4>
+                <div class="pm-list">
+                    <div class="pm-row two"><span class="pm-nm">Coke</span><span class="pm-dots"></span><span class="pm-pr">3.20</span><span class="pm-pr">4.75</span></div>
+                    <div class="pm-row two"><span class="pm-nm">Diet Coke</span><span class="pm-dots"></span><span class="pm-pr">3.15</span><span class="pm-pr">4.60</span></div>
+                    <div class="pm-row two"><span class="pm-nm">Orangeade</span><span class="pm-dots"></span><span class="pm-pr">3.20</span><span class="pm-pr">4.60</span></div>
+                    <div class="pm-row two"><span class="pm-nm">Lemonade</span><span class="pm-dots"></span><span class="pm-pr">3.20</span><span class="pm-pr">4.60</span></div>
+                </div>
+                <h4 class="mn-sub">Juices</h4>
+                <div class="pm-list">
+                    <div class="pm-row two"><span class="pm-nm">Orange</span><span class="pm-dots"></span><span class="pm-pr">3.20</span><span class="pm-pr">4.75</span></div>
+                    <div class="pm-row two"><span class="pm-nm">Apple</span><span class="pm-dots"></span><span class="pm-pr">3.20</span><span class="pm-pr">4.75</span></div>
+                </div>
+                <h4 class="mn-sub">By the bottle</h4>
+                <div class="pm-list">
+                    <div class="pm-row"><span class="pm-nm">Orange and Passion fruit<span class="pm-desc">J2O</span></span><span class="pm-dots"></span><span class="pm-pr">3.75</span></div>
+                    <div class="pm-row"><span class="pm-nm">Apple and Mango<span class="pm-desc">J2O</span></span><span class="pm-dots"></span><span class="pm-pr">3.75</span></div>
+                    <div class="pm-row"><span class="pm-nm">Apple and Raspberry<span class="pm-desc">J2O</span></span><span class="pm-dots"></span><span class="pm-pr">3.75</span></div>
+                    <div class="pm-row"><span class="pm-nm">Still or Sparkling<span class="pm-desc">Mineral Water &middot; 330ml</span></span><span class="pm-dots"></span><span class="pm-pr">2.85</span></div>
+                    <div class="pm-row"><span class="pm-nm">Still or Sparkling<span class="pm-desc">Mineral Water &middot; 750ml</span></span><span class="pm-dots"></span><span class="pm-pr">5.30</span></div>
+                    <div class="pm-row"><span class="pm-nm">Becks Blue<span class="pm-desc">Alcohol Free Lager &middot; 275ml</span></span><span class="pm-dots"></span><span class="pm-pr">4.00</span></div>
+                </div>
+                </section>
+            <section class="pm-sec"><h3>Hot Drinks</h3>
+<div class="pm-list">
+    <div class="pm-row"><span class="pm-nm">Pot of tea<span class="pm-desc">1 person</span></span><span class="pm-dots"></span><span class="pm-pr">2.30</span></div>
+                    <div class="pm-row"><span class="pm-nm">Pot of speciality tea<span class="pm-desc">please ask</span></span><span class="pm-dots"></span><span class="pm-pr">2.50</span></div>
+                    <div class="pm-row"><span class="pm-nm">Americano</span><span class="pm-dots"></span><span class="pm-pr">3.05</span></div>
+                    <div class="pm-row"><span class="pm-nm">Espresso</span><span class="pm-dots"></span><span class="pm-pr">3.05</span></div>
+                    <div class="pm-row"><span class="pm-nm">Cappuccino</span><span class="pm-dots"></span><span class="pm-pr">3.40</span></div>
+                    <div class="pm-row"><span class="pm-nm">Latte</span><span class="pm-dots"></span><span class="pm-pr">3.40</span></div>
+                    <div class="pm-row"><span class="pm-nm">Flat white</span><span class="pm-dots"></span><span class="pm-pr">3.30</span></div>
+                    <div class="pm-row"><span class="pm-nm">Instant Decaf coffee</span><span class="pm-dots"></span><span class="pm-pr">2.30</span></div>
+                    <div class="pm-row"><span class="pm-nm">Hot chocolate</span><span class="pm-dots"></span><span class="pm-pr">3.50</span></div>
+</div></section>
+            <section class="pm-sec"><h3>Beers</h3><div class="pm-cols"><span>&frac12; pint</span><span>Pint</span></div><p class="pm-note">Please see chalkboard for selection of Premium Bottled Beers and Lagers.</p>
+<div class="pm-list">
+    <div class="pm-row two"><span class="pm-nm">Lager, Bitter, Cider</span><span class="pm-dots"></span><span class="pm-pr">3.25</span><span class="pm-pr">6.00</span></div>
+</div></section>
+            <section class="pm-sec"><h3>Wines</h3>
+                    <div class="pm-cols"><span>175ml</span><span>250ml</span><span>75cl</span></div>
+                <div class="pm-list">
+                    <div class="pm-row three"><span class="pm-nm">House white, Red or Rosé<span class="pm-desc">white dry or medium dry</span></span><span class="pm-dots"></span><span class="pm-pr">5.55</span><span class="pm-pr">7.25</span><span class="pm-pr">18.75</span></div>
+                </div>
+                <h4 class="mn-sub">By the bottle</h4>
+                <div class="pm-list">
+                    <div class="pm-row"><span class="pm-nm">Pinot Grigio<span class="pm-desc">75cl</span></span><span class="pm-dots"></span><span class="pm-pr">19.25</span></div>
+                    <div class="pm-row"><span class="pm-nm">Sauvignon Blanc<span class="pm-desc">75cl</span></span><span class="pm-dots"></span><span class="pm-pr">19.25</span></div>
+                    <div class="pm-row"><span class="pm-nm">Merlot<span class="pm-desc">75cl</span></span><span class="pm-dots"></span><span class="pm-pr">19.25</span></div>
+                    <div class="pm-row"><span class="pm-nm">Prosecco<span class="pm-desc">20cl</span></span><span class="pm-dots"></span><span class="pm-pr">7.50</span></div>
+                </div>
+                </section></div>
+
+    <!-- fine_html already carries its own "Please note" heading — do not add a second -->
+    <div class="pm-fine">
+                <h3>Please note</h3>
+                <p>Subject to availability</p><p>FOOD ALLERGIES — if you have a food allergy or intolerance, speak to your server before placing your order.</p><p>Our dish descriptions do not necessarily mention every ingredient.</p><p>Although every effort is made to remove bones from our fish, some small bones may still remain.</p><p>We portion our fish strictly by weight so shape will vary.</p><p>GRATUITIES AT YOUR DISCRETION.</p><p>Tables of 6 or more will incur a service charge of 10%.</p></div>
+
+    <p class="pm-foot">Oliver's Fish &amp; Chips — London Road — prices include VAT</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver's Restaurant Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <style>
+        /* ========================================================================
+           PRODUCTION PAGE — London Road "Restaurant MENU".
+           Items and prices are taken verbatim from the removed restaurant-menu.jpg
+           scan (two independent OCR passes, ambiguities resolved by zooming).
+           Layout follows the references the user liked: bold caps headings, dot
+           leaders to right-aligned prices, dual Reg/Lrg and 1/2-pint/pint columns.
+           ======================================================================== */
+
+        /* ---- Typography: Montserrat headings + Inter body ---- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* ---- Menu hero ---- */
+        .mn-hero {
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+            padding: 58px 20px 54px;
+        }
+        .mn-hero .mn-eyebrow {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+        .mn-hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.6rem;
+            margin: 0;               /* was 0 0 12px — that was the gap to the tagline, now removed */
+            color: #ffffff;
+        }
+
+        /* ---- Menu body: two balanced columns, single column on small screens ---- */
+        .mn-main { padding: 54px 0 8px; }
+        .mn-wrap { columns: 2; column-gap: 58px; }
+        @media (max-width: 900px){ .mn-wrap { columns: 1; } }
+
+        .mn-sec { break-inside: avoid; margin-bottom: 36px; }
+        .mn-sec h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.92rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--navy);
+            margin: 0 0 10px;
+            padding-top: 11px;
+            border-top: 3px solid var(--gold);
+            display: inline-block;
+        }
+        .mn-cols {
+            display: grid;
+            grid-auto-flow: column;          /* one column per price tier */
+            justify-content: end;            /* sits above the price columns */
+            gap: 10px;                       /* MUST equal .mn-item's gap */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.64rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8A94A2;
+            margin: -4px 0 6px;
+        }
+        .mn-cols span { width: 58px; text-align: right; }   /* MUST equal .mn-price min-width */
+        .mn-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.76rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #8A94A2;
+            margin: 16px 0 6px;
+        }
+        /* Rows must span the FULL column: without an explicit 1fr template the
+           implicit track is auto-sized to the content, so the row is only as wide
+           as its text and the row's own `1fr` dots track gets no free space to
+           fill — the dot leaders collapse and prices sit right after the name. */
+        .mn-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px; }
+
+        /* dot leaders: a dotted rule that stretches between name and price */
+        .mn-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: baseline;
+            gap: 10px;
+            padding: 4px 0;
+        }
+        .mn-item--2 { grid-template-columns: auto 1fr auto auto; }
+        .mn-item--3 { grid-template-columns: auto 1fr auto auto auto; }
+        .mn-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            color: var(--text-dark);
+        }
+        .mn-desc { display: block; font-size: 0.82rem; color: #7A828E; margin-top: 1px; }
+        .mn-dots { border-bottom: 2px dotted rgba(11, 27, 43, 0.20); transform: translateY(-3px); }
+        .mn-price {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--navy);
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+            min-width: 58px;
+            text-align: right;
+        }
+        .mn-note { margin: 0 0 12px; font-size: 0.82rem; color: #7A828E; }
+
+        /* ---- Callout blocks (Early Bird, Kids) ---- */
+        .mn-callout {
+            background: linear-gradient(180deg, rgba(224, 169, 109, 0.16), rgba(224, 169, 109, 0.05));
+            border: 1px solid rgba(224, 169, 109, 0.45);
+            border-radius: 14px;
+            padding: 18px 20px 20px;
+        }
+        .mn-callout h3 { border-top: 0; padding-top: 0; margin-bottom: 8px; }
+        .mn-callout .mn-note { margin: 0 0 10px; color: var(--navy); opacity: 0.75; }
+        .mn-callout .mn-item { padding: 2px 0; }
+
+        /* ---- Fine print ---- */
+        .mn-fine {
+            max-width: 780px;
+            margin: 10px auto 0;
+            border: 1px solid rgba(11, 27, 43, 0.12);
+            border-radius: 14px;
+            padding: 22px 26px;
+            background: #ffffff;
+        }
+        .mn-fine h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--navy);
+            margin: 0 0 10px;
+        }
+        .mn-fine p { margin: 0 0 7px; font-size: 0.85rem; line-height: 1.55; color: #737C88; }
+        .mn-fine p:last-child { margin-bottom: 0; }
+
+        /* ---- Printable menu ----
+           Opens the dedicated print page (restaurant-menu-print.html) in a
+           NEW window. That page's menu content is GENERATED from this one by remapping
+           class names, so the two can never disagree about a price — re-run
+           `python _build-print-menu.py` (project root) after editing here rather than
+           hand-editing the print page. */
+        .mn-dl { text-align: center; padding: 6px 0 30px; }
+        .mn-dl a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #ffffff;
+            background: var(--forest);              /* brand green, as on the restaurant page */
+            border: 1px solid var(--forest-dark);
+            text-decoration: none;
+            padding: 16px 34px;
+            border-radius: 999px;
+            transition: background .2s ease, transform .2s ease;
+        }
+        .mn-dl a:hover { background: var(--forest-dark); transform: translateY(-2px); }
+        .mn-dl a:focus-visible { outline: 3px solid #E0A96D; outline-offset: 6px; }
+        .mn-dl svg { width: 18px; height: 18px; flex: 0 0 auto; }
+        /* two classes so it beats the generic .mn-band padding whatever the source order */
+        .mn-band.mn-dl-band { padding: 0 0 10px; }
+
+        /* ---- Print ----
+           The "Download printable menu" button used to hand out the OLD scanned
+           card, so it was removed (see the comment where it used to sit in the
+           markup). Printing this page IS the printable menu now, so strip the chrome
+           and print the menu itself cleanly on white. */
+        @media print{
+            header, footer, #preview-hub-btn, .mn-dl-band { display: none !important; }
+            body.page-toggle-london { padding-top: 0 !important; background: #ffffff !important; }
+            .mn-hero { background: #ffffff !important; color: #000000 !important;
+                       padding: 0 0 18px !important; text-align: left; }
+            .mn-hero h1 { color: #000000 !important; font-size: 1.8rem !important; }
+            .mn-main { padding: 0 !important; }
+            .mn-wrap { columns: 2 !important; column-gap: 40px !important; }
+            .mn-sec, .mn-item, .mn-fine { break-inside: avoid; }
+            .mn-sec h3 { color: #000000 !important; border-top-color: #000000 !important; }
+            .mn-name, .mn-price, .mn-note, .mn-sub, .mn-cols { color: #000000 !important; }
+            .mn-dots { border-bottom-color: #999999 !important; }
+            .mn-fine { border-color: #999999 !important; }
+        }
+
+        /* ---- Section rhythm + footer (unchanged from the other mockups) ---- */
+        .mn-band { padding: 0 0 56px; }
+
+        /* ==========================================================================
+           POPPIES-STYLE SKIN — the framed, colour-blocked classic menu the user
+           referenced, with Oliver's green doing the job Poppies give their red.
+           Deliberately layered at the END so it wins on source order against the
+           earlier menu rules (same specificity). Nothing here touches prices.
+           Green #2F8C4A = frame/banners; cream #FBF7EF = interior; gold #E0A96D = accents.
+           ========================================================================== */
+
+        /* THICK GREEN FRAME around the menu, cream inside — Poppies' signature move.
+           NO padding here: the band must span the frame edge-to-edge, so the inset
+           lives on .mn-wrap below instead. */
+        .mn-main .container {
+            border: 10px solid var(--forest);
+            border-radius: 5px;
+            background: #FBF7EF;
+            padding: 0;
+        }
+        .mn-wrap { padding: 22px 26px 30px; }
+
+        /* header band: green, the top of the framed board (Poppies' red header) */
+        .mn-hero {
+            background: var(--forest);
+            color: #FFF9EE;
+            padding: 26px 20px 20px;
+            border-radius: 0;
+        }
+        .mn-main { padding-top: 0; }
+        .mn-hero .mn-eyebrow { color: #FFF9EE; opacity: 0.92; letter-spacing: 0.26em; }
+        .mn-hero h1 { color: #FFF9EE; font-size: 2.05rem; letter-spacing: 0.02em; margin-bottom: 0; }
+        /* Poppies' "Est. 1952 / FAMOUS FISH & CHIPS" rule, done with ::after so no
+           markup is needed. Decorative brand line — the same facts sit in the footer. */
+        .mn-hero::after {
+            content: "Est. 1974  ·  Fish & Chips";
+            display: block;
+            margin-top: 12px;
+            padding-top: 11px;
+            border-top: 1px solid rgba(255, 249, 238, 0.45);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.67rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        /* section headings become solid green banners (Poppies' red banners) */
+        .mn-sec h3 {
+            background: var(--navy);
+            color: #FFF9EE;
+            border-top: 0;
+            padding: 7px 12px;
+            border-radius: 3px;
+            letter-spacing: 0.16em;
+            font-size: 0.76rem;
+        }
+        /* sub-headings take the brand green, so green reads as structure, not decoration */
+        .mn-sec h4 { color: var(--forest-dark); border-top-color: rgba(47, 140, 74, 0.32); }
+
+        /* the two feature blocks (Early Bird, Kids) as green-outlined cards */
+        .mn-callout {
+            background: #F1F8F2;
+            border: 2px solid var(--forest);
+            border-radius: 6px;
+            padding: 14px 16px;
+        }
+        .mn-callout h3 { background: transparent; color: var(--forest-dark); padding: 0; }
+
+        /* notes + fine print tuned to sit on the cream interior */
+        .mn-note { color: #5C6672; }
+        .mn-item .mn-name { color: #22303D; }
+        .mn-dots { border-bottom-color: rgba(11, 27, 43, 0.30); }
+
+        /* the fine-print block matches the framed look */
+        .mn-band .container .mn-fine,
+        .mn-fine {
+            border: 2px solid var(--forest);
+            background: #FBF7EF;
+            border-radius: 6px;
+            padding: 18px 20px;
+        }
+
+/* ---- Typography: Montserrat headings + Inter body ---- */
+        .section-title, h1, h2, h3, .nav-menu a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        body, p, .footer-section p, .footer-bottom, .footer-section a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: var(--navy);
+        }
+        .logo-sub, .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* ---- Chip-fork location toggles (user's CapCut fork asset) ---- */
+        :root { --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
+                --forest-hover: #A9CDB3; --slate: #1C2526;
+                --fork-h: clamp(20px, 2.4vw, 26px);
+                --fork-w: calc(var(--fork-h) * 1122 / 184);
+                /* page-local design tokens */
+                --rst-ink: #46505c;
+                --rst-mute: #8b95a1;
+                --rst-line: rgba(11, 27, 43, 0.08);
+                --rst-lift: 0 12px 30px rgba(11, 27, 43, 0.10); }
+        .location-switch {
+            display: flex; gap: 12px; align-items: center;
+            position: absolute; top: 14px; right: 20px; z-index: 101;
+        }
+        .loc-fork { display: block; height: var(--fork-h); width: var(--fork-w); text-decoration: none; }
+        .loc-fork svg { display: block; width: 100%; height: 100%; overflow: visible; }
+        .f-body { fill: url(#woodpat); stroke: #000000; stroke-width: 5;
+                  stroke-linejoin: round; stroke-linecap: round;
+                  transition: fill .2s ease, stroke .2s ease; }
+        .f-wash { fill: rgba(47, 140, 74, 0.33); opacity: 0; transition: opacity .2s ease; }
+        .f-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 57px;
+                   letter-spacing: 2px; text-anchor: middle; fill: var(--slate);
+                   transition: fill .2s ease; }
+        .loc-fork:not(.active):hover .f-wash { opacity: 1; }
+        .loc-fork:hover .f-label { fill: #14191A; }
+        .loc-fork.active .f-body { fill: var(--forest); stroke: var(--slate); }
+        .loc-fork.active .f-label { fill: #ffffff; }
+        .loc-fork.active:hover .f-body { fill: var(--forest-dark); }
+
+/* ==================================================================
+           TWO-TIER HEADER — identical to the mockup homepage / About page.
+           Tier 1: logo (left) + chip-fork badges (right)
+           Tier 2: the full nav menu, left-aligned
+           Every selector is prefixed with body.page-toggle-london so nothing
+           here can reach another template or the shared css/style.css.
+           ================================================================== */
+        /* Offset must clear the FIXED header. Was 90px for an 89px header, but enlarging
+           the logo to 30px grew the header to ~94px, so this tracks it with a 2px
+           cushion. Re-check whenever anything in the header changes height. */
+        body.page-toggle-london { padding-top: 102px; }   /* header measured 96.2px */
+
+        body.page-toggle-london .nav-container {
+            flex-direction: column;
+            align-items: stretch;
+            flex-wrap: nowrap;
+            gap: 0;
+            padding-right: 20px;
+        }
+        body.page-toggle-london .navbar { padding: 0; }
+
+        body.page-toggle-london .nav-tier-1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px 0 8px;
+        }
+        /* Badges anchor to the HEADER edge (right: 20px), exactly as on the
+           Festival Place page. In flow they inherit the centred 1200px
+           container's edge instead, which insets them by (viewport - 1200)/2. */
+        body.page-toggle-london .nav-tier-1 .location-switch {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 101;
+            width: auto;
+            padding: 0;
+        }
+        body.page-toggle-london .nav-tier-1 .logo {
+            flex-shrink: 0;
+        }
+        /* "Oliver's" alone — the "Fish & Chips" span was removed from the markup —
+           enlarged to ~1/3 of the 90px header bar. style.css sets .logo-main at
+           1.5rem (24px), so this is a deliberate override; the .logo-sub rule stays
+           in style.css because .footer-title shares it elsewhere. */
+        /* ---- Logo ON the nav row ----
+           The logo used to sit on the strip ABOVE the tabs. `display: contents`
+           dissolves that tier's box so the logo and the location toggles join the nav
+           container directly, which is then laid out as one row: logo hard left, tabs
+           next to it, toggles pushed right by margin-left:auto. Desktop only, so the
+           mobile hamburger bar keeps its own layout. */
+        @media (min-width: 1100px){
+            /* min-height restores the bar's height: the logo is absolute now, so it
+               contributes none, and a 62px logo in a 65px bar looks cramped. No extra
+               clearance is needed here — the tabs sit in the container's own centred
+               column, as they did before, and a narrow-screen guard (below) handles
+               the case where that column would start underneath the logo. */
+            /* The container keeps its own centred max-width from style.css — that is what
+               lines the nav items up with the page content. My earlier full-width override
+               dragged them out of that column. The logo no longer consumes flow space
+               (it is absolute), so nothing needs reserving here. */
+            body.page-toggle-london .nav-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 30px;
+                padding: 12px 0;
+                min-height: 86px;
+            }
+            /* Narrow-screen guard: the absolute logo ends at ~301px, so below this the
+               centred column would start underneath it. Pushes the tabs clear instead. */
+            @media (max-width: 1620px) {
+                body.page-toggle-london .nav-menu { margin-left: 310px; }   /* clears the logo (~301px) */
+            }
+            body.page-toggle-london .nav-tier-1 { display: contents; }
+            body.page-toggle-london .nav-container { position: static; }   /* keep the header as the containing block */
+            /* Pinned to the BAR, not the container, with absolute positioning. The nav
+               container is centred with a max-width, so its left inset GROWS with the
+               viewport (~24px at 1249 wide, ~337px at 1835) — a fixed negative margin
+               only ever landed in the corner at one window size. Anchored to the fixed
+               header, 4px is 4px from the left edge at any width. */
+            body.page-toggle-london .nav-tier-1 .logo {
+                order: 1;
+                position: absolute;
+                left: 130px;   /* ~3.4cm in from the left, not jammed against the edge */
+                top: 50%;
+                transform: translateY(-50%);
+                margin-left: 0;
+            }
+            /* 190px clears the absolutely-positioned logo (~171px) plus a gap. At wider
+               viewports the container's own inset pushes the tabs further right anyway,
+               so this only ever sets a floor — it can't cause a collision. */
+            body.page-toggle-london .nav-menu { order: 2; flex-wrap: nowrap; white-space: nowrap; }
+            body.page-toggle-london .location-switch { order: 3; margin-left: auto; }
+        }
+
+        body.page-toggle-london .nav-tier-1 .logo-main { font-size: 62px; }
+
+        body.page-toggle-london .nav-menu {
+            flex: 0 0 auto;
+            width: 100%;
+            justify-content: flex-start;
+            margin-left: -12px;       /* first tab's TEXT flush with the logo */
+            gap: 6px;
+            padding: 0 0 15px;
+        }
+        body.page-toggle-london .nav-menu a {
+            font-size: 0.9rem;
+            padding: 8px 12px;
+        }
+
+        /* keep the two tiers sane when space genuinely runs out */
+        @media (max-width: 1099px){
+            body.page-toggle-london .nav-tier-1 { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            /* the scoped absolute rule above outranks the shared media
+               override, so drop the badges back into the flow here */
+            body.page-toggle-london .nav-tier-1 .location-switch {
+                position: static; width: 100%; justify-content: center; padding: 8px 0 2px;
+            }
+            body.page-toggle-london .nav-menu { flex-wrap: wrap; }
+            body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
+        }
+    
+    
+        /* ---- Gold starburst note ----
+           Poppies' device: the only irregular shape on the page, so the eye lands on it.
+           Carries a line taken from our own printed menu — shortened, nothing invented:
+           "served with a choice of chips, mashed potato or wedges PLUS a choice of
+           homemade mushy peas, garden peas or Heinz baked beans".
+           clip-path rather than an image: crisp at any size, and it prints cleanly.
+           Polygon generated (20 spikes, outer 50% / inner 36.5%), not hand-written. */
+        .mn-hero { position: relative; overflow: visible; }
+                .mn-script { font-family: 'Dancing Script', cursive; font-weight: 800; font-size: 1.32em; line-height: 1; vertical-align: 0.02em; }
+.mn-burst {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 14px;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 26px;
+            background: #E0A96D;
+            color: #10243A;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.62rem;
+            line-height: 1.3;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            text-align: center;
+            clip-path: polygon(50.0% 0.0%, 55.7% 13.9%, 65.5% 2.4%, 66.6% 17.5%, 79.4% 9.5%, 75.8% 24.2%, 90.5% 20.6%, 82.5% 33.4%, 97.6% 34.5%, 86.1% 44.3%, 100.0% 50.0%, 86.1% 55.7%, 97.6% 65.5%, 82.5% 66.6%, 90.5% 79.4%, 75.8% 75.8%, 79.4% 90.5%, 66.6% 82.5%, 65.5% 97.6%, 55.7% 86.1%, 50.0% 100.0%, 44.3% 86.1%, 34.5% 97.6%, 33.4% 82.5%, 20.6% 90.5%, 24.2% 75.8%, 9.5% 79.4%, 17.5% 66.6%, 2.4% 65.5%, 13.9% 55.7%, 0.0% 50.0%, 13.9% 44.3%, 2.4% 34.5%, 17.5% 33.4%, 9.5% 20.6%, 24.2% 24.2%, 20.6% 9.5%, 33.4% 17.5%, 34.5% 2.4%, 44.3% 13.9%);
+            z-index: 3;
+        }
+
+        /* Footer address cards — the markup was already here, but this page
+           never carried the card styling, so the two addresses rendered as
+           bare unstyled blocks. Copied from the Takeaway Menu page so all the
+           menu pages match. */
+        .site-footer .footer-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        .site-footer .footer-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;   /* centre the content in the stretched card */
+            background: rgba(255, 255, 255, 0.14);
+            border-top: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 18px 20px 20px;
+            text-align: center;
+        }
+        .site-footer .footer-section::before {
+            content: "";
+            display: block;
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 9px;
+            background: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cellipse%20cx%3D%2726%27%20cy%3D%2732%27%20rx%3D%2718%27%20ry%3D%2710%27%20fill%3D%27%23E0A96D%27/%3E%3Cpolygon%20points%3D%2744%2C32%2056%2C20%2056%2C44%27%20fill%3D%27%23E0A96D%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%2732%27%20r%3D%273.5%27%20fill%3D%27%230b3d2e%27/%3E%3Ccircle%20cx%3D%2719.2%27%20cy%3D%2731.2%27%20r%3D%271.2%27%20fill%3D%27%23ffffff%27/%3E%3C/svg%3E") center/contain no-repeat;
+        }
+        .site-footer { background: var(--navy); color: #ffffff; }
+        .footer-title { color: #ffffff; }
+        .footer-section p { color: #D1D5DB; }
+        .footer-section a { color: #ffffff; }
+        .footer-section a:hover { color: var(--gold); }
+        /* The copyright paragraph needs its own colour. The typography block near the
+           top of this page sets `p { color: var(--navy) }`, and that targets the <p>
+           DIRECTLY — so it beats the light grey this div passes down by inheritance,
+           leaving NAVY TEXT ON THE NAVY FOOTER. Contrast measured 1.00:1: invisible.
+           (Same trap the handover brief records for the homepage.) */
+        .footer-bottom p { color: inherit; }
+        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+
+        /* Festival Place footer card — the second site is not announced yet,
+           so the card names no location. Reinstate the heading + address when
+           the opening is public. */
+        .footer-coming {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #ffffff;
+            margin: 0;
+        }
+        /* The trademark script on "Oliver's" — same values as the menu pages'
+           .mn-script so the brand mark is identical everywhere. */
+        .footer-coming .script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 800;
+            font-size: 1.32em;
+            line-height: 1;
+            vertical-align: 0.02em;
+        }
+/* ---- Nav centring ---- */
+        /* The items were left-aligned in a full-width box, so with Gift Vouchers
+           gone the row read left-heavy with ~250px of dead space at the right.
+           Centre them instead.
+           These rules sit LAST in the block on purpose: the base .nav-menu rule
+           above sets width/justify/margin at the same specificity, so only a
+           later rule can override it. */
+        @media (min-width: 1100px){
+            body.page-toggle-london .nav-menu {
+                flex: 1 1 auto;
+                width: auto;
+                justify-content: center;
+                margin-left: 0;
+            }
+            /* The logo is pinned 130-301px from the PAGE edge, while the nav
+               lives in the centred 1200px container — so the narrower the
+               viewport, the further the logo intrudes into the container and
+               the more of the nav's left side it would sit on top of.
+               The needed reservation is exactly linear:
+                   reserve = min(309px, (1822px - 100vw) / 2)
+               which clamps to 0 once the container starts clear of the logo
+               (~1832px) and to 309px once the container hits the page edge.
+               Replaces an earlier flat margin-left:310px that never applied —
+               it was overridden by the base rule further down the block. */
+            body.page-toggle-london .nav-menu {
+                /* margin, NOT padding: padding would shift the centring box's
+                   interior and push the items right by the full reserve, so the
+                   nav would sit off-centre. Margin moves the box itself, and
+                   justify-content then centres inside what's left. */
+                margin-left: clamp(0px, (1822px - 100vw) / 2, 309px);
+            }
+        }
+        /* At the tight end the reserved column leaves under ~950px for ~950px of
+           items, so shrink them rather than let the row overflow. */
+        @media (min-width: 1100px) and (max-width: 1400px){
+            body.page-toggle-london .nav-menu a { font-size: 0.82rem; padding: 8px 7px; }
+        }
+        @media (min-width: 1100px) and (max-width: 1150px){
+            body.page-toggle-london .nav-menu a { font-size: 0.75rem; padding: 8px 6px; }
+        }</style>
+</head>
+<body class="page-toggle-london">
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <div class="nav-tier-1">
+                    <a href="index.html" class="logo"><span class="logo-main">Oliver's</span></a>
+                    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                </div><!-- /.nav-tier-1 -->
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="restaurant.html">Restaurant</a></li>
+                    <li><a href="takeaway.html">Takeaway</a></li>
+                    <li class="has-dropdown">
+                        <a href="restaurant.html#menu" aria-haspopup="true">Menus<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="restaurant-menu.html" class="nav-current">Restaurant menu</a></li>
+                            <li><a href="takeaway-menu.html">Takeaway menu</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="kids.html">Oliver's for Kids</a></li>
+                    <li><a href="catered-packages.html">Catered Packages</a></li>
+                    <li class="has-dropdown">
+                        <a href="index.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
+                        <ul class="nav-dropdown">
+                            <li><a href="index.html">London Road</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+        <section class="mn-main">
+        <div class="container">
+            <!-- The band lives INSIDE the frame, so the frame's border runs around it and
+                 band + menu read as one board (Poppies build theirs this way). -->
+            <section class="mn-hero">
+                <div class="mn-burst">All mains come with chips, mash or wedges, plus peas or beans</div>
+                <span class="mn-eyebrow">London Road</span>
+                <h1><span class="mn-script">Oliver&#39;s</span> Restaurant Menu</h1>
+            </section>
+            <div class="mn-wrap">
+                <section class="mn-sec"><h3>Starters</h3><p class="mn-note">Please see the chalkboards for the Specials and Catch of the Day.</p>
+<div class="mn-list">
+    <div class="mn-item"><span class="mn-name">Soup of the Day</span><span class="mn-dots"></span><span class="mn-price">5.35</span></div>
+                    <div class="mn-item"><span class="mn-name">Prawn Cocktail</span><span class="mn-dots"></span><span class="mn-price">7.25</span></div>
+                    <div class="mn-item"><span class="mn-name">Breaded King Prawns</span><span class="mn-dots"></span><span class="mn-price">6.95</span></div>
+                    <div class="mn-item"><span class="mn-name">Wholetail Scampi</span><span class="mn-dots"></span><span class="mn-price">7.45</span></div>
+                    <div class="mn-item"><span class="mn-name">Whitebait</span><span class="mn-dots"></span><span class="mn-price">7.25</span></div>
+                    <div class="mn-item"><span class="mn-name">Oliver's Homemade Fishcake</span><span class="mn-dots"></span><span class="mn-price">6.15</span></div>
+                    <div class="mn-item"><span class="mn-name">Breaded Cod Goujons</span><span class="mn-dots"></span><span class="mn-price">6.75</span></div>
+                    <div class="mn-item"><span class="mn-name">Mozzarella Sticks</span><span class="mn-dots"></span><span class="mn-price">6.75</span></div>
+                    <div class="mn-item"><span class="mn-name">Chicken Dippers</span><span class="mn-dots"></span><span class="mn-price">6.35</span></div>
+                    <div class="mn-item"><span class="mn-name">Breaded Garlic Mushrooms</span><span class="mn-dots"></span><span class="mn-price">6.35</span></div>
+                    <div class="mn-item"><span class="mn-name">Halloumi &quot;Fries&quot;</span><span class="mn-dots"></span><span class="mn-price">6.75</span></div>
+</div></section>
+                <section class="mn-sec"><h3>From the Ocean to the Fryer</h3><div class="mn-cols"><span>Reg</span><span>Lrg</span></div>
+<div class="mn-list">
+    <div class="mn-item mn-item--2"><span class="mn-name">Cod</span><span class="mn-dots"></span><span class="mn-price">12.85</span><span class="mn-price">15.25</span></div>
+                    <div class="mn-item mn-item--2"><span class="mn-name">Haddock</span><span class="mn-dots"></span><span class="mn-price">13.15</span><span class="mn-price">15.60</span></div>
+                    <div class="mn-item mn-item--2"><span class="mn-name">Plaice</span><span class="mn-dots"></span><span class="mn-price">12.85</span><span class="mn-price">15.25</span></div>
+                    <div class="mn-item mn-item--2"><span class="mn-name">Huss</span><span class="mn-dots"></span><span class="mn-price">13.65</span><span class="mn-price">16.00</span></div>
+                    <div class="mn-item"><span class="mn-name">Wholetail Scampi</span><span class="mn-dots"></span><span class="mn-price">15.95</span></div>
+                    <div class="mn-item"><span class="mn-name">Oliver's Homemade Fishcakes (2)</span><span class="mn-dots"></span><span class="mn-price">13.65</span></div>
+</div></section>
+                <section class="mn-sec"><h3>From the Grill</h3>
+<div class="mn-list">
+    <div class="mn-item"><span class="mn-name">Cod</span><span class="mn-dots"></span><span class="mn-price">15.95</span></div>
+                    <div class="mn-item"><span class="mn-name">Cod Rarebit<span class="mn-desc">topped with cheese</span></span><span class="mn-dots"></span><span class="mn-price">16.85</span></div>
+                    <div class="mn-item"><span class="mn-name">Haddock</span><span class="mn-dots"></span><span class="mn-price">16.35</span></div>
+                    <div class="mn-item"><span class="mn-name">Salmon</span><span class="mn-dots"></span><span class="mn-price">16.45</span></div>
+</div></section>
+                <section class="mn-sec"><h3>From the Land</h3>
+                <div class="mn-list">
+                    <div class="mn-item"><span class="mn-name">Oliver's Burger</span><span class="mn-dots"></span><span class="mn-price">15.25</span></div>
+                    <div class="mn-item"><span class="mn-name">Oliver's Double Chicken Burger</span><span class="mn-dots"></span><span class="mn-price">15.35</span></div>
+                    <div class="mn-item"><span class="mn-name">Pukka Pie</span><span class="mn-dots"></span><span class="mn-price">12.85</span></div>
+                    <div class="mn-item"><span class="mn-name">Two Small Sausages<span class="mn-desc">battered or plain</span></span><span class="mn-dots"></span><span class="mn-price">11.15</span></div>
+                    <div class="mn-item"><span class="mn-name">Go jumbo for extra</span><span class="mn-dots"></span><span class="mn-price">2.75</span></div>
+                </div>
+                <h4 class="mn-sub">Chicken</h4>
+                <div class="mn-list">
+                    <div class="mn-item"><span class="mn-name">Leg</span><span class="mn-dots"></span><span class="mn-price">12.35</span></div>
+                    <div class="mn-item"><span class="mn-name">Breast</span><span class="mn-dots"></span><span class="mn-price">12.85</span></div>
+                    <div class="mn-item"><span class="mn-name">Half</span><span class="mn-dots"></span><span class="mn-price">15.95</span></div>
+                </div>
+                </section>
+                <section class="mn-sec"><h3>Alternatives</h3>
+<div class="mn-list">
+    <div class="mn-item"><span class="mn-name">Macaroni Cheese</span><span class="mn-dots"></span><span class="mn-price">13.95</span></div>
+                    <div class="mn-item"><span class="mn-name">Halloumi &quot;Fries&quot;<span class="mn-desc">deep fried plain or battered, with sweet chilli sauce</span></span><span class="mn-dots"></span><span class="mn-price">13.65</span></div>
+                    <div class="mn-item"><span class="mn-name">Vegetable Burger<span class="mn-desc">in a white bun with cheese, lettuce, tomato &amp; onion</span></span><span class="mn-dots"></span><span class="mn-price">12.85</span></div>
+</div></section>
+                <section class="mn-sec"><h3>Sides</h3>
+<div class="mn-list">
+    <div class="mn-item"><span class="mn-name">Salad</span><span class="mn-dots"></span><span class="mn-price">4.85</span></div>
+                    <div class="mn-item"><span class="mn-name">Chips</span><span class="mn-dots"></span><span class="mn-price">3.75</span></div>
+                    <div class="mn-item"><span class="mn-name">Seasoned Potato Wedges</span><span class="mn-dots"></span><span class="mn-price">3.80</span></div>
+                    <div class="mn-item"><span class="mn-name">Homemade Mushy Peas</span><span class="mn-dots"></span><span class="mn-price">3.20</span></div>
+                    <div class="mn-item"><span class="mn-name">Garden Peas</span><span class="mn-dots"></span><span class="mn-price">3.20</span></div>
+                    <div class="mn-item"><span class="mn-name">Heinz Beans</span><span class="mn-dots"></span><span class="mn-price">3.20</span></div>
+                    <div class="mn-item"><span class="mn-name">Curry sauce</span><span class="mn-dots"></span><span class="mn-price">3.30</span></div>
+                    <div class="mn-item"><span class="mn-name">Cheese sauce</span><span class="mn-dots"></span><span class="mn-price">3.20</span></div>
+                    <div class="mn-item"><span class="mn-name">Gravy</span><span class="mn-dots"></span><span class="mn-price">3.20</span></div>
+                    <div class="mn-item"><span class="mn-name">Spam fritters</span><span class="mn-dots"></span><span class="mn-price">3.50</span></div>
+                    <div class="mn-item"><span class="mn-name">Homemade Pea fritter</span><span class="mn-dots"></span><span class="mn-price">3.35</span></div>
+                    <div class="mn-item"><span class="mn-name">Homemade Beanie</span><span class="mn-dots"></span><span class="mn-price">3.35</span></div>
+                    <div class="mn-item"><span class="mn-name">Bread roll</span><span class="mn-dots"></span><span class="mn-price">1.00</span></div>
+                    <div class="mn-item"><span class="mn-name">Cod Roe</span><span class="mn-dots"></span><span class="mn-price">3.20</span></div>
+                    <div class="mn-item"><span class="mn-name">Onion rings</span><span class="mn-dots"></span><span class="mn-price">3.65</span></div>
+                    <div class="mn-item"><span class="mn-name">Pickled gherkin</span><span class="mn-dots"></span><span class="mn-price">1.05</span></div>
+                    <div class="mn-item"><span class="mn-name">Pickled egg</span><span class="mn-dots"></span><span class="mn-price">1.05</span></div>
+                    <div class="mn-item"><span class="mn-name">Pickled onion</span><span class="mn-dots"></span><span class="mn-price">1.05</span></div>
+                    <div class="mn-item"><span class="mn-name">Garlic Bread</span><span class="mn-dots"></span><span class="mn-price">3.25</span></div>
+</div></section>
+                <section class="mn-sec mn-callout"><h3>Early Bird</h3>
+                    <p class="mn-note">Available from 12pm until 6pm. Includes a choice of homemade mushy peas,
+                       garden peas or beans &mdash; a smaller portion for smaller appetites.</p>
+                <div class="mn-list">
+                    <div class="mn-item"><span class="mn-name">Small Cod and chips<span class="mn-desc">Fried only</span></span><span class="mn-dots"></span><span class="mn-price">10.25</span></div>
+                </div>
+                </section>
+                <section class="mn-sec mn-callout"><h3>Oliver's for Kids</h3>
+                    <p class="mn-note">Under 12's only. Includes a main meal, drink &amp; dessert.</p>
+                <div class="mn-list">
+                    <div class="mn-item"><span class="mn-name">Cod fillet</span><span class="mn-dots"></span><span class="mn-price">7.25</span></div>
+                    <div class="mn-item"><span class="mn-name">Breaded cod bites</span><span class="mn-dots"></span><span class="mn-price">7.25</span></div>
+                    <div class="mn-item"><span class="mn-name">Oliver's homemade fishcake</span><span class="mn-dots"></span><span class="mn-price">6.75</span></div>
+                    <div class="mn-item"><span class="mn-name">Scampi</span><span class="mn-dots"></span><span class="mn-price">7.50</span></div>
+                    <div class="mn-item"><span class="mn-name">Chicken nuggets</span><span class="mn-dots"></span><span class="mn-price">6.70</span></div>
+                    <div class="mn-item"><span class="mn-name">Sausage<span class="mn-desc">plain or battered</span></span><span class="mn-dots"></span><span class="mn-price">6.70</span></div>
+                    <div class="mn-item"><span class="mn-name">Burger</span><span class="mn-dots"></span><span class="mn-price">6.80</span></div>
+                    <div class="mn-item"><span class="mn-name">Cheeseburger</span><span class="mn-dots"></span><span class="mn-price">7.00</span></div>
+                    <div class="mn-item"><span class="mn-name">Chicken Burger</span><span class="mn-dots"></span><span class="mn-price">7.50</span></div>
+                    <div class="mn-item"><span class="mn-name">Spaghetti Bolognese</span><span class="mn-dots"></span><span class="mn-price">7.25</span></div>
+                    <div class="mn-item"><span class="mn-name">Macaroni Cheese</span><span class="mn-dots"></span><span class="mn-price">7.25</span></div>
+                </div>
+                    <h4 class="mn-sub">Drinks</h4>
+                    <p class="mn-note">Orange juice &middot; Apple juice &middot; Squash &middot; Coke &middot;
+                       Diet coke &middot; Lemonade &middot; Milk</p>
+                    <h4 class="mn-sub">Dessert</h4>
+                    <p class="mn-note">1 scoop of vanilla, chocolate or strawberry ice cream and wafer with an
+                       optional choice of toffee, chocolate or strawberry sauce, or a fruity ice lollipop.</p>
+                </section>
+                <section class="mn-sec"><h3>Drinks</h3>
+                    <div class="mn-cols"><span>&frac12; pint</span><span>Pint</span></div>
+                <h4 class="mn-sub">Fizzy</h4>
+                <div class="mn-list">
+                    <div class="mn-item mn-item--2"><span class="mn-name">Coke</span><span class="mn-dots"></span><span class="mn-price">3.20</span><span class="mn-price">4.75</span></div>
+                    <div class="mn-item mn-item--2"><span class="mn-name">Diet Coke</span><span class="mn-dots"></span><span class="mn-price">3.15</span><span class="mn-price">4.60</span></div>
+                    <div class="mn-item mn-item--2"><span class="mn-name">Orangeade</span><span class="mn-dots"></span><span class="mn-price">3.20</span><span class="mn-price">4.60</span></div>
+                    <div class="mn-item mn-item--2"><span class="mn-name">Lemonade</span><span class="mn-dots"></span><span class="mn-price">3.20</span><span class="mn-price">4.60</span></div>
+                </div>
+                <h4 class="mn-sub">Juices</h4>
+                <div class="mn-list">
+                    <div class="mn-item mn-item--2"><span class="mn-name">Orange</span><span class="mn-dots"></span><span class="mn-price">3.20</span><span class="mn-price">4.75</span></div>
+                    <div class="mn-item mn-item--2"><span class="mn-name">Apple</span><span class="mn-dots"></span><span class="mn-price">3.20</span><span class="mn-price">4.75</span></div>
+                </div>
+                <h4 class="mn-sub">By the bottle</h4>
+                <div class="mn-list">
+                    <div class="mn-item"><span class="mn-name">Orange and Passion fruit<span class="mn-desc">J2O</span></span><span class="mn-dots"></span><span class="mn-price">3.75</span></div>
+                    <div class="mn-item"><span class="mn-name">Apple and Mango<span class="mn-desc">J2O</span></span><span class="mn-dots"></span><span class="mn-price">3.75</span></div>
+                    <div class="mn-item"><span class="mn-name">Apple and Raspberry<span class="mn-desc">J2O</span></span><span class="mn-dots"></span><span class="mn-price">3.75</span></div>
+                    <div class="mn-item"><span class="mn-name">Still or Sparkling<span class="mn-desc">Mineral Water &middot; 330ml</span></span><span class="mn-dots"></span><span class="mn-price">2.85</span></div>
+                    <div class="mn-item"><span class="mn-name">Still or Sparkling<span class="mn-desc">Mineral Water &middot; 750ml</span></span><span class="mn-dots"></span><span class="mn-price">5.30</span></div>
+                    <div class="mn-item"><span class="mn-name">Becks Blue<span class="mn-desc">Alcohol Free Lager &middot; 275ml</span></span><span class="mn-dots"></span><span class="mn-price">4.00</span></div>
+                </div>
+                </section>
+                <section class="mn-sec"><h3>Hot Drinks</h3>
+<div class="mn-list">
+    <div class="mn-item"><span class="mn-name">Pot of tea<span class="mn-desc">1 person</span></span><span class="mn-dots"></span><span class="mn-price">2.30</span></div>
+                    <div class="mn-item"><span class="mn-name">Pot of speciality tea<span class="mn-desc">please ask</span></span><span class="mn-dots"></span><span class="mn-price">2.50</span></div>
+                    <div class="mn-item"><span class="mn-name">Americano</span><span class="mn-dots"></span><span class="mn-price">3.05</span></div>
+                    <div class="mn-item"><span class="mn-name">Espresso</span><span class="mn-dots"></span><span class="mn-price">3.05</span></div>
+                    <div class="mn-item"><span class="mn-name">Cappuccino</span><span class="mn-dots"></span><span class="mn-price">3.40</span></div>
+                    <div class="mn-item"><span class="mn-name">Latte</span><span class="mn-dots"></span><span class="mn-price">3.40</span></div>
+                    <div class="mn-item"><span class="mn-name">Flat white</span><span class="mn-dots"></span><span class="mn-price">3.30</span></div>
+                    <div class="mn-item"><span class="mn-name">Instant Decaf coffee</span><span class="mn-dots"></span><span class="mn-price">2.30</span></div>
+                    <div class="mn-item"><span class="mn-name">Hot chocolate</span><span class="mn-dots"></span><span class="mn-price">3.50</span></div>
+</div></section>
+                <section class="mn-sec"><h3>Beers</h3><div class="mn-cols"><span>&frac12; pint</span><span>Pint</span></div><p class="mn-note">Please see chalkboard for selection of Premium Bottled Beers and Lagers.</p>
+<div class="mn-list">
+    <div class="mn-item mn-item--2"><span class="mn-name">Lager, Bitter, Cider</span><span class="mn-dots"></span><span class="mn-price">3.25</span><span class="mn-price">6.00</span></div>
+</div></section>
+                <section class="mn-sec"><h3>Wines</h3>
+                    <div class="mn-cols"><span>175ml</span><span>250ml</span><span>75cl</span></div>
+                <div class="mn-list">
+                    <div class="mn-item mn-item--3"><span class="mn-name">House white, Red or Rosé<span class="mn-desc">white dry or medium dry</span></span><span class="mn-dots"></span><span class="mn-price">5.55</span><span class="mn-price">7.25</span><span class="mn-price">18.75</span></div>
+                </div>
+                <h4 class="mn-sub">By the bottle</h4>
+                <div class="mn-list">
+                    <div class="mn-item"><span class="mn-name">Pinot Grigio<span class="mn-desc">75cl</span></span><span class="mn-dots"></span><span class="mn-price">19.25</span></div>
+                    <div class="mn-item"><span class="mn-name">Sauvignon Blanc<span class="mn-desc">75cl</span></span><span class="mn-dots"></span><span class="mn-price">19.25</span></div>
+                    <div class="mn-item"><span class="mn-name">Merlot<span class="mn-desc">75cl</span></span><span class="mn-dots"></span><span class="mn-price">19.25</span></div>
+                    <div class="mn-item"><span class="mn-name">Prosecco<span class="mn-desc">20cl</span></span><span class="mn-dots"></span><span class="mn-price">7.50</span></div>
+                </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- The "Download printable menu" button lived here. Removed: it served
+         images/restaurant-menu.jpg, the OLD scanned card, and a customer would have
+         been handed an out-of-date menu. Printing this page is the printable menu
+         now — see the @media print rules in the stylesheet. The scan itself is
+         untouched on disk because the LIVE restaurant.html still links it. -->
+
+    <!-- Opens the dedicated print page in a NEW window (target=_blank). That page's
+         content is generated from this one, so the two cannot disagree on a price. -->
+    <section class="mn-band mn-dl-band">
+        <div class="container">
+            <div class="mn-dl">
+                <a href="restaurant-menu-print.html" target="_blank" rel="noopener" title="Open the printable menu in a new window">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9V3.5h11V9"/><path d="M6.5 18H4.5a1.5 1.5 0 0 1-1.5-1.5v-5A1.5 1.5 0 0 1 4.5 10h15a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 19.5 18h-2"/><path d="M6.5 14h11v6.5h-11z"/></svg>
+                    Printable menu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="mn-band">
+        <div class="container">
+            <div class="mn-fine">
+                <h3>Please note</h3>
+                <p>Subject to availability</p><p>FOOD ALLERGIES — if you have a food allergy or intolerance, speak to your server before placing your order.</p><p>Our dish descriptions do not necessarily mention every ingredient.</p><p>Although every effort is made to remove bones from our fish, some small bones may still remain.</p><p>We portion our fish strictly by weight so shape will vary.</p><p>GRATUITIES AT YOUR DISCRETION.</p><p>Tables of 6 or more will incur a service charge of 10%.</p>
+            </div>
+        </div>
+    </section>
+
+<footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">London Road</h4>
+                <p>01256 321018</p>
+                <p>39 London Road, Old Basing, RG24 7JE</p>
+            </div>
+            <div class="footer-section">
+                <p class="footer-coming">Another <span class="script">Oliver's</span> is on its way — and that's all we're saying for now!</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
+        </div>
+    </footer>
+    <script src="js/nav.js"></script>
+</body>
+</html>
