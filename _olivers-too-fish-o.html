@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver's Too — Fish-O in Header (v4)</title>
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <style>
+        /* Mockup-only overrides */
+        body { padding-top: 0; }
+        .mock-block .site-header { position: static; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .mock-label {
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.05rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            background: var(--green-dark);
+            padding: 12px 20px;
+        }
+        .mock-label .name { opacity: 0.9; font-weight: 500; }
+        .mock-divider { height: 48px; background: var(--cream); }
+
+        /* ---- Fish-O images inline in the title ---- */
+        .fish-o-img {
+            display: inline-block;
+            width: 0.72em;
+            height: 0.72em;
+            vertical-align: -0.08em;   /* sit on the script baseline */
+            margin: 0 -0.02em;          /* pull the pair closer together */
+        }
+        /* smaller variant for the nav logo */
+        .fish-o-img.small {
+            width: 0.7em;
+            height: 0.7em;
+            vertical-align: -0.06em;
+        }
+        .hero-logo-main { white-space: nowrap; }
+    </style>
+</head>
+<body>
+
+    <div class="mock-label">Concept — <span class="name">&ldquo;Oliver's Too&rdquo;</span> · ReCraft fish-O integrated into the header</div>
+    <div class="mock-block">
+        <header class="site-header">
+            <nav class="navbar">
+                <div class="container nav-container">
+                    <a href="#" class="logo"><span class="logo-main">Oliver's T<img class="fish-o-img small" src="images/_fish-o-nav.png?v=3" alt="o"><img class="fish-o-img small" src="images/_fish-o-nav.png?v=3" alt="o"></span><span class="logo-sub">Fish &amp; Chips</span></a>
+                    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                    <ul class="nav-menu">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Restaurant</a></li>
+                        <li><a href="#">Takeaway</a></li>
+                        <li><a href="#">Oliver's for Kids</a></li>
+                        <li><a href="#">Catered Packages</a></li>
+                        <li><a href="#">Gift Vouchers</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-brand">
+                    <span class="hero-logo-main">Oliver's T<img class="fish-o-img" src="images/_fish-o-hero.png?v=3" alt="o"><img class="fish-o-img" src="images/_fish-o-hero.png?v=3" alt="o"></span>
+                    <span class="hero-fish-divider">
+                        <svg class="hero-fish-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img">
+                            <ellipse cx="26" cy="32" rx="18" ry="10" fill="currentColor"/>
+                            <polygon points="44,32 56,20 56,44" fill="currentColor"/>
+                            <circle cx="18" cy="32" r="3.5" fill="#0b3d2e"/>
+                            <circle cx="19.2" cy="31.2" r="1.2" fill="#ffffff"/>
+                        </svg>
+                    </span>
+                    <span class="hero-logo-sub">Fish &amp; Chips</span>
+                    <p class="hero-tagline">Famous for Fish &amp; Chips in Basingstoke &amp; North Hampshire!</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="mock-divider"></div>
+
+    <!-- ============ ZOOM-UP of just the title ============ -->
+    <div class="mock-label">Close-up — fish-O in &ldquo;Too&rdquo;, scaled to the script</div>
+    <div style="background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('images/hero-bg.jpg') center/cover no-repeat; padding: 70px 20px; text-align: center;">
+        <span class="hero-logo-main" style="font-size: clamp(4.2rem, 8.5vw, 6rem); color: #fff;">
+            Oliver's T<img class="fish-o-img" src="images/_fish-o-hero.png?v=3" alt="o"><img class="fish-o-img" src="images/_fish-o-hero.png?v=3" alt="o">
+        </span>
+    </div>
+
+    <script src="js/_preview-hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver's Fish &amp; Chips — London Road (location mockup)</title>
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <style>
+        /* Location switcher — preview-only component */
+        .location-switch {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-left: auto;
+        }
+        .loc-pill {
+            display: inline-block;
+            padding: 7px 16px;
+            border-radius: 999px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--green);
+            color: var(--green);
+            background: transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .loc-pill.active {
+            background: var(--green);
+            color: #fff;
+        }
+        .loc-pill:hover {
+            background: var(--green-dark);
+            border-color: var(--green-dark);
+            color: #fff;
+        }
+        .loc-note {
+            text-align: center;
+            padding: 14px 20px;
+            background: var(--cream);
+            border-bottom: 1px solid #eee;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+        }
+        .loc-note a { color: var(--green); font-weight: 700; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <a href="_switch-london.html" class="logo"><span class="logo-main">Oliver's</span><span class="logo-sub">Fish &amp; Chips</span></a>
+                <div class="location-switch">
+                    <a href="_switch-london.html" class="loc-pill active">London Road</a>
+                    <a href="_switch-town.html" class="loc-pill">Festival Place</a>
+                </div>
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                <ul class="nav-menu">
+                    <li><a href="_switch-london.html">Home</a></li>
+                    <li><a href="_switch-london.html">About Us</a></li>
+                    <li><a href="_switch-london.html">Restaurant</a></li>
+                    <li><a href="_switch-london.html">Takeaway</a></li>
+                    <li><a href="_switch-london.html">Kids</a></li>
+                    <li><a href="_switch-london.html">Catered Packages</a></li>
+                    <li><a href="_switch-london.html">Gift Vouchers</a></li>
+                    <li><a href="_switch-london.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="loc-note">You're viewing <strong>Oliver's — London Road</strong>. &nbsp;→&nbsp; Also visit <a href="_switch-town.html">Oliver's Too — Festival Place</a></div>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-brand">
+                <span class="hero-logo-main">Oliver's
+                <span class="hero-fish-divider">
+                    <svg class="hero-fish-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img">
+                        <ellipse cx="26" cy="32" rx="18" ry="10" fill="currentColor"/>
+                        <polygon points="44,32 56,20 56,44" fill="currentColor"/>
+                        <circle cx="18" cy="32" r="3.5" fill="#0b3d2e"/>
+                        <circle cx="19.2" cy="31.2" r="1.2" fill="#ffffff"/>
+                    </svg>
+                </span>
+                <span class="hero-logo-sub">Fish &amp; Chips</span>
+                <p class="hero-tagline">Famous for Fish &amp; Chips in Basingstoke &amp; North Hampshire!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Takeaway</h3>
+                    <p>Open all day, every day</p>
+                    <p class="small">11:30am – 9:00pm</p>
+                    <p>Famous award-winning Fish &amp; Chips</p>
+                    <a href="_switch-london.html" class="btn-outline">Takeaway Menu</a>
+                </div>
+                <div class="info-card">
+                    <h3>Restaurant</h3>
+                    <p>Open all day, every day</p>
+                    <p class="small">12:00pm – 9:00pm</p>
+                    <p>Last orders at 8:00pm</p>
+                    <a href="_switch-london.html" class="btn-outline">Restaurant Menu</a>
+                </div>
+                <div class="info-card">
+                    <h3>Visit Us</h3>
+                    <p>39 London Road</p>
+                    <p>Basingstoke</p>
+                    <p>RG24 7JE</p>
+                    <a href="_switch-london.html" class="btn-outline">How to Find Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">London Road</h4>
+                <p>01256 321018</p>
+                <p>39 London Road, Old Basing, RG24 7JE</p>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-title">Festival Place</h4>
+                <p><a href="_switch-town.html" style="color:#fff;text-decoration:underline;">Oliver's Too — Festival Place</a></p>
+                <p>[phone + address TBC]</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
+        </div>
+    </footer>
+    <script src="js/_preview-hub.js"></script>
+</body>
+</html>

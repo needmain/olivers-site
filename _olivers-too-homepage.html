@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home — Oliver's Too (local preview)</title>
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <style>
+        /* Preview-only hero: match the existing homepage header footprint.
+           Existing header = full-width section, min-height 400px, centered content.
+           The Photopea banner keeps its natural 2.36:1 proportions (no crop/stretch),
+           capped to the same ~400px height as the existing header. */
+        .hero-image-wrap {
+            min-height: 400px;
+            background: var(--cream);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 0;
+            padding: 0;
+        }
+        .hero-logo-image {
+            width: auto;
+            max-width: 100%;
+            max-height: 400px;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <a href="index.html" class="logo"><span class="logo-main">Oliver's Too</span><span class="logo-sub">Fish &amp; Chips</span></a>
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                <ul class="nav-menu">
+                    <li><a href="_olivers-too-homepage.html">Home</a></li>
+                    <li><a href="_olivers-too-homepage.html">About Us</a></li>
+                    <li><a href="_olivers-too-homepage.html">Restaurant</a></li>
+                    <li><a href="_olivers-too-homepage.html">Takeaway</a></li>
+                    <li><a href="_olivers-too-homepage.html">Oliver's for Kids</a></li>
+                    <li><a href="_olivers-too-homepage.html">Catered Packages</a></li>
+                    <li><a href="_olivers-too-homepage.html">Gift Vouchers</a></li>
+                    <li><a href="_olivers-too-homepage.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero: your Photopea logo image, full width, un-cropped -->
+    <section class="hero-image-wrap">
+        <img src="images/olivers-too-hero.png" alt="Oliver's Too" class="hero-logo-image">
+    </section>
+
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Takeaway</h3>
+                    <p>Open all day, every day</p>
+                    <p class="small">11:30am – 9:00pm</p>
+                    <p>Famous award-winning Fish &amp; Chips</p>
+                    <a href="takeaway.html" class="btn-outline">Takeaway Menu</a>
+                </div>
+                <div class="info-card">
+                    <h3>Restaurant</h3>
+                    <p>Open all day, every day</p>
+                    <p class="small">12:00pm – 9:00pm</p>
+                    <p>Last orders at 8:00pm</p>
+                    <a href="restaurant.html" class="btn-outline">Restaurant Menu</a>
+                </div>
+                <div class="info-card">
+                    <h3>Visit Us</h3>
+                    <p>39 London Road</p>
+                    <p>Basingstoke</p>
+                    <p>RG24 7JE</p>
+                    <a href="contact.html" class="btn-outline">How to Find Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">Contact</h4>
+                <p>01256 321018</p>
+                <p><a href="mailto:info@olivers4fish.co.uk">info@olivers4fish.co.uk</a></p>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-title">Address</h4>
+                <p>39 London Road<br>Old Basing<br>Basingstoke<br>RG24 7JE</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
+        </div>
+    </footer>
+    <script src="js/_preview-hub.js"></script>
+</body>
+</html>

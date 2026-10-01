@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver's Too — Festival Place hero (green logo mockup)</title>
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <style>
+        body { padding-top: 0; }
+        .location-switch { display: flex; gap: 8px; align-items: center; margin-left: auto; }
+        .loc-pill {
+            display: inline-block; padding: 7px 16px; border-radius: 999px;
+            font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 1px;
+            text-transform: uppercase; text-decoration: none; border: 2px solid var(--green);
+            color: var(--green); background: transparent; transition: all 0.2s; white-space: nowrap;
+        }
+        .loc-pill.active { background: var(--green); color: #fff; }
+        .loc-note {
+            text-align: center; padding: 14px 20px; background: var(--cream);
+            border-bottom: 1px solid #eee; font-family: 'Lato', sans-serif; font-size: 0.95rem;
+        }
+        .loc-note a { color: var(--green); font-weight: 700; }
+        /* Hero: brand-green banner with the clean transparent white logo centred,
+           scaled up as large as the source resolution allows crisply. */
+        .hero-fp {
+            background: var(--green);        /* Oliver's brand green #2d7d3a */
+            display: flex; align-items: center; justify-content: center;
+            min-height: 380px; padding: 50px 20px;
+        }
+        .hero-fp img {
+            max-width: 800px;              /* moderate size — not too large */
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <a href="_toggle-town-v2.html" class="logo"><img src="images/olivers-too-logo-green-transparent.png" alt="Oliver's Too — Fish &amp; Chips" class="logo-img"></a>
+                <div class="location-switch">
+                    <a href="_toggle-london-v2.html" class="loc-pill">London Road</a>
+                    <a href="_toggle-town-v2.html" class="loc-pill active">Festival Place</a>
+                </div>
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                <ul class="nav-menu">
+                    <li><a href="_toggle-town-v2.html">Home</a></li>
+                    <li><a href="_click-collect-festival.html">Click &amp; Collect</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="loc-note">You're viewing <strong>Oliver's Too — Festival Place</strong>. &nbsp;→&nbsp; Also visit <a href="_toggle-london-v2.html">Oliver's — London Road</a></div>
+
+    <!-- Festival Place hero: clean green logo banner -->
+    <section class="hero-fp">
+        <img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too — Festival Place">
+    </section>
+
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Takeaway</h3>
+                    <p>Order at the counter</p>
+                    <p class="small">[hours TBC]</p>
+                    <p>Famous award-winning Fish &amp; Chips</p>
+                    <a href="_toggle-town-v2.html" class="btn-outline">Takeaway Menu</a>
+                </div>
+                <div class="info-card">
+                    <h3>Click &amp; Collect</h3>
+                    <p>Order ahead, collect in store</p>
+                    <p class="small">[details TBC]</p>
+                    <p>Via third-party ordering</p>
+                    <a href="_click-collect-festival.html" class="btn-outline">Click &amp; Collect</a>
+                </div>
+                <div class="info-card">
+                    <h3>Home Delivery</h3>
+                    <p>Delivered to your door</p>
+                    <p class="small">Deliveroo &amp; Just Eat</p>
+                    <p>[details TBC]</p>
+                    <a href="_toggle-town-v2.html" class="btn-outline">Order on Deliveroo</a>
+                </div>
+                <div class="info-card">
+                    <h3>Visit Us</h3>
+                    <p>Festival Place</p>
+                    <p>Basingstoke</p>
+                    <p>[address TBC]</p>
+                    <a href="_toggle-town-v2.html" class="btn-outline">How to Find Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose <span class="brand">Oliver's Too?</span></h2>
+            <div class="features-grid">
+                <div class="feature"><div class="feature-icon">⭐</div><div class="feature-title">Fresh Fish Daily</div><div class="feature-text">Fresh sustainable fish, prepared and cooked to order every day.</div></div>
+                <div class="feature"><div class="feature-icon">🛍️</div><div class="feature-title">Click &amp; Collect</div><div class="feature-text">Order ahead and collect — skip the queue.</div></div>
+                <div class="feature"><div class="feature-icon">🛵</div><div class="feature-title">Home Delivery</div><div class="feature-text">Hot food delivered to your door via our delivery partners.</div></div>
+                <div class="feature"><div class="feature-icon">⭐</div><div class="feature-title">Same Great Taste</div><div class="feature-text">The same award-winning Oliver's recipe, in Festival Place.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">Festival Place</h4>
+                <p>Oliver's Too</p>
+                <p>[phone + address TBC]</p>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-title">London Road</h4>
+                <p><a href="_toggle-london-v2.html" style="color:#fff;text-decoration:underline;">Oliver's — London Road</a></p>
+                <p>01256 321018</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
+        </div>
+    </footer>
+    <script src="js/_preview-hub.js"></script>
+</body>
+</html>

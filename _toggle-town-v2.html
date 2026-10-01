@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver's Too — Festival Place (toggle mockup)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <!-- PREVIEW-ONLY overrides (never linked by production pages) -->
+    <link rel="stylesheet" href="css/_preview-scope.css?v=1">
+    <style>
+        /* Typography: Montserrat + Inter (Festival Place page) */
+        .section-title, .feature-title, .nav-menu a,
+        .info-card h3, h3, h2, .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        body, p, .info-card p, .info-card .small, .feature-text,
+        .footer-section p, .footer-bottom, .footer-section a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: var(--navy);
+        }
+        .logo-sub, .hero-logo-sub, .fp-sub,
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        /* ---- Chip-fork location toggles (user's CapCut fork asset) ---- */
+        :root { --forest: #2F8C4A; --forest-dark: #26713C; --forest-pale: #D9EADB;
+                --forest-hover: #A9CDB3; --slate: #1C2526;
+                --fork-h: clamp(20px, 2.4vw, 26px);
+                --fork-w: calc(var(--fork-h) * 1122 / 184); }
+        .location-switch {
+            display: flex; gap: 12px; align-items: center;
+            position: absolute; top: 22px; right: 20px; z-index: 101;
+        }
+        /* Shape comes from the PNG's alpha channel (mask); colour/texture comes from CSS,
+           so the same shape can be wood, a flat colour, or a tinted overlay. */
+        .loc-fork { display: block; height: var(--fork-h); width: var(--fork-w);
+                            text-decoration: none; }
+                .loc-fork svg { display: block; width: 100%; height: 100%; overflow: visible; }
+                /* Real SVG stroke = uniform-width border all the way round (equally thick on the
+                   top/bottom and the sides). The earlier mask-enlargement trick couldn't do this on
+                   a fork that is ~6x wider than it is tall. */
+                .f-body { fill: url(#woodpat); stroke: #000000; stroke-width: 5;
+                                  stroke-linejoin: round; stroke-linecap: round;
+                                  transition: fill .2s ease, stroke .2s ease; }
+                .f-wash { fill: rgba(47, 140, 74, 0.33); opacity: 0; transition: opacity .2s ease; }
+                .f-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 57px;
+                           letter-spacing: 2px; text-anchor: middle; fill: var(--slate);
+                           transition: fill .2s ease; }
+                .loc-fork:not(.active):hover .f-wash { opacity: 1; }
+                .loc-fork:hover .f-label { fill: #14191A; }
+                .loc-fork.active .f-body { fill: var(--forest); stroke: var(--slate); }
+                .loc-fork.active .f-label { fill: #ffffff; }
+                .loc-fork.active:hover .f-body { fill: var(--forest-dark); }
+        /* Reserved right space keeps the nav on its OWN full-width row, so the tabs stay on
+           one line; the fork toggles sit on the logo row above, so they don't need the space. */
+        .nav-container { padding-right: 240px; justify-content: flex-start; }
+        /* Small screens: drop the forks into the flow (centred) so they never crowd the nav */
+        @media (max-width: 860px) {
+            .location-switch { position: static; width: 100%; justify-content: center; padding: 8px 0 2px; }
+            .nav-container { padding-right: 20px; }
+        }
+        /* Align first nav tab text flush with the branding block */
+        /* Nav links start flush with the logo brand lock-up */
+        /* Hero: Festival Place photo banner + white logo, matching London Rd depth */
+        .hero-fp {
+            position: relative;
+            min-height: 60vh;
+            min-height: 400px;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: #fff;
+            background: url('images/festival-place-bg.jpg') center/cover no-repeat;
+        }
+        .hero-fp::before { content: ''; position: absolute; inset: 0; background: transparent; z-index: 0; pointer-events: none; }
+        .hero-fp::after  { content: ''; position: absolute; inset: 0; background: transparent; z-index: 0; pointer-events: none; }
+        .hero-fp .hero-content { position: relative; z-index: 2; padding: 60px 0 30px; }
+        .hero-fp .hero-brand {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 0; margin: 0 auto; max-width: 760px;
+        }
+        .fp-logo { max-width: 640px; width: 100%; height: auto; display: block;
+                   filter: drop-shadow(0 2px 10px rgba(11, 27, 43, 0.55)); }
+        .fp-sub {
+            font-size: 1.4rem; color: #FFFFFF; margin-top: 20px;
+            text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55);
+        }
+        .fp-tagline {
+            font-family: 'Dancing Script', cursive; font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            color: #FFFFFF; margin: 14px 0 0;
+            text-shadow: 0 2px 10px rgba(11, 27, 43, 0.55);
+        }
+        /* Takeaway & Dine-in / Click & Collect / Home Delivery cards */
+        .info-card {
+            background: var(--white);
+            border-top: 3px solid var(--green);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        /* Why Choose section: navy bg, white title/subheads, soft grey body, gold stars */
+        .features-section { background: var(--navy); color: white; }
+        .features-section .section-title { color: white; }
+        .feature-title { color: white; }
+        .feature-text { color: #cbd5e1; opacity: 1; }
+        .feature-icon svg { filter: none; }
+        .feature-icon { display: inline-flex; align-items: center; justify-content: center; }
+        /* Fish-version "Too" mark in the "Why Choose" heading */
+        .too-mark { height: 0.82em; vertical-align: middle; display: inline-block; margin: 0 2px;
+                    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45)); }
+        /* Footer: navy bg, white primary/headings/links, light-grey secondary, gold hover */
+        .site-footer { background: var(--navy); color: #ffffff; }
+        .footer-title { color: #ffffff; }
+        .footer-section p { color: #D1D5DB; }
+        .footer-section a { color: #ffffff; }
+        .footer-section a:hover { color: var(--gold); }
+        .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+    </style>
+</head>
+<body>
+    <svg class="fork-defs" width="0" height="0" style="position:absolute; overflow:hidden" aria-hidden="true" focusable="false">
+        <defs>
+            <pattern id="woodpat" width="1122" height="184" patternUnits="userSpaceOnUse">
+                <image href="images/chipfork-wood.png" x="0" y="0" width="1122" height="184"/>
+            </pattern>
+        </defs>
+    </svg>
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <a href="_toggle-town-v2.html" class="logo"><img src="images/olivers-too-logo-green-transparent.png" alt="Oliver's Too — Fish &amp; Chips" class="logo-img"></a>
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                <ul class="nav-menu">
+                    <li><a href="_toggle-town-v2.html">Home</a></li>
+                    <li><a href="_click-collect-festival.html">Click &amp; Collect</a></li>
+                </ul>
+                <div class="location-switch">
+                                    <a href="_toggle-london-v2.html" class="loc-fork" aria-label="Switch to London Road">
+                                        <svg viewBox="0 0 1122 184" aria-hidden="true">
+                                            <path class="f-body" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
+                                            <path class="f-wash" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
+                                            <text class="f-label" x="578" y="115">LONDON ROAD</text>
+                                        </svg>
+                                    </a>
+                                    <a href="_toggle-town-v2.html" class="loc-fork active" aria-label="Festival Place — current location">
+                                        <svg viewBox="0 0 1122 184" aria-hidden="true">
+                                            <path class="f-body" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
+                                            <path class="f-wash" d="M279.0 0.0 L400.0 1.0 L637.0 23.0 L1052.0 10.0 L1087.0 24.0 L1115.0 58.0 L1120.0 99.0 L1104.0 138.0 L1081.0 158.0 L1057.0 166.0 L963.0 178.0 L659.0 163.0 L516.0 167.0 L350.0 183.0 L175.0 179.0 L98.0 169.0 L12.0 152.0 L0.0 144.0 L3.0 134.0 L92.0 112.0 L125.0 101.0 L138.0 89.0 L113.0 73.0 L35.0 51.0 L22.0 41.0 L28.0 32.0 L158.0 10.0 L278.0 1.0 Z"/>
+                                            <text class="f-label" x="578" y="115">FESTIVAL PLACE</text>
+                                        </svg>
+                                    </a>
+                                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Festival Place hero: ghosted photo banner + logo + sub + tagline -->
+    <section class="hero-fp">
+        <div class="container hero-content">
+            <div class="hero-brand">
+                <img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too — Festival Place" class="fp-logo">
+                <span class="fp-sub">Fish &amp; Chips</span>
+                <p class="fp-tagline">award-winning fish &amp; chips in the heart of Festival Place, Basingstoke!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW services highlight — not on the London Road site -->
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Takeaway &amp; Dine-in</h3>
+                    <p>Order at the counter</p>
+                    <p class="small">[hours TBC]</p>
+                    <p>Famous award-winning Fish &amp; Chips</p>
+                    <a href="_toggle-town-v2.html" class="btn-outline">Takeaway Menu</a>
+                </div>
+                <div class="info-card">
+                    <h3>Click &amp; Collect</h3>
+                    <p>Order online, pick up in shop</p>
+                    <p class="small">Skip the queue</p>
+                    <p>[collection slots TBC]</p>
+                    <a href="_toggle-town-v2.html" class="btn-outline">Order for Collection</a>
+                </div>
+                <div class="info-card">
+                    <h3>Home Delivery</h3>
+                    <p>Delivered to your door</p>
+                    <p class="small">Deliveroo &amp; Just Eat</p>
+                    <p>[delivery radius TBC]</p>
+                    <a href="_toggle-town-v2.html" class="btn-outline">Order on Deliveroo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose <span class="brand">Oliver's</span> <img src="images/too-mark-white.png" alt="Too" class="too-mark">?</h2>
+            <div class="features-grid">
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Fresh Fish Daily</div><div class="feature-text">Fresh sustainable fish, prepared and cooked to order every day.</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Click &amp; Collect</div><div class="feature-text">Order ahead and collect — no waiting in line.</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Home Delivery</div><div class="feature-text">Hot food delivered to your door via our delivery partners.</div></div>
+                <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E0A96D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l6.91-1.01z"/></svg></div><div class="feature-title">Same Great Taste</div><div class="feature-text">The same award-winning Oliver's recipe, in the town centre.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">Festival Place</h4>
+                <p><img src="images/olivers-too-logo-white-transparent.png" alt="Oliver's Too" class="brand-logo"></p>
+                <p>[phone TBC]</p>
+                <p>Unit 6A, Festival Place, Basingstoke, RG21 7LJ</p>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-title">London Road</h4>
+                <p><a href="_toggle-london-v2.html"><span class="brand">Oliver's</span> — London Road</a></p>
+                <p>01256 321018</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oliver's Fish &amp; Chips. Est. 1974.</p>
+        </div>
+    </footer>
+    <script src="js/_preview-hub.js"></script>
+</body>
+</html>
