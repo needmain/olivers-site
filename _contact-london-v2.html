@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oliver's for Kids — London Road (mockup)</title>
+    <title>Contact Us — London Road (mockup)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="css/_preview-scope.css?v=1">
     <style>
         /* ==================================================================
-           MOCKUP PAGE — London Road "Oliver's for Kids".
-           Content copied VERBATIM from the live kids.html (two cards, the
-           three Minnows' boxes, the price lines, the facilities note and the
-           link to the restaurant menu). Only the presentation is new: the
-           two-tier header, the hero band and the card grid used by the other
-           redesign pages. css/style.css is NOT modified.
+           MOCKUP PAGE — London Road "Contact Us".
+           Every sentence is copied VERBATIM from the live contact.html. The
+           live page gives the first card no heading, so "Call or email" below
+           is a STRUCTURAL LABEL added to balance the grid — it makes no factual
+           claim. The second card's heading ("How to find us") is the live
+           page's own wording. The phone number is now also a tel: link.
+           css/style.css is NOT modified.
            ================================================================== */
 
         /* ---- Typography: Montserrat headings + Inter body ---- */
@@ -91,14 +92,6 @@
             line-height: 1.04;
             margin: 0 0 20px;
         }
-        /* "Oliver's" in the brand script, as on the two menu pages */
-        .site-banner .menu-page-title .kids-script {
-            font-family: 'Dancing Script', cursive;
-            font-weight: 800;
-            font-size: 1.32em;
-            line-height: 1;
-            vertical-align: 0.02em;
-        }
         .rst-rule {
             width: 64px; height: 3px; border-radius: 2px;
             background: var(--gold);
@@ -120,17 +113,14 @@
             .rst-section { padding: 44px 0; }
         }
 
-        /* ---- Cards ----
-           Two columns, not the three-across used elsewhere: this page has two
-           content cards and the Minnows' boxes need the room. minmax(420px)
-           resolves to 2 columns inside the 1200px container. */
-        .kids-grid {
+        /* ---- Cards: two across ---- */
+        .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
             gap: 24px;
             align-items: stretch;
         }
-        @media (max-width: 900px) { .kids-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
         .rst-card {
             background: #ffffff;
             border-top: 4px solid var(--forest);
@@ -150,44 +140,49 @@
         }
         .rst-card p { font-size: 1.06rem; line-height: 1.72; color: var(--rst-ink); margin: 0 0 12px; }
         .rst-card p:last-child { margin-bottom: 0; }
+        .rst-card a { color: var(--forest-dark); font-weight: 600; text-decoration: none; }
+        .rst-card a:hover { text-decoration: underline; }
 
-        /* ---- Minnows' boxes: three across, emoji + label ---- */
-        .minnow-boxes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 14px;
-            margin-top: 18px;
-        }
-        .minnow-box {
+        /* Contact rows: icon + detail, so the phone and email read as actions */
+        .contact-rows { display: grid; gap: 12px; margin: 0 0 18px; }
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 16px;
             background: var(--forest-pale);
-            border: 2px solid rgba(47, 140, 74, 0.28);
+            border: 1px solid rgba(47, 140, 74, 0.22);
             border-radius: 10px;
-            padding: 16px 14px;
-            text-align: center;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--forest-dark);
-            font-size: 0.88rem;
-            line-height: 1.35;
-        }
-        .minnow-box .emoji { font-size: 1.7rem; display: block; margin-bottom: 6px; }
-        .minnow-box .sausage-icon { height: 15px; width: auto; display: block; margin: 24px auto 12px; }
-
-        /* ---- Facilities note: gold accent panel, matching the site's callouts ---- */
-        .kids-note {
-            margin-top: 26px;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(224, 169, 109, 0.18), rgba(224, 169, 109, 0.07));
-            border: 1px solid rgba(224, 169, 109, 0.45);
-            border-radius: 14px;
-            padding: 20px 24px;
+            font-weight: 600;
             font-size: 1.02rem;
-            color: var(--rst-ink);
         }
-        .kids-note strong { color: var(--navy); }
-        .kids-note .ic { font-size: 1.25rem; margin-right: 8px; }
+        .contact-row svg { width: 19px; height: 19px; flex: 0 0 auto; color: var(--forest-dark); }
+        .contact-row a { color: var(--forest-dark); }
 
-        .rst-card a { color: var(--forest-dark); font-weight: 600; }
+        /* ---- Map ----
+           Lives INSIDE the "How to find us" card. That card carries one line
+           where its neighbour carries five, so as a grid sibling it was
+           stretched to match and left ~150px of dead space. Giving the map
+           flex:1 makes it absorb that slack, so the cards match with no hole. */
+        .rst-card--map { display: flex; flex-direction: column; }
+        .rst-card--map .contact-map {
+            position: relative;
+            flex: 1 1 auto;
+            margin-top: 18px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--rst-line);
+        }
+        .rst-card--map .contact-map iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+        @media (max-width: 860px) { .rst-card--map .contact-map { min-height: 300px; } }
 
         /* ---- Footer address cards (matching the other mockups) ---- */
         .site-footer .footer-container {
@@ -197,9 +192,6 @@
             align-items: stretch;
         }
         .site-footer .footer-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;   /* centre the content in the stretched card */
             background: rgba(255, 255, 255, 0.14);
             border-top: 3px solid var(--gold);
             border-radius: 10px;
@@ -220,6 +212,26 @@
         .footer-section a { color: #ffffff; }
         .footer-section a:hover { color: var(--gold); }
         .footer-bottom { color: #D1D5DB; border-top-color: rgba(255,255,255,0.12); }
+        /* Festival Place footer card — the second site is not announced yet,
+           so the card names no location. Reinstate the heading + address when
+           the opening is public. */
+        .footer-coming {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #ffffff;
+            margin: 0;
+        }
+        /* The trademark script on "Oliver's" — same values as the menu pages'
+           .mn-script so the brand mark is identical everywhere. */
+        .footer-coming .script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 800;
+            font-size: 1.32em;
+            line-height: 1;
+            vertical-align: 0.02em;
+        }
 
         /* ==================================================================
            TWO-TIER HEADER — identical to other mockups.
@@ -297,28 +309,7 @@
             body.page-toggle-london .nav-menu { flex-wrap: wrap; }
             body.page-toggle-london .nav-menu a { font-size: 0.85rem; }
         }
-    
-        /* Festival Place footer card — the second site is not announced yet,
-           so the card names no location. Reinstate the heading + address when
-           the opening is public. */
-        .footer-coming {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #ffffff;
-            margin: 0;
-        }
-        /* The trademark script on "Oliver's" — same values as the menu pages'
-           .mn-script so the brand mark is identical everywhere. */
-        .footer-coming .script {
-            font-family: 'Dancing Script', cursive;
-            font-weight: 800;
-            font-size: 1.32em;
-            line-height: 1;
-            vertical-align: 0.02em;
-        }
-</style>
+    </style>
 </head>
 <body class="page-toggle-london">
     <svg class="fork-defs" width="0" height="0" style="position:absolute; overflow:hidden" aria-hidden="true" focusable="false">
@@ -347,7 +338,7 @@
                             <li><a href="_takeaway-menu-london-v2.html">Takeaway menu</a></li>
                         </ul>
                     </li>
-                    <li><a href="_kids-london-v2.html" class="nav-active">Oliver's for Kids</a></li>
+                    <li><a href="_kids-london-v2.html">Oliver's for Kids</a></li>
                     <li><a href="_catered-packages-london-v2.html">Catered Packages</a></li>
                     <li class="has-dropdown">
                         <a href="_toggle-london-v2.html" aria-haspopup="true">Location<span class="nav-caret" aria-hidden="true">▾</span></a>
@@ -355,7 +346,7 @@
                             <li><a href="_toggle-london-v2.html">London Road</a></li>
                         </ul>
                     </li>
-                    <li><a href="_contact-london-v2.html">Contact Us</a></li>
+                    <li><a href="_contact-london-v2.html" class="nav-active">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
@@ -363,40 +354,38 @@
 
     <section class="site-banner rst-hero">
         <span class="rst-eyebrow">London Road</span>
-        <h1 class="menu-page-title"><span class="kids-script">Oliver's</span> for Kids</h1>
+        <h1 class="menu-page-title">Contact Us</h1>
         <div class="rst-rule" aria-hidden="true"></div>
-        <p class="rst-lede">Delicious meals for our younger guests</p>
+        <p class="rst-lede">We'd love to hear from you!</p>
     </section>
 
     <section class="rst-section">
         <div class="container">
-            <div class="kids-grid">
+            <div class="contact-grid">
                 <article class="rst-card">
-                    <h3>Kids' meals to Takeaway</h3>
-                    <p>If you're on the go, choose from three animal-themed <strong>Minnows' Meals</strong>… served in a box with chips, ketchup and a drink (Fruit Shoot or water), priced from <strong>£4.95</strong>.</p>
-
-                    <div class="minnow-boxes">
-                        <div class="minnow-box">
-                            <img src="images/sausage-icon.png?v=5" alt="Sausage" class="sausage-icon">Sausage Minnows' Box
+                    <h3>Call or email</h3>
+                    <div class="contact-rows">
+                        <div class="contact-row">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.2 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:01256321018">01256 321018</a>
                         </div>
-                        <div class="minnow-box">
-                            <span class="emoji">🍗</span>Chicken Nuggets Minnows' Box
-                        </div>
-                        <div class="minnow-box">
-                            <span class="emoji">🐟</span>Cod Bites Minnows' Box
+                        <div class="contact-row">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M3.4 6.6L12 13l8.6-6.4"/></svg>
+                            <a href="mailto:info@olivers4fish.co.uk">info@olivers4fish.co.uk</a>
                         </div>
                     </div>
+                    <p>You can call us on <a href="tel:01256321018">01256 321018</a> or email us at <a href="mailto:info@olivers4fish.co.uk">info@olivers4fish.co.uk</a> — but please note we can't monitor emails during our busier periods.</p>
+                    <p>For restaurant reservations, please call us during our opening hours. Please do <strong>not</strong> email us to make a reservation.</p>
                 </article>
 
-                <article class="rst-card">
-                    <h3>Kids' meals in our Restaurant</h3>
-                    <p>Children can choose from our <strong>"Oliver's for Kids"</strong> menu (under 12s only).</p>
-                    <p>Priced from just <strong>£6.70</strong>, all meals include chips plus garden peas, mushy peas or Heinz baked beans, as well as a drink and an ice-cream or lolly. In addition, macaroni cheese and spaghetti bolognese alternatives are available.</p>
-                    <p>You can see the Kids restaurant menu on the <a href="_restaurant-menu-london-v2.html">main restaurant menu</a>.</p>
+                <article class="rst-card rst-card--map">
+                    <h3>How to find us</h3>
+                    <p>It's easy! We're on the A30 in Old Basing, just a 5-minute drive from the centre of Basingstoke, with our own <strong>FREE private car park</strong>.</p>
+                    <div class="contact-map">
+                        <iframe src="https://www.google.com/maps?q=Oliver's+Fish+%26+Chip+Restaurant+39+London+Rd+Old+Basing+Basingstoke+RG24+7JE&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Oliver's location map"></iframe>
+                    </div>
                 </article>
             </div>
-
-            <p class="kids-note"><span class="ic">👶</span>For our tiniest guests we have <strong>high-chairs</strong> and <strong>baby-changing facilities</strong>.</p>
         </div>
     </section>
 
