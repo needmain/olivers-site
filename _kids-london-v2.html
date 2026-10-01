@@ -197,22 +197,25 @@
             align-items: stretch;
         }
         .site-footer .footer-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;   /* centre the content in the stretched card */
-            background: rgba(255, 255, 255, 0.14);
-            border-top: 3px solid var(--gold);
-            border-radius: 10px;
-            padding: 18px 20px 20px;
-            text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;   /* centres the copy in the space under the fish */
+        position: relative;
+        background: rgba(255, 255, 255, 0.14);
+        border-top: 3px solid var(--gold);
+        border-radius: 10px;
+        padding: 55px 20px 20px;   /* 18 top + 28 fish + 9 gap - clears the pinned fish */
+        text-align: center;
         }
         .site-footer .footer-section::before {
-            content: "";
-            display: block;
-            width: 28px;
-            height: 28px;
-            margin: 0 auto 9px;
-            background: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cellipse%20cx%3D%2726%27%20cy%3D%2732%27%20rx%3D%2718%27%20ry%3D%2710%27%20fill%3D%27%23E0A96D%27/%3E%3Cpolygon%20points%3D%2744%2C32%2056%2C20%2056%2C44%27%20fill%3D%27%23E0A96D%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%2732%27%20r%3D%273.5%27%20fill%3D%27%230b3d2e%27/%3E%3Ccircle%20cx%3D%2719.2%27%20cy%3D%2731.2%27%20r%3D%271.2%27%20fill%3D%27%23ffffff%27/%3E%3C/svg%3E") center/contain no-repeat;
+        content: "";
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        width: 28px;
+        height: 28px;
+        margin: 0 0 0 -14px;
+        background: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cellipse%20cx%3D%2726%27%20cy%3D%2732%27%20rx%3D%2718%27%20ry%3D%2710%27%20fill%3D%27%23E0A96D%27/%3E%3Cpolygon%20points%3D%2744%2C32%2056%2C20%2056%2C44%27%20fill%3D%27%23E0A96D%27/%3E%3Ccircle%20cx%3D%2718%27%20cy%3D%2732%27%20r%3D%273.5%27%20fill%3D%27%230b3d2e%27/%3E%3Ccircle%20cx%3D%2719.2%27%20cy%3D%2731.2%27%20r%3D%271.2%27%20fill%3D%27%23ffffff%27/%3E%3C/svg%3E") center/contain no-repeat;
         }
         .site-footer { background: var(--navy); color: #ffffff; }
         .footer-title { color: #ffffff; }
