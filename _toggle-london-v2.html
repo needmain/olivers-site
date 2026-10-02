@@ -119,19 +119,20 @@
             justify-content: center;
             gap: 15px;
             margin: 35px auto 10px;
-            max-width: 600px;
+            max-width: 1000px;
+            width: 100%;
         }
         .feature-divider-spot .line {
             flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(224, 169, 109, 0.4), transparent);
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, rgba(224, 169, 109, 0.8), transparent);
         }
         .feature-divider-spot .gold-dot {
             width: 8px;
             height: 8px;
             background: var(--gold);
             border-radius: 50%;
-            box-shadow: 0 0 8px rgba(224, 169, 109, 0.6);
+            box-shadow: 0 0 10px rgba(224, 169, 109, 0.8);
         }
         .features-section .section-title {/* Montserrat, matching every other heading here. The Oswald it was inheriting
                comes from css/style.css's .section-title, left over from the previous design
@@ -562,7 +563,15 @@
            30 + 10 = 40px, matching the gap above, so the content sits centred.
            Padding-top is untouched: 80px of air above the heading is not part of the
            imbalance the eye was reading. */
-        .site-footer { padding-top: 10px; }
+        .site-footer .footer-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.85rem;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
 
         /* Festival Place footer card — the second site is not announced yet,
            so the card names no location. Reinstate the heading + address when
@@ -748,7 +757,7 @@
     <footer class="site-footer">
         <div class="container footer-container">
             <div class="footer-section">
-                <h4 class="footer-title">London Road</h4>
+                <h4 class="footer-title">Oliver's</h4>
                 <p>01256 321018</p>
                 <p>39 London Road, Old Basing, RG24 7JE</p>
                 <p><a href="mailto:info@olivers4fish.co.uk">info@olivers4fish.co.uk</a></p>
