@@ -190,7 +190,11 @@
         /* ---- Footer address cards (matching the other mockups) ---- */
         .site-footer .footer-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            /* One card now - the second, coming-soon card was removed at the
+               client's request, so this is a single centred column rather than
+               two halves. minmax(0, 480px) lets it shrink on a narrow screen. */
+            grid-template-columns: minmax(0, 480px);
+            justify-content: center;
             gap: 18px;
             align-items: stretch;
         }
@@ -308,35 +312,6 @@
         /* Festival Place footer card — the second site is not announced yet,
            so the card names no location. Reinstate the heading + address when
            the opening is public. */
-        .footer-coming {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #ffffff;
-            margin: 0;
-        }
-        /* The trademark script on "Oliver's" — same values as the menu pages'
-           .mn-script so the brand mark is identical everywhere. */
-        .footer-coming .script {
-            font-family: 'Dancing Script', cursive;
-            font-weight: 800;
-            font-size: 1.32em;
-            line-height: 1;
-            vertical-align: 0.02em;
-        }
-        /* ---- Coming-soon card on phones ----
-           The footer keeps two columns, so on a phone that card is only ~103px
-           wide and the sentence broke after nearly every word (11 lines at 390px).
-           Below 600px the two cards stack, and the sentence is broken deliberately
-           over three lines. Desktop is untouched: two columns, natural two-line
-           wrap (the .br-mobile breaks are hidden above 600px). */
-        @media (max-width: 600px){
-            .site-footer .footer-container { grid-template-columns: 1fr; }
-        }
-        @media (min-width: 601px){
-            .br-mobile { display: none; }
-        }
 /* ---- Nav centring ---- */
         /* The items were left-aligned in a full-width box, so with Gift Vouchers
            gone the row read left-heavy with ~250px of dead space at the right.
@@ -457,9 +432,6 @@
                 <h4 class="footer-title">London Road</h4>
                 <p>01256 321018</p>
                 <p>39 London Road, Old Basing, RG24 7JE</p>
-            </div>
-            <div class="footer-section">
-                <p class="footer-coming">Another <span class="script">Oliver's</span> is on its way — <br class="br-mobile">and that's all we're saying <br class="br-mobile">for now!</p>
             </div>
         </div>
         <div class="footer-bottom">
